@@ -2,7 +2,6 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRouter from "./routes/auth.route.js";
-import morgan from "morgan";
 
 //* env dosyasındaki verilere erişmek için kurulum
 dotenv.config();
@@ -26,7 +25,7 @@ app.use(express.json());
 
 //* yapılan isteklerin detayını konsola yazan middleware
 
-morgan("combined");
+//todo morgan eklenecek
 
 //? route tanımlama
 

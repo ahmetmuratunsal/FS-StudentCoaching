@@ -31,7 +31,6 @@ const teacherSchema = new Schema(
     password: {
       type: String,
       required: [true, "Lütfen şifre alanını belirleyin"],
-      select: false,
     },
     profilePhoto: { type: String },
     city: {
