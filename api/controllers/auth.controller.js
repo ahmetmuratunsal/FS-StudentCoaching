@@ -26,6 +26,17 @@ export const register = async (req, res, next) => {
 
     //* veritabanına kaydedilecek kullanıcıyı oluştur
     const newUser = new collection({ ...req.body, password: hashedPass });
+    console.log(newUser);
+
+    const haveUsername = await collection.findOne({
+      username: req.body.username,
+    });
+    const haveEmail = await collection.findOne({ email: req.body.email });
+
+    if (haveUsername)
+      return next(error(404, "Bu kullanıcı adına sahip bir kullanıcı mevcut"));
+    if (haveEmail)
+      return next(error(404, "Bu emaile sahip bir kullanıcı mevcut"));
 
     //* veritabanına kaydet
     await newUser.save();
