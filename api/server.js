@@ -2,7 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRouter from "./routes/auth.route.js";
-
+import cors from "cors";
+import morgan from "morgan";
 //* env dosyasındaki verilere erişmek için kurulum
 dotenv.config();
 
@@ -23,9 +24,13 @@ const app = express();
 
 app.use(express.json());
 
+//? react uygulamamızda gelen isteklere cevap vermesine izin ver
+
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+
 //* yapılan isteklerin detayını konsola yazan middleware
 
-//todo morgan eklenecek
+app.use(morgan("dev"));
 
 //? route tanımlama
 
