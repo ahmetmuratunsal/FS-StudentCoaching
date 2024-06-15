@@ -9,14 +9,33 @@ const Header = () => {
         </Link>
 
         <div className="flex items-center gap-2">
-          <Link className="transition hover:text-green-500" to={"/login"}>
-            Giriş Yap
+          <Link to={"/login"} className="loginBtn">
+            <div>
+              <span>
+                <p>Giriş Yap</p>
+                <p>:)</p>
+              </span>
+            </div>
+            <div>
+              <span>
+                <p>Özledik</p>
+                <p>:D</p>
+              </span>
+            </div>
           </Link>
-          <Link
-            className="border border-green-500 p-1 rounded transition hover:bg-green-500 hover:text-white"
-            to={"/register"}
-          >
-            Kayıt Ol
+          <Link to={"/register"} className="registerBtn">
+            <div>
+              <span>
+                <p>Kayıt Ol</p>
+                <p>:)</p>
+              </span>
+            </div>
+            <div>
+              <span>
+                <p>Bekliyoruz</p>
+                <p>❤️</p>
+              </span>
+            </div>
           </Link>
         </div>
       </div>
