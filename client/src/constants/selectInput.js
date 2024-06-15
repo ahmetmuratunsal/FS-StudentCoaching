@@ -1,4 +1,4 @@
-export const options = [
+export const cityOptions = [
   { value: "adana", label: "Adana" },
   { value: "adiyaman", label: "Adıyaman" },
   { value: "afyonkarahisar", label: "Afyonkarahisar" },
