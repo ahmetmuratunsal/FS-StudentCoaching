@@ -2,8 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRouter from "./routes/auth.route.js";
+import privateLessonRouter from "./routes/privateLesson.route.js";
 import cors from "cors";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
 //* env dosyasındaki verilere erişmek için kurulum
 dotenv.config();
 
@@ -15,26 +17,31 @@ mongoose
     console.log("Veritabı ile bağlantı kurulurken hata oluştu.", err)
   );
 
-//*express uygulaması oluştur.
+//* express uygulaması oluştur.
 const app = express();
 
 //! middlewares
 
-//* bodydeki json içeriğinin okunmasını sağlar
+//*a) bodydeki json içeriğinin okunmasını sağlar
 
 app.use(express.json());
 
-//? react uygulamamızda gelen isteklere cevap vermesine izin ver
+//*b) çerezleri işler ulaşmamızı sağlar
+
+app.use(cookieParser());
+
+//?c) react uygulamamızda gelen isteklere cevap vermesine izin ver
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
-//* yapılan isteklerin detayını konsola yazan middleware
+//*d) yapılan isteklerin detayını konsola yazan middleware
 
 app.use(morgan("dev"));
 
 //? route tanımlama
 
 app.use("/api/auth", authRouter);
+app.use("/api/privatelesson", privateLessonRouter);
 
 //? hata yönetimi
 //* controllerda yapılacak tüm yönlendirmeler bu middlewarei tetikler.
