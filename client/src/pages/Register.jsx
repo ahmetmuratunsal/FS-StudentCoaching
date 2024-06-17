@@ -1,12 +1,12 @@
 import { inputField } from "../constants/inputField";
 import { cityOptions } from "../constants/selectInput";
-import RegisterInput from "./../components/RegisterInput";
 import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import api from "../utils/api";
+import Input from "../components/Input";
 
 const Register = () => {
   const [isStudent, setIsStudent] = useState(true);
@@ -109,7 +109,14 @@ const Register = () => {
             </div>
 
             {inputField.map((item) => (
-              <RegisterInput key={item.label} item={item} />
+              <Input
+                key={item.label}
+                svg={item.svg}
+                name={item.name}
+                label={item.label}
+                type={item.type}
+                placeholder={item.placeholder}
+              />
             ))}
 
             <div className="flex justify-between mt-10">
