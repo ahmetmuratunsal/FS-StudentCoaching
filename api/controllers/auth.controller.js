@@ -113,6 +113,6 @@ export const login = async (req, res, next) => {
 
 export const logout = async (req, res, next) => {
   res.clearCookie("accessToken").status(200).json({
-    message: "Kullanıcı hesabından çıkış yaptı.",
+    message: "Başarılı bir şekilde çıkış yapıldı Yine bekleriz.",
   });
 };
