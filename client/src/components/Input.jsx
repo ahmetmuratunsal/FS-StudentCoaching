@@ -1,19 +1,19 @@
-const RegisterInput = ({ item }) => {
+const Input = ({ name, type = "text", placeholder, svg = "", label }) => {
   return (
     <div className="mt-5">
-      <label className="text-xs block mb-2">{item.label}</label>
+      <label className="text-sm font-bold block mb-2">{label}</label>
       <div className="relative flex items-center">
         <input
-          name={item.name}
-          type={item.type}
+          name={name}
+          type={type}
           required
           className="w-full bg-transparent  text-sm border-b border-gray-300 focus:border-yellow-400 px-2 py-3 outline-none"
-          placeholder={item.placeholder}
+          placeholder={placeholder}
         />
-        {item.svg}
+        {svg}
       </div>
     </div>
   );
 };
 
-export default RegisterInput;
+export default Input;
