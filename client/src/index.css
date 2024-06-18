@@ -7,6 +7,14 @@ body {
     font-family: "poppins";
 }
 
+.privateLessons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-content: center;
+    gap: 20px;
+}
+
+
 /* lOADER CSS */
 .loaderCSS {
     background-image: conic-gradient(from 0deg, violet, indigo 30%, blue 50%, green 60%, yellow 70%, orange 80%, red 100%);
