@@ -81,3 +81,9 @@ export const cityOptions = [
   { value: "yozgat", label: "Yozgat" },
   { value: "zonguldak", label: "Zonguldak" },
 ];
+
+export const filterOptions = [
+  { value: "mostseller", label: "Çok Satan" },
+  { value: "mostpopuler", label: "En Popüler" },
+  { value: "cheapest", label: "En Ucuz" },
+];
