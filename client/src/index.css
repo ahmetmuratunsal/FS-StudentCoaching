@@ -7,6 +7,11 @@ body {
     font-family: "poppins";
 }
 
+/* lOADER CSS */
+.loaderCSS {
+    background-image: conic-gradient(from 0deg, violet, indigo 30%, blue 50%, green 60%, yellow 70%, orange 80%, red 100%);
+}
+
 
 /* Register isStudent checkbox css */
 /* Hide the default checkbox */
