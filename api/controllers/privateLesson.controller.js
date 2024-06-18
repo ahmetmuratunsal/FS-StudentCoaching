@@ -45,7 +45,9 @@ export const getAllPrivateLesson = async (req, res, next) => {
   const filters = buildFilters(req.query);
   try {
     //* bütün özel derslere ulaş
-    const privateLessons = await privateLessonModel.find(filters);
+    const privateLessons = await privateLessonModel
+      .find(filters)
+      .populate("teacher");
 
     if (privateLessons.length > 0) {
       res.status(200).json({
