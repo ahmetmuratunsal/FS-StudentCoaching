@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import PrivateLesson from "./pages/PrivateLesson";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/search/privatelesson" element={<PrivateLesson />} />
           </Routes>
         </div>
         <Footer />
