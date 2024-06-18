@@ -55,7 +55,7 @@ export const getAllPrivateLesson = async (req, res, next) => {
     } else {
       next(error(404, "Aratılan kriterlere uygun bir özel ders bulunamadı."));
     }
-  } catch (error) {
+  } catch (err) {
     next(error(500, "Özel dersler alınırken bir sorun oluştu."));
   }
 };
