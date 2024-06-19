@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PrivateLesson from "./pages/PrivateLesson";
+import PrivateLessonDetail from "./pages/PrivateLessonDetail";
 
 const App = () => {
   return (
@@ -17,6 +18,10 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/search/privatelesson" element={<PrivateLesson />} />
+            <Route
+              path="/privatelesson/:id"
+              element={<PrivateLessonDetail />}
+            />
           </Routes>
         </div>
         <Footer />
