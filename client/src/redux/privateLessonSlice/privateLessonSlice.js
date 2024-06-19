@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPrivateLessons } from "./privateLessonActions";
+import { getAllPrivateLessons, getPrivateLesson } from "./privateLessonActions";
 
 const initialState = {
   privateLessons: [],
   isLoading: false,
   isError: false,
+  onePrivateLesson: {},
 };
 
 export const privateLessonSlice = createSlice({
@@ -12,17 +13,33 @@ export const privateLessonSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getPrivateLessons.pending, (state) => {
+    //! Bütün özel dersleri al
+    builder.addCase(getAllPrivateLessons.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getPrivateLessons.fulfilled, (state, action) => {
+    builder.addCase(getAllPrivateLessons.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isError = false;
       state.privateLessons = action.payload;
     });
-    builder.addCase(getPrivateLessons.rejected, (state) => {
+    builder.addCase(getAllPrivateLessons.rejected, (state, action) => {
       state.isLoading = false;
-      state.isError = true;
+      state.isError = action.payload;
+    });
+
+    //! tek bir özel ders al
+    builder.addCase(getPrivateLesson.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getPrivateLesson.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.privateLessons = [];
+      state.onePrivateLesson = action.payload;
+    });
+    builder.addCase(getPrivateLesson.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = action.payload;
     });
   },
 });
