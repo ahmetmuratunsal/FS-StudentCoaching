@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../utils/api";
-import { CiSearch } from "react-icons/ci";
+import { IoSearch } from "react-icons/io5";
 
 const Header = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -44,7 +44,7 @@ const Header = () => {
             type="search"
           />
           <button className="bg-black  p-2 rounded-md text-white text-xl max-md:hidden">
-            <CiSearch />
+            <IoSearch />
           </button>
         </form>
 
