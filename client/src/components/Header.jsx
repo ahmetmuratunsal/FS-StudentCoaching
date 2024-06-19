@@ -40,7 +40,7 @@ const Header = () => {
         >
           <input
             className="w-full h-full px-3 outline-none "
-            placeholder="Ara"
+            placeholder="Özel Ders Ara"
             type="search"
           />
           <button className="bg-black  p-2 rounded-md text-white text-xl max-md:hidden">
@@ -58,7 +58,7 @@ const Header = () => {
               />
               <span className="font-semibold capitalize">{user.username}</span>
 
-              <div className="text-[13px] hidden group-hover:flex flex-col items-start absolute top-[80px] right-0 transition bg-gray-200 rounded-md">
+              <div className="text-[13px] hidden group-hover:flex flex-col items-start absolute top-[40px] right-0 transition bg-gray-200 rounded-md">
                 {!user.isStudent && (
                   <>
                     <Link className="px-5 py-2 hover:bg-gray-100">
