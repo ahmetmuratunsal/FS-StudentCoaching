@@ -63,6 +63,9 @@ const privateLessonSchema = new Schema(
       type: Number,
       default: 0,
     }, // dersin kaç öğrenci tarafından alındığı
+    features: {
+      type: [String],
+    },
 
     availability: [{ type: Date }], // Müsait tarih ve saatler (opsiyonel)
   },
