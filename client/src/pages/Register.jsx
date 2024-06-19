@@ -57,7 +57,7 @@ const Register = () => {
     // fotoğrafı bulut depolama alanına yükle
     const url = await upload(newUser.profilePhoto);
 
-    //todo buluttaki fotoğrafın urlini nesneye kaydet
+    // buluttaki fotoğrafın urlini nesneye kaydet
 
     newUser.profilePhoto = url;
 
