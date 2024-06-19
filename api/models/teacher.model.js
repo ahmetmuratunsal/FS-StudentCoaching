@@ -43,6 +43,13 @@ const teacherSchema = new Schema(
     bio: {
       type: String,
     },
+    lessonType: {
+      type: String,
+      required: [
+        true,
+        "Lütfen vereceğiniz dersin türünü giriniz(uzaktan,yüzyüze)",
+      ],
+    },
     isPremium: {
       type: Boolean,
       default: false,
