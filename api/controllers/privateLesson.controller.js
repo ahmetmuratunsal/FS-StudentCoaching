@@ -65,7 +65,9 @@ export const getAllPrivateLesson = async (req, res, next) => {
 export const getPrivateLesson = async (req, res, next) => {
   try {
     //* urldeki parametre olarak eklenen idden yola çıkarak özel dersin bilgilerine eriş
-    const privateLesson = await privateLessonModel.findById(req.params.id);
+    const privateLesson = await privateLessonModel
+      .findById(req.params.id)
+      .populate("teacher");
 
     if (!privateLesson) return next(error(404, "Özel ders bulunamadı."));
 
