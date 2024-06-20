@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRouter from "./routes/auth.route.js";
 import privateLessonRouter from "./routes/privateLesson.route.js";
+import reviewRouter from "./routes/review.route.js";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
@@ -42,6 +43,7 @@ app.use(morgan("dev"));
 
 app.use("/api/auth", authRouter);
 app.use("/api/privatelesson", privateLessonRouter);
+app.use("/api/review", reviewRouter);
 
 //? hata yönetimi
 //* controllerda yapılacak tüm yönlendirmeler bu middlewarei tetikler.
