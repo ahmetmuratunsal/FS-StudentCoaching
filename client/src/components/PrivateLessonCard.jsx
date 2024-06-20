@@ -4,10 +4,14 @@ const PrivateLessonCard = ({ privateLesson }) => {
   return (
     <Link
       to={`/privatelesson/${privateLesson._id}`}
-      className="max-w-[300px] border p-4 rounded-md shadow hover:shadow-lg cursor-pointer flex flex-col gap-2"
+      className=" border p-4 rounded-md shadow hover:shadow-lg cursor-pointer flex flex-col gap-2"
     >
       {/* //? cover image */}
-      <img className="w-[300px]" src="/logo3.png" alt={privateLesson.title} />
+      <img
+        className="h-full object-contain  rounded"
+        src={privateLesson.coverImg}
+        alt={privateLesson.title}
+      />
       {/*  //? öğretmen bilgileri */}
       <div className="flex gap-2 items-center">
         <img
@@ -27,8 +31,8 @@ const PrivateLessonCard = ({ privateLesson }) => {
       {/*  //? rating alanı */}
       <p className="flex items-center gap-1 font-bold text-lg">
         <FaStar className="text-yellow-500" />
-        {privateLesson.avgRating}
-        <span className="font-normal">({privateLesson.totalRating})</span>
+        {privateLesson.reviewCount === 0 ? "0" : privateLesson.avgRating}
+        <span className="font-normal">({privateLesson.reviewCount})</span>
       </p>
       {/* //? fiyat alanı */}
       <p className="font-semibold">₺{privateLesson.price}</p>
