@@ -45,10 +45,6 @@ const teacherSchema = new Schema(
     },
     lessonType: {
       type: String,
-      required: [
-        true,
-        "Lütfen vereceğiniz dersin türünü giriniz(uzaktan,yüzyüze)",
-      ],
     },
     isPremium: {
       type: Boolean,
