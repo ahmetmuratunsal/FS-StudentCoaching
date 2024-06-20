@@ -1,4 +1,5 @@
 import { FaStar } from "react-icons/fa";
+import { cityOptions } from "./../../constants/selectInput";
 
 const TeacherInfo = ({ teacher }) => {
   return (
@@ -43,7 +44,9 @@ const TeacherInfo = ({ teacher }) => {
           </p>
           <p className="flex flex-col gap-1">
             <span>Hangi Şehirdeyim?</span>
-            <span className="font-bold capitalize">{teacher?.city}</span>
+            <span className="font-bold capitalize">
+              {cityOptions.map((i) => i.value === teacher?.city && i.label)}
+            </span>
           </p>
 
           <p className="flex flex-col gap-1">
