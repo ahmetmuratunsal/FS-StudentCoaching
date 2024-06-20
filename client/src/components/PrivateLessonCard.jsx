@@ -4,7 +4,7 @@ const PrivateLessonCard = ({ privateLesson }) => {
   return (
     <Link
       to={`/privatelesson/${privateLesson._id}`}
-      className="max-w-[300px] border p-2 rounded-md shadow hover:shadow-lg cursor-pointer flex flex-col gap-2"
+      className="max-w-[300px] border p-4 rounded-md shadow hover:shadow-lg cursor-pointer flex flex-col gap-2"
     >
       {/* //? cover image */}
       <img className="w-[300px]" src="/logo3.png" alt={privateLesson.title} />
