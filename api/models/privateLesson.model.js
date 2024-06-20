@@ -67,7 +67,15 @@ const privateLessonSchema = new Schema(
 
     availability: [{ type: Date }], // Müsait tarih ve saatler (opsiyonel)
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 ); // Otomatik olarak createdAt ve updatedAt alanlarını ekler
+
+//* Ortalama ratingi veritabanında tutmaya gerek olmadığından zaten tutulan iki değerin ortalamasının
+//* hesaplanması sonucu ortaya çıktığı için get isteklerinde client'e göndermeden önce
+//* ortalamayı hesaplayıp virtual değer olarak ekleyeceğiz
+
+privateLessonSchema.virtual("avgRating").get(function () {
+  return (this.starCount / this.reviewCount).toFixed(2);
+});
 
 export default model("PrivateLesson", privateLessonSchema); //şemaya ait modeli oluşturduk.
