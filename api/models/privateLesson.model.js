@@ -15,16 +15,14 @@ const privateLessonSchema = new Schema(
       type: String,
       required: [true, "Dersin bir açıklaması olması zorunludur."],
     }, // Ders açıklaması
-    avgRating: {
-      type: Number,
-      min: 1,
-      max: 5,
-      default: 3,
-    }, // dersin ortalama puanı
-    totalRating: {
+    reviewCount: {
       type: Number,
       default: 0,
-    }, // toplam oylama puanı
+    }, // toplam yorum sayısı
+    starCount: {
+      type: Number,
+      default: 0,
+    }, // toplam yıldız sayısı
     category: {
       type: String,
       required: [true, "Dersin kategorisi olmalıdır."],
