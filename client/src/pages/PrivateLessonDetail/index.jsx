@@ -18,7 +18,6 @@ const PrivateLessonDetail = () => {
 
   const lesson = onePrivateLesson.privateLesson;
 
-  console.log(lesson);
   useEffect(() => {
     dispatch(getPrivateLesson(id));
   }, [id]);
