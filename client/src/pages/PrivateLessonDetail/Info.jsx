@@ -35,7 +35,7 @@ const Info = ({ lesson }) => {
         ))}
         <div className="flex items-center gap-[3px]">
           <span className="font-semibold">{lesson?.avgRating}</span>
-          <span>({lesson?.totalRating})</span>
+          <span>({lesson?.reviewCount})</span>
         </div>
       </div>
 
