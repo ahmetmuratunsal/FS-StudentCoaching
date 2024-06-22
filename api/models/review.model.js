@@ -6,8 +6,9 @@ const ReviewSchema = new Schema(
       type: String,
       required: true,
     },
-    studentId: {
-      type: String,
+    student: {
+      type: Schema.ObjectId,
+      ref: "Student",
       required: true,
     },
     star: {
