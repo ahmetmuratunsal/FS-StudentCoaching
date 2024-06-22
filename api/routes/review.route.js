@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.post("/", protect, createReview);
 router.get("/:privateLessonId", getReviews);
-router.delete("/:id", protect, deleteReview);
+router.delete("/:privateLessonId", protect, deleteReview);
 
 export default router;
