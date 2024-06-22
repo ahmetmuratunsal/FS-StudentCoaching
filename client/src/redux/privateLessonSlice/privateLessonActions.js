@@ -16,7 +16,7 @@ export const getAllPrivateLessons = createAsyncThunk(
   }
 );
 
-//* async şekilde bütün özel dersleri alma
+//* async şekilde tek bir özel dersi alma
 export const getPrivateLesson = createAsyncThunk(
   "privatelesson/getPrivateLesson",
   async (id, { rejectWithValue }) => {
