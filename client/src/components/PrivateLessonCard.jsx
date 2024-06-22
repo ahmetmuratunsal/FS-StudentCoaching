@@ -1,6 +1,10 @@
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 const PrivateLessonCard = ({ privateLesson }) => {
+  const starArr =
+    privateLesson?.avgRating &&
+    Array(Math.round(privateLesson?.avgRating)).fill();
+
   return (
     <Link
       to={`/privatelesson/${privateLesson._id}`}
@@ -29,11 +33,20 @@ const PrivateLessonCard = ({ privateLesson }) => {
       {/*  //? başlık alanı */}
       <p className="font-semibold capitalize">{privateLesson.title}</p>
       {/*  //? rating alanı */}
-      <p className="flex items-center gap-1 font-bold text-lg">
-        <FaStar className="text-yellow-500" />
+      <div className="flex items-center gap-2 font-bold text-lg">
+        <div className="flex items-center gap-1">
+          {starArr.length > 0 ? (
+            starArr?.map((item, i) => (
+              <FaStar key={i} className="text-yellow-500" />
+            ))
+          ) : (
+            <FaStar />
+          )}
+        </div>
+
         {privateLesson.reviewCount === 0 ? "0" : privateLesson.avgRating}
         <span className="font-normal">({privateLesson.reviewCount})</span>
-      </p>
+      </div>
       {/* //? fiyat alanı */}
       <p className="font-semibold">₺{privateLesson.price}</p>
     </Link>
