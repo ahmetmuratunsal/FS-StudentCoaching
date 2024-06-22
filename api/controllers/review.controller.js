@@ -9,7 +9,7 @@ export const createReview = async (req, res, next) => {
 
   //* 2) yorum belgesi oluştur.
   const newReview = new Review({
-    studentId: req.userId, //? kullanıcı id protect mw sayesinde req içerisinde geliyor.
+    student: req.userId, //? kullanıcı id protect mw sayesinde req içerisinde geliyor.
     privateLessonId: req.body.privateLessonId,
     desc: req.body.desc,
     star: req.body.star,
@@ -18,7 +18,7 @@ export const createReview = async (req, res, next) => {
   try {
     //* 3) öğrenci bu özel derse daha önce yaptığı yorumu al
     const oldReview = await Review.findOne({
-      studentId: req.userId,
+      student: req.userId,
       privateLessonId: req.body.privateLessonId,
     });
 
@@ -51,7 +51,7 @@ export const getReviews = async (req, res, next) => {
   try {
     const reviews = await Review.find({
       privateLessonId: req.params.privateLessonId,
-    });
+    }).populate("student");
     res.status(200).json({ reviews });
   } catch (err) {
     next(error(500, "Yorumlar alınırken bir sorun oluştu."));
