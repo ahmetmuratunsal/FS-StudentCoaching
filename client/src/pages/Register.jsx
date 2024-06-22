@@ -3,10 +3,10 @@ import { cityOptions } from "../constants/selectInput";
 import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import api from "../utils/api";
 import Input from "../components/Input";
+import { upload } from "../utils/upload";
 
 const Register = () => {
   const [isStudent, setIsStudent] = useState(true);
@@ -15,34 +15,6 @@ const Register = () => {
   const navigate = useNavigate();
   const handleCityChange = (selectedCity) => {
     setSelectedCity(selectedCity);
-  };
-
-  const upload = async (file) => {
-    // resim olduğunu kontrol et resim değilse hata ver
-    if (!file.type.startsWith("image")) return null;
-
-    // resmi bir form daha içerisine ekle
-
-    const data = new FormData();
-
-    data.append("file", file);
-    // yüklenme ayarlarını belirle
-
-    data.append("upload_preset", "profile");
-
-    try {
-      // api isteği atıp resmi buluta yükle
-      const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dlcwbxs5c/image/upload",
-        data
-      );
-
-      // resmin urlini fonksiyonun çağrıldığı yere döndür
-
-      return res.data.url;
-    } catch (error) {
-      toast.error(`Fotoğraf yüklenirken bir hata oluştu. ${error.message}`);
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -55,7 +27,7 @@ const Register = () => {
     const newUser = Object.fromEntries(formData.entries());
 
     // fotoğrafı bulut depolama alanına yükle
-    const url = await upload(newUser.profilePhoto);
+    const url = await upload(newUser.profilePhoto, "profile");
 
     // buluttaki fotoğrafın urlini nesneye kaydet
 
