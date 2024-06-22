@@ -10,8 +10,10 @@ const Info = ({ lesson }) => {
     perPage: 1, // Her sayfada 1 slide gösterir
     gap: "1rem", // Slide'lar arasında boşluk
   };
+
   const starArr =
-    lesson?.avgRating && Array(Math.round(lesson?.avgRating)).fill();
+    lesson?.reviewCount > 0 && Array(Math.round(lesson?.avgRating)).fill();
+
   return (
     <div className=" flex flex-1 flex-col gap-4">
       <p className="text-gray-500 capitalize flex gap-3 items-center">
@@ -23,16 +25,22 @@ const Info = ({ lesson }) => {
       <h1 className="font-bold text-xl md:text-2xl capitalize">
         {lesson?.title}
       </h1>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <img
           className="w-[50px] h-[50px] rounded-full"
           src={lesson?.teacher?.profilePhoto}
           alt={lesson?.teacher?.username}
         />
         <h4 className="capitalize font-bold">{lesson?.teacher?.username}</h4>
-        {starArr?.map((item, i) => (
-          <FaStar key={i} className="text-yellow-500 cursor-pointer" />
-        ))}
+        <div className="flex items-center gap-1">
+          {starArr.length > 0 ? (
+            starArr?.map((item, i) => (
+              <FaStar key={i} className="text-yellow-500" />
+            ))
+          ) : (
+            <FaStar />
+          )}
+        </div>
         <div className="flex items-center gap-[3px]">
           <span className="font-semibold">{lesson?.avgRating}</span>
           <span>({lesson?.reviewCount})</span>
