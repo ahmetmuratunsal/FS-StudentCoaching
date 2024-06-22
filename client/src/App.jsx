@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PrivateLesson from "./pages/PrivateLesson";
 import PrivateLessonDetail from "./pages/PrivateLessonDetail";
+import AddPrivateLesson from "./pages/AddPrivateLesson";
+import MyPrivateLesson from "./pages/MyPrivateLesson";
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/search/privatelesson" element={<PrivateLesson />} />
+            <Route path="/add-privatelesson" element={<AddPrivateLesson />} />
+            <Route path="/my-privatelesson" element={<MyPrivateLesson />} />
             <Route
               path="/privatelesson/:id"
               element={<PrivateLessonDetail />}
