@@ -16,8 +16,6 @@ const PrivateLessonDetail = () => {
     (store) => store.privateLesson
   );
 
-  const lesson = onePrivateLesson.privateLesson;
-
   useEffect(() => {
     dispatch(getPrivateLesson(id));
   }, [id]);
@@ -32,14 +30,14 @@ const PrivateLessonDetail = () => {
         <div className="flex flex-col lg:flex-row gap-10">
           <div>
             {/* Info detaylar kısmı */}
-            <Info lesson={lesson} />
+            <Info lesson={onePrivateLesson.privateLesson} />
             {/* Teacher detaylar kısmı */}
-            <TeacherInfo teacher={lesson?.teacher} />
+            <TeacherInfo teacher={onePrivateLesson?.privateLesson?.teacher} />
             {/* Yorumlar kısmı */}
-            <Reviews />
+            <Reviews privateLessonId={id} />
           </div>
           {/* Satın alma kısmı */}
-          <OrderBox lesson={lesson} />
+          <OrderBox lesson={onePrivateLesson?.privateLesson} />
         </div>
       )}
     </div>
