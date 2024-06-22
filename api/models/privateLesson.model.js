@@ -75,7 +75,11 @@ const privateLessonSchema = new Schema(
 //* ortalamayı hesaplayıp virtual değer olarak ekleyeceğiz
 
 privateLessonSchema.virtual("avgRating").get(function () {
-  return (this.starCount / this.reviewCount).toFixed(2);
+  if (this.reviewCount === 0) {
+    return 0;
+  } else {
+    return (this.starCount / this.reviewCount).toFixed(2);
+  }
 });
 
 export default model("PrivateLesson", privateLessonSchema); //şemaya ait modeli oluşturduk.
