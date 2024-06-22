@@ -1,35 +1,39 @@
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
+import moment from "moment";
+import "moment/locale/tr";
 
-const Review = () => {
+const Review = ({ item }) => {
+  moment.locale("tr");
+
+  const arr = Array(Math.round(item.star)).fill();
   return (
     <div className="flex flex-col gap-5 py-10 border-b">
       <div className="flex gap-5">
         <img
           className="w-[50px] h-[50px] object-cover rounded-full"
-          src="https://picsum.photos/200/300"
+          src={item.student.profilePhoto}
           alt=""
         />
 
         <div>
-          <h4 className="font-semibold">Ahmet</h4>
-          <p>Ankara</p>
+          <h4 className="font-semibold">{item.student.username}</h4>
+          <p>{item.student.city}</p>
         </div>
       </div>
 
       <div className="flex items-center gap-1">
-        <FaStar className="text-yellow-500" />
-        <FaStar className="text-yellow-500" />
-        <FaStar className="text-yellow-500" />
-        <FaStar className="text-yellow-500" />
-        <span className="ms-1 me-3">5</span>
-        <span className="border-s px-3 text-gray-600">1 Ay Önce</span>
+        {arr.map((x, i) => (
+          <FaStar key={i} className="text-yellow-400" />
+        ))}
+
+        <span className="ms-1 me-3">{item.star}</span>
+        <span className="border-s px-3 text-gray-600">
+          {moment(item.createdAt).fromNow()}
+        </span>
       </div>
 
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum,
-        architecto.
-      </p>
+      <p>{item.desc}</p>
       <div className="flex gap-5 items-center">
         <span className="font-semibold">Yardımcı oldu mu ?</span>
         <button className="flex gap-1 items-center">
