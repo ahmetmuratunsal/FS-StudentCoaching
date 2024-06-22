@@ -48,7 +48,7 @@ const Header = () => {
           </button>
         </form>
 
-        <div className="flex items-center gap-2 group relative">
+        <div className="flex items-center gap-2 group z-50 relative">
           {user ? (
             <>
               <img
@@ -61,8 +61,17 @@ const Header = () => {
               <div className="text-[13px] hidden group-hover:flex flex-col items-start absolute top-[40px] right-0 transition bg-gray-200 rounded-md">
                 {!user.isStudent && (
                   <>
-                    <Link className="px-5 py-2 hover:bg-gray-100">
-                      Özel Dersler
+                    <Link
+                      to={"/my-privatelesson"}
+                      className="px-5 py-2 hover:bg-gray-100"
+                    >
+                      Özel Derslerim
+                    </Link>
+                    <Link
+                      to={"/add-privatelesson"}
+                      className="px-5 py-2 hover:bg-gray-100"
+                    >
+                      Özel Ders Ekle
                     </Link>
                     <Link className="px-5 py-2 hover:bg-gray-100">
                       Randevular
