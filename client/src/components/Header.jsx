@@ -24,7 +24,7 @@ const Header = () => {
     //* aratılan kelimeyi al
     const text = e.target[0].value;
     //* kullanıcıyı özel ders sayfasına yönlendir.
-    navigate(`/search/privatelesson?query=${text}`);
+    navigate(`/search/privatelesson?title=${text}`);
     e.target[0].value = "";
   };
   return (
