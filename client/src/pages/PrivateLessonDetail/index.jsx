@@ -32,7 +32,10 @@ const PrivateLessonDetail = () => {
             {/* Info detaylar kısmı */}
             <Info lesson={onePrivateLesson.privateLesson} />
             {/* Teacher detaylar kısmı */}
-            <TeacherInfo teacher={onePrivateLesson?.privateLesson?.teacher} />
+            <TeacherInfo
+              teacher={onePrivateLesson?.privateLesson?.teacher}
+              lessonType={onePrivateLesson?.privateLesson?.lessonType}
+            />
             {/* Yorumlar kısmı */}
             <Reviews privateLessonId={id} />
           </div>
