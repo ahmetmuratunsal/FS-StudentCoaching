@@ -4,8 +4,10 @@ import { IoMdCheckmark } from "react-icons/io";
 const OrderBox = ({ lesson }) => {
   return (
     <div className="h-fit flex flex-col gap-4 border shadow rounded-md p-5">
-      <div className="flex justify-between items-center">
-        <h2 className="font-semibold text-lg">{lesson?.shortTitle}</h2>
+      <div className="flex justify-between items-center gap-5">
+        <h2 className="font-semibold text-lg text-nowrap">
+          {lesson?.shortTitle}
+        </h2>
         <p className="text-lg">₺{lesson?.price}</p>
       </div>
       <h2>{lesson?.shortDesc}</h2>
