@@ -8,11 +8,11 @@ const PrivateLessonCard = ({ privateLesson }) => {
   return (
     <Link
       to={`/privatelesson/${privateLesson._id}`}
-      className=" border p-4 rounded-md shadow hover:shadow-lg cursor-pointer flex flex-col gap-2"
+      className="max-w-[400px]  border p-4 rounded-md shadow hover:shadow-lg cursor-pointer flex flex-col gap-2"
     >
       {/* //? cover image */}
       <img
-        className="h-full object-contain  rounded"
+        className="h-[300px] object-contain  rounded"
         src={privateLesson.coverImg}
         alt={privateLesson.title}
       />
