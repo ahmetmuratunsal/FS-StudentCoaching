@@ -5,12 +5,6 @@ import "@splidejs/react-splide/css";
 import { FaStar } from "react-icons/fa";
 
 const Info = ({ lesson }) => {
-  const options = {
-    type: "loop", // Loop özelliğini etkinleştirir
-    perPage: 1, // Her sayfada 1 slide gösterir
-    gap: "1rem", // Slide'lar arasında boşluk
-  };
-
   const starArr =
     lesson?.reviewCount > 0 && Array(Math.round(lesson?.avgRating)).fill();
 
@@ -48,14 +42,16 @@ const Info = ({ lesson }) => {
       </div>
 
       {lesson?.images.length > 0 && (
-        <Splide options={options} aria-label="My Favorite Images">
+        <Splide aria-label="Private Lesson Detail Images">
           {lesson?.images.map((url) => (
             <SplideSlide key={url}>
-              <img
-                className="w-full h-[50vh] object-contain"
-                src={url}
-                alt="Image 1"
-              />
+              <div className="w-[500px] h-[50vh] mx-auto">
+                <img
+                  className="w-full h-full  object-contain"
+                  src={url}
+                  alt="Image 1"
+                />
+              </div>
             </SplideSlide>
           ))}
         </Splide>
