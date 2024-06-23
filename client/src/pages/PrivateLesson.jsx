@@ -12,25 +12,27 @@ const PrivateLesson = () => {
   const { isLoading, isError, privateLessons } = useSelector(
     (store) => store.privateLesson
   );
-
   //* urlden parametreleri al (aratılan kelimeyi)
   const [params] = useSearchParams();
 
-  const search = params.get("query");
+  const title = params.get("title");
   const min = params.get("min");
   const max = params.get("max");
+  const sort = params.get("sort");
+  const fields =
+    "title,coverImg,price,category,teacher,avgRating,reviewCount,starCount";
   //* parametrelerin hepsini göndermek için bir obje haline getir.
-  const parametre = { search, min, max };
+  const parametre = { title, min, max, sort, fields };
   //* apidan filtrelere uygun verileri al statee aktar. isloading iserror kontrolünü de yap
   useEffect(() => {
     dispatch(getAllPrivateLessons(parametre));
-  }, [search, min, max]);
+  }, [title, min, max, sort]);
 
   return (
     <div>
-      {search && (
+      {title && (
         <h1 className="text-xl mb-5">
-          <span className="font-semibold">{search}</span> için sonuçlar
+          <span className="font-semibold">{title}</span> için sonuçlar
         </h1>
       )}
       <FilterArea />
