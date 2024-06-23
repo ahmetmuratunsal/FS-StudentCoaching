@@ -1,11 +1,8 @@
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 import moment from "moment";
-import "moment/locale/tr";
 
 const Review = ({ item }) => {
-  moment.locale("tr");
-
   const arr = Array(Math.round(item.star)).fill();
   return (
     <div className="flex flex-col gap-5 py-10 border-b">
