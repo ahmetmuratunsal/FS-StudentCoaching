@@ -83,7 +83,10 @@ export const cityOptions = [
 ];
 
 export const filterOptions = [
-  { value: "mostseller", label: "Çok Satan" },
-  { value: "mostpopuler", label: "En Popüler" },
-  { value: "cheapest", label: "En Ucuz" },
+  { value: "-createdAt", label: "En Son Eklenenler" },
+  { value: "-sales", label: "Çok Satan" },
+  { value: "price", label: "Fiyata Göre Artan" },
+  { value: "-price", label: "Fiyata Göre Azalan" },
+  { value: "-reviewCount", label: "En Çok Yorum Alan" },
+  { value: "-starCount", label: "En Çok Yıldız Alan" },
 ];
