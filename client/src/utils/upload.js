@@ -18,7 +18,8 @@ export const upload = async (file, collection) => {
     // api isteği atıp resmi buluta yükle
     const res = await axios.post(
       "https://api.cloudinary.com/v1_1/dlcwbxs5c/image/upload",
-      data
+      data,
+      { withCredentials: false }
     );
 
     // resmin urlini fonksiyonun çağrıldığı yere döndür
