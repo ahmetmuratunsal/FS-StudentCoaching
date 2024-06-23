@@ -60,7 +60,7 @@ const AddPrivateLesson = () => {
     //* özellikler kategoriler ve ders yeri bilgisini nesneye kaydet
     data.category = selectedCategoryOptions.value;
 
-    data.features = selectedFeatureOptions;
+    data.features = selectedFeatureOptions.map((item) => item.label);
 
     data.lessonType = selectedLessonTypeOptions.value;
 
