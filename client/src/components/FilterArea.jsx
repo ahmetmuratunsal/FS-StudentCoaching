@@ -7,6 +7,10 @@ const FilterArea = () => {
   const [selectedFilter, setSelectedFilter] = useState(null);
   const handleFilterChange = (selectedFilter) => {
     setSelectedFilter(selectedFilter);
+    params.set("sort", `${selectedFilter.value},-reviewCount`);
+
+    setParams(params);
+    setSelectedFilter(null);
   };
 
   const [params, setParams] = useSearchParams();
@@ -20,17 +24,20 @@ const FilterArea = () => {
     params.set("max", max);
 
     setParams(params);
+    e.target.reset();
   };
 
   return (
     <div className="mb-8 flex items-center justify-between gap-2">
       <form onSubmit={handleSubmit} className="flex gap-2 items-center">
-        <label>Bütçe</label>
+        <h3 className="font-semibold text-xl mr-5">Bütçe</h3>
+        <label>Min Fiyat</label>
         <input
           className="max-md:w-1/4 border px-2 py-1 rounded-md"
           placeholder="min"
           type="number"
         />
+        <label>Max Fiyat</label>
         <input
           className=" max-md:w-1/4 border px-2 py-1 rounded-md"
           placeholder="max"
