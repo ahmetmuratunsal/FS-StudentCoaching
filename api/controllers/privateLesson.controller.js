@@ -1,53 +1,35 @@
 import privateLessonModel from "../models/privateLesson.model.js";
+import APIFeatures from "../utils/apiFeatures.js";
+import { buildFilters } from "../utils/buildFilters.js";
 import error from "../utils/error.js";
-
-//* filtreleme ayarları oluşturan method.
-const buildFilters = (query) => {
-  //* bir filtreleme ayarlarının tanımlandığı nesne oluştur.
-
-  const filters = {};
-
-  //* eğerki userId param eklendiyse filtre ayarlarına ekle
-  if (query.userId) {
-    filters.teacher = query.userId;
-  }
-
-  //* eğerki kategori  param eklendiyse filtre ayarlarına ekle
-
-  if (query.cat) {
-    filters.category = query.cat;
-  }
-
-  //* eğer min veya max filtresi eklendiyse
-  if (query.min || query.max) {
-    filters.price = {};
-    if (query.min) {
-      filters.price.$gt = query.min;
-    }
-
-    if (query.max) {
-      filters.price.$lt = query.max;
-    }
-  }
-
-  if (query.search) {
-    //* regex operatörü ile içinde varsa karşılaştırması yaptık.
-    //* options operatörü ile büyük küçük harf duyarlılığını kaldırdık
-    filters.title = { $regex: query.search, $options: "i" };
-  }
-  //* fonksiyonu çağırıldığı yere ayarları döndür
-  return filters;
-};
 
 //* 1) Bütün özel dersleri al
 export const getAllPrivateLesson = async (req, res, next) => {
   //* filtreleme ayarlarını oluşturan fonk. çağır
+
   const filters = buildFilters(req.query);
+
+  const allFilters = {
+    ...filters,
+    sort: req.query.sort,
+    fields: req.query.fields,
+  };
   try {
     //* bütün özel derslere ulaş
-    const privateLessons = await privateLessonModel
-      .find(filters)
-      .populate("teacher");
+    // const privateLessons = await privateLessonModel
+    //   .find(filters)
+    //   .populate("teacher");
+
+    const features = new APIFeatures(
+      privateLessonModel.find().populate("teacher"),
+      allFilters
+    )
+      .filter()
+      .sort()
+      .limit()
+      .paginate();
+
+    const privateLessons = await features.query;
 
     if (privateLessons.length > 0) {
       res.status(200).json({
@@ -99,8 +81,8 @@ export const createPrivateLesson = async (req, res, next) => {
       message: "Özel ders başarıyla oluşturuldu",
       privateLesson: savedPrivateLesson,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
     next(error(404, "Özel ders oluşturulurken bir hata oluştu"));
   }
 };
