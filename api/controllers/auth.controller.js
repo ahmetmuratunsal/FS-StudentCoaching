@@ -103,8 +103,8 @@ export const login = async (req, res, next) => {
 
   //* 6) tokeni çerezler (cookie) ile client'a gönder
   res
+    .cookie("accessToken", token, { httpOnly: true, maxAge: 9000000 })
     .status(200)
-    .cookie("accessToken", token, { httpOnly: true })
     .json({ message: "Başarılı bir şekilde giriş yapıldı.", user });
 };
 
