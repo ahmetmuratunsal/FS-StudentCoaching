@@ -1,7 +1,8 @@
 import { FaStar } from "react-icons/fa";
 import { cityOptions } from "./../../constants/selectInput";
+import moment from "moment";
 
-const TeacherInfo = ({ teacher }) => {
+const TeacherInfo = ({ teacher, lessonType }) => {
   return (
     <>
       <div>
@@ -51,12 +52,14 @@ const TeacherInfo = ({ teacher }) => {
 
           <p className="flex flex-col gap-1">
             <span>Ders yeri tercihim?</span>
-            <span className="font-bold capitalize">{teacher?.lessonType}</span>
+            <span className="font-bold capitalize">{lessonType}</span>
           </p>
 
           <p className="flex flex-col gap-1">
             <span>Üyelik Tarihi</span>
-            <span className="font-bold capitalize">{teacher?.createdAt}</span>
+            <span className="font-bold capitalize">
+              {moment(teacher?.createdAt).format("DD-MMMM-YYYY")}
+            </span>
           </p>
         </div>
       </div>
