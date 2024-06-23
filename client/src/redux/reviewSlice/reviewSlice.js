@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllReviews } from "./reviewActions";
+import { createReview, getAllReviews } from "./reviewActions";
 
 const initialState = {
   reviews: [],
   isLoading: false,
   isError: false,
+  isCreateLoading: false,
+  isCreateError: false,
 };
 
 export const reviewsSlice = createSlice({
@@ -24,6 +26,20 @@ export const reviewsSlice = createSlice({
     builder.addCase(getAllReviews.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.payload;
+    });
+
+    //! Yeni özel ders ekle
+    builder.addCase(createReview.pending, (state) => {
+      state.isCreateLoading = true;
+    });
+    builder.addCase(createReview.fulfilled, (state, action) => {
+      state.isCreateLoading = false;
+      state.isCreateError = false;
+      state.reviews.push(action.payload);
+    });
+    builder.addCase(createReview.rejected, (state, action) => {
+      state.isCreateLoading = false;
+      state.isCreateError = action.payload;
     });
   },
 });
