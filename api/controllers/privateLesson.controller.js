@@ -13,6 +13,8 @@ export const getAllPrivateLesson = async (req, res, next) => {
     ...filters,
     sort: req.query.sort,
     fields: req.query.fields,
+    limit: req.query.limit,
+    page: req.query.page,
   };
   try {
     //* bütün özel derslere ulaş
