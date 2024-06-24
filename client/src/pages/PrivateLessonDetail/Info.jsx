@@ -8,6 +8,16 @@ const Info = ({ lesson }) => {
   const starArr =
     lesson?.reviewCount > 0 && Array(Math.round(lesson?.avgRating)).fill();
 
+  const options = {
+    type: "fade", // Slider tipi: 'fade', 'slide', 'loop', vb.
+    rewind: true, // Slider geri sarma
+    width: "90%", // Slider genişliği
+    perPage: 1, // Aynı anda görünecek slayt sayısı
+    perMove: 1, // Bir seferde kaydırılacak slayt sayısı
+    autoplay: true, // Otomatik oynatma
+    interval: 3000, // Otomatik oynatma aralığı (ms cinsinden)
+  };
+
   return (
     <div className=" flex flex-1 flex-col gap-4">
       <p className="text-gray-500 capitalize flex gap-3 items-center">
@@ -42,7 +52,7 @@ const Info = ({ lesson }) => {
       </div>
 
       {lesson?.images.length > 0 && (
-        <Splide aria-label="Private Lesson Detail Images">
+        <Splide options={options} aria-label="Private Lesson Detail Images">
           {lesson?.images.map((url) => (
             <SplideSlide key={url}>
               <div className="w-[500px] h-[50vh] mx-auto">
