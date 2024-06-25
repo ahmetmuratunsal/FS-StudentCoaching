@@ -58,7 +58,7 @@ const Header = () => {
               />
               <span className="font-semibold capitalize">{user.username}</span>
 
-              <div className="text-[13px] hidden group-hover:flex flex-col items-start absolute top-[40px] right-0 transition bg-gray-200 rounded-md">
+              <div className="text-[13px] hidden group-hover:flex flex-col items-start absolute top-[50px] left-5 transition bg-gray-200 rounded-md">
                 {!user.isStudent && (
                   <>
                     <Link
@@ -77,6 +77,15 @@ const Header = () => {
                       Randevular
                     </Link>
                   </>
+                )}
+
+                {user.isStudent && (
+                  <Link
+                    to={"/studentpanel"}
+                    className="px-5 py-2 hover:bg-gray-100 whitespace-nowrap"
+                  >
+                    Öğrenci Paneli
+                  </Link>
                 )}
                 <Link className="px-5 py-2 hover:bg-gray-100">Siparişler</Link>
                 <Link className="px-5 py-2 hover:bg-gray-100">Mesajlar</Link>
