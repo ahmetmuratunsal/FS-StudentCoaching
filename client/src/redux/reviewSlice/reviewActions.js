@@ -26,7 +26,7 @@ export const createReview = createAsyncThunk(
       return res.data.review;
     } catch (err) {
       // API'den gelen hatayı rejectWithValue ile slice'a gönder
-      return rejectWithValue(err.response.statusText);
+      return rejectWithValue(err.response.data.message);
     }
   }
 );
