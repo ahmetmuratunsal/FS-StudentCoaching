@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Review from "./Review";
 import {
   createReview,
@@ -16,8 +16,6 @@ const Reviews = ({ privateLessonId }) => {
   const { isLoading, isError, reviews, isCreateLoading } = useSelector(
     (store) => store.reviews
   );
-  const [rating, setRating] = useState(0);
-  const [desc, setDesc] = useState("");
 
   useEffect(() => {
     dispatch(getAllReviews(privateLessonId));
@@ -34,18 +32,17 @@ const Reviews = ({ privateLessonId }) => {
     }
 
     const newReview = {
+      privateLessonId: privateLessonId,
       star: +star, // Input'tan gelen değeri number tipine çevirme
       desc: description,
-      privateLessonId,
     };
 
     try {
       await dispatch(createReview(newReview));
-      setRating(0); // Yıldız seçimini sıfırla
-      setDesc(""); // Açıklama alanını temizle
-    } catch (error) {
-      toast.error(error.response.data.message);
-      console.error("Yorum eklerken bir hata oluştu:", error);
+      e.target[5].value = ""; // Açıklama alanını temizle
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response.data.message);
     }
   };
 
@@ -90,8 +87,6 @@ const Reviews = ({ privateLessonId }) => {
             <input
               className="border p-2 rounded-md shadow"
               name="description"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
               placeholder="Açıklama..."
               type="text"
             />
@@ -116,7 +111,8 @@ const Reviews = ({ privateLessonId }) => {
         reviews.map((item) => <Review key={item._id} item={item} />)
       ) : (
         <h2 className="my-2">
-          Henüz yorum atılmamış :/ İlk yorumu atmak ister misin ?
+          Henüz yorum atılmamış :/{" "}
+          {user.isStudent && "İlk yorumu atmak ister misin ?"}
         </h2>
       )}
     </div>
