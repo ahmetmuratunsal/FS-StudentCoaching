@@ -67,7 +67,7 @@ const AddPrivateLesson = () => {
     delete data.bio;
 
     //* apiye veriyi kaydet
-    api
+    await api
       .post("/privatelesson", data)
       .then((res) => {
         //* özel dersler sayfasına yönlendir
