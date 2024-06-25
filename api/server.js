@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRouter from "./routes/auth.route.js";
 import privateLessonRouter from "./routes/privateLesson.route.js";
 import reviewRouter from "./routes/review.route.js";
+import questionRouter from "./routes/question.route.js";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
@@ -68,6 +69,7 @@ app.use(mongoSanitize());
 app.use("/api/auth", authRouter);
 app.use("/api/privatelesson", privateLessonRouter);
 app.use("/api/review", reviewRouter);
+app.use("/api/question", questionRouter);
 
 // tanımlanmayan bir route istek atıldığında hata ver
 app.all("*", (req, res, next) => {
