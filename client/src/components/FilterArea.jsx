@@ -30,16 +30,15 @@ const FilterArea = () => {
   return (
     <div className="mb-8 flex items-center justify-between gap-2">
       <form onSubmit={handleSubmit} className="flex gap-2 items-center">
-        <h3 className="font-semibold text-xl mr-5">Bütçe</h3>
-        <label>Min Fiyat</label>
+        <label className="text-xs lg:text-base">Min Fiyat</label>
         <input
-          className="max-md:w-1/4 border px-2 py-1 rounded-md"
+          className="max-md:w-1/4 border text-xs lg:text-base px-2 py-1 rounded-md"
           placeholder="min"
           type="number"
         />
-        <label>Max Fiyat</label>
+        <label className="text-xs lg:text-base">Max Fiyat</label>
         <input
-          className=" max-md:w-1/4 border px-2 py-1 rounded-md"
+          className=" max-md:w-1/4 border text-xs lg:text-base px-2 py-1 rounded-md"
           placeholder="max"
           type="number"
         />
