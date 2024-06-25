@@ -24,4 +24,10 @@ const ReviewSchema = new Schema(
   { timestamps: true }
 );
 
+ReviewSchema.pre(/^find/, function (next) {
+  this.populate("student");
+
+  next();
+});
+
 export default model("Review", ReviewSchema);
