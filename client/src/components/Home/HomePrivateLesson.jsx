@@ -11,8 +11,6 @@ const HomePrivateLesson = () => {
     (store) => store.privateLesson
   );
 
-  console.log(privateLessons);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllPrivateLessons());
