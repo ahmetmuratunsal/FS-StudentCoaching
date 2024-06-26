@@ -35,7 +35,7 @@ export const reviewsSlice = createSlice({
     builder.addCase(createReview.fulfilled, (state, action) => {
       state.isCreateLoading = false;
       state.isCreateError = false;
-      state.reviews.push(action.payload);
+      state.reviews.unshift(action.payload);
     });
     builder.addCase(createReview.rejected, (state, action) => {
       state.isCreateLoading = false;
