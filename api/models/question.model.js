@@ -23,6 +23,10 @@ const QuestionSchema = new Schema(
       type: String,
       required: [true, "Sorunun bir kategorisi olmalıdır."],
     }, // Sorunun kategorisi
+    status: {
+      type: String,
+      default: "Devam ediyor",
+    },
     //! answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }], // Sorunun cevapları (One-to-Many)
   },
   { timestamps: true }
