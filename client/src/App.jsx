@@ -2,18 +2,18 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import PrivateLesson from "./pages/PrivateLesson";
 import PrivateLessonDetail from "./pages/PrivateLessonDetail";
-import AddPrivateLesson from "./pages/AddPrivateLesson";
-import MyPrivateLesson from "./pages/MyPrivateLesson";
-import TeacherRoute from "./pages/TeacherRoute";
+import AddPrivateLesson from "./pages/TeacherPanel/AddPrivateLesson";
+import MyPrivateLesson from "./pages/TeacherPanel/MyPrivateLesson";
+import TeacherRoute from "./pages/TeacherPanel/TeacherRoute";
 import StudentRoute from "./pages/StudentPanel/StudentRoute";
 import StudentPanel from "./pages/StudentPanel/StudentPanel";
-import Questions from "./pages/StudentPanel/Questions";
 import AddQuestion from "./pages/StudentPanel/AddQuestion";
 import Layout from "./Layout";
+import TeacherPanel from "./pages/TeacherPanel/TeacherPanel";
+import StudentQuestions from "./pages/StudentPanel/StudentQuestions";
+import TeacherQuestions from "./pages/TeacherPanel/TeacherQuestions";
 
 const App = () => {
   return (
@@ -29,19 +29,19 @@ const App = () => {
           {/* Özel ders routeları */}
           <Route path="/search/privatelesson" element={<PrivateLesson />} />
           <Route path="/privatelesson/:id" element={<PrivateLessonDetail />} />
-
-          {/* korumalı route oluşturdum. Sadece öğretmenler girebilecek */}
-          <Route element={<TeacherRoute />}>
-            <Route path="/add-privatelesson" element={<AddPrivateLesson />} />
-
-            <Route path="/my-privatelesson" element={<MyPrivateLesson />} />
-          </Route>
+        </Route>
+        {/* korumalı route oluşturdum. Sadece ÖĞRETMENLER girebilecek */}
+        <Route element={<TeacherRoute />}>
+          <Route path="/teacherpanel" element={<TeacherPanel />} />
+          <Route path="/add-privatelesson" element={<AddPrivateLesson />} />
+          <Route path="/my-privatelesson" element={<MyPrivateLesson />} />
+          <Route path="/teacherquestions" element={<TeacherQuestions />} />
         </Route>
         {/* korumalı route oluşturdum. Sadece ÖĞRENCİLER girebilecek */}
         <Route element={<StudentRoute />}>
           <Route path="/studentpanel" element={<StudentPanel />} />
-          <Route path="/questions" element={<Questions />} />
-          <Route path="/addquestion" element={<AddQuestion />} />
+          <Route path="/studentquestions" element={<StudentQuestions />} />
+          <Route path="/add-question" element={<AddQuestion />} />
         </Route>
       </Routes>
     </BrowserRouter>
