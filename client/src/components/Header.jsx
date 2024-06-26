@@ -6,8 +6,9 @@ import { IoSearch } from "react-icons/io5";
 const Header = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-  const logout = () => {
-    api
+
+  const logout = async () => {
+    await api
       .post("/auth/logout")
       .then((res) => {
         localStorage.removeItem("user");
@@ -18,6 +19,7 @@ const Header = () => {
         toast.error(`Çıkış yapılırken bir sorun oluştu ${err.message}`)
       );
   };
+
   const handleSearch = (e) => {
     //* sayfa yenileme engelle
     e.preventDefault();
@@ -62,19 +64,10 @@ const Header = () => {
                 {!user.isStudent && (
                   <>
                     <Link
-                      to={"/my-privatelesson"}
-                      className="px-5 py-2 hover:bg-gray-100"
+                      to={"/teacherpanel"}
+                      className="px-5 py-2 hover:bg-gray-100 whitespace-nowrap"
                     >
-                      Özel Derslerim
-                    </Link>
-                    <Link
-                      to={"/add-privatelesson"}
-                      className="px-5 py-2 hover:bg-gray-100"
-                    >
-                      Özel Ders Ekle
-                    </Link>
-                    <Link className="px-5 py-2 hover:bg-gray-100">
-                      Randevular
+                      Öğretmen Paneli
                     </Link>
                   </>
                 )}
