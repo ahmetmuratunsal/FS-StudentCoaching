@@ -1,18 +1,18 @@
 import { Navigate, Outlet } from "react-router-dom";
-import StedentSidebar from "./StudentSidebar";
 import Footer from "../../components/Footer";
+import TeacherSidebar from "./TeacherSidebar";
 
-//! bu korumalı route sayesinde öğretmenler öğrencilerin özel sayfalarına giremeyecekler
+//! bu korumalı route sayesinde öğrenciler öğretmenlerin  özel sayfalarına giremeyecekler
 const StudentRoute = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) return <Navigate to={"/"} replace />;
 
-  if (!user.isStudent) {
+  if (user.isStudent) {
     return <Navigate to={"/"} replace />;
   } else {
     return (
-      <div className="flex flex-1 ">
-        <StedentSidebar />
+      <div className="flex flex-1">
+        <TeacherSidebar />
         <div className="flex flex-col gap-5 w-full h-min-screen">
           <div className="flex-1 p-14">
             <Outlet />
