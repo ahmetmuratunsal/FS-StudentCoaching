@@ -1,5 +1,5 @@
 import { inputField } from "../constants/inputField";
-import { cityOptions } from "../constants/selectInput";
+import { cityOptions, lessonOptions } from "../constants/selectInput";
 import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -12,9 +12,15 @@ const Register = () => {
   const [isStudent, setIsStudent] = useState(true);
   const [isAgreementAccept, setIsAgreementAccept] = useState(true);
   const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedLesson, setSelectedLesson] = useState(null);
   const navigate = useNavigate();
+
   const handleCityChange = (selectedCity) => {
     setSelectedCity(selectedCity);
+  };
+
+  const handleLessonChange = (selectedLesson) => {
+    setSelectedLesson(selectedLesson);
   };
 
   const handleSubmit = async (e) => {
@@ -35,6 +41,11 @@ const Register = () => {
 
     // şehir bilgisini bu nesnenin içerisine kaydet.
     newUser.city = selectedCity.value;
+
+    // eğer kullanıcı öğretmense ders bilgisi ekle
+    if (isStudent === false) {
+      newUser.lesson = selectedLesson.value.toLowerCase();
+    }
     // öğrenci ise bunu nesnenin içerisine kaydet
     newUser.isStudent = isStudent;
 
@@ -115,6 +126,39 @@ const Register = () => {
                 </label>
               </div>
             </div>
+
+            {/* öğretmenler için alan */}
+            {isStudent === false && (
+              <div>
+                {/* öğretmen bio alanı */}
+                <div className="mt-5">
+                  <label className="text-sm font-bold block mb-2">
+                    Öğretmen Hakkında
+                  </label>
+                  <div className="relative flex items-center">
+                    <input
+                      name="bio"
+                      type="text"
+                      required={!isStudent}
+                      className="w-full bg-transparent  text-sm border-b border-gray-300 focus:border-yellow-400 px-2 py-3 outline-none"
+                      placeholder="Lütfen kendinizi tanıtınız"
+                    />
+                  </div>
+                </div>
+                {/* öğretmen alan kısmı */}
+                <div className=" flex flex-col  gap-3 mt-5 ">
+                  <h5 className="text-xs">Alanınızı seçiniz</h5>
+                  <Select
+                    className=" text-black w-1/2 text-sm "
+                    placeholder="Alanınızı seçiniz"
+                    value={selectedLesson}
+                    onChange={handleLessonChange}
+                    options={lessonOptions}
+                  />
+                </div>
+              </div>
+            )}
+
             {/* gizlilik onay alanı */}
             <div className="flex items-center gap-5 mt-8">
               <div className="checkbox-wrapper-19">
