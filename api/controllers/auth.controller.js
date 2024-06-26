@@ -26,7 +26,6 @@ export const register = async (req, res, next) => {
 
     //* veritabanına kaydedilecek kullanıcıyı oluştur
     const newUser = new collection({ ...req.body, password: hashedPass });
-    console.log(newUser);
 
     const haveUsername = await collection.findOne({
       username: req.body.username,
