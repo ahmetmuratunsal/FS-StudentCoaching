@@ -69,7 +69,9 @@ export const getReviews = async (req, res, next) => {
   try {
     const reviews = await Review.find({
       privateLessonId: req.params.privateLessonId,
-    }).populate("student");
+    })
+      .sort({ createdAt: -1 })
+      .populate("student");
     res.status(200).json({ reviews });
   } catch (err) {
     next(new AppError("Yorumlar alınırken bir sorun oluştu.", 500));
