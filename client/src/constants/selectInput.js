@@ -90,3 +90,12 @@ export const filterOptions = [
   { value: "-reviewCount", label: "En Çok Yorum Alan" },
   { value: "-starCount", label: "En Çok Yıldız Alan" },
 ];
+
+export const lessonOptions = [
+  { value: "math", label: "Matematik" },
+  { value: "fen", label: "Fen Bilimleri" },
+  { value: "turkce", label: "Türkçe" },
+  { value: "sosyalbilgiler", label: "Sosyal Bilgiler" },
+  { value: "dinkulturu", label: "Din Kültürü" },
+  { value: "ingilizce", label: "İngilizce" },
+];
