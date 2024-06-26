@@ -32,8 +32,8 @@ const AddQuestion = () => {
     await api
       .post("/question", data)
       .then((res) => {
-        //* özel dersler sayfasına yönlendir
-        navigate(`/questions`);
+        //* sorularım sayfasına yönlendir
+        navigate(`/studentquestions`);
         //* bildirim ver
         toast.success("Sorunuz başarıyla oluşturuldu.");
       })
