@@ -1,11 +1,11 @@
-import { categoryOptions } from "../../constants/addPrivateLessonSelect";
 import { useState } from "react";
-import CreatableSelect from "react-select/creatable";
 import { TbPhoto } from "react-icons/tb";
 import { upload } from "../../utils/upload";
 import api from "../../utils/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { lessonOptions } from "../../constants/selectInput";
+import Select from "react-select";
 
 const AddQuestion = () => {
   const [selectedQuestionCategory, setQuestionCategory] = useState();
@@ -20,7 +20,7 @@ const AddQuestion = () => {
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    data.category = selectedQuestionCategory.label;
+    data.category = selectedQuestionCategory.value.toLowerCase();
 
     //* soru fotoğrafını bulut depolama alanına yükle
     const questionPhotoUrl = await upload(data.questionPhoto, "questions");
@@ -85,12 +85,12 @@ const AddQuestion = () => {
       {/* sorunun kategorisi*/}
 
       <div className="w-full lg:w-1/2  border border-blue-500 rounded-xl p-4">
-        <h6 className="font-light mb-1">Kategori Giriniz</h6>
-        <CreatableSelect
-          options={categoryOptions}
+        <h6 className="font-light mb-1">Dersi Giriniz</h6>
+        <Select
+          options={lessonOptions}
           value={selectedQuestionCategory}
           onChange={handleCategoryChange}
-          placeholder="Kendiniz kategori yazabilirsiniz"
+          placeholder="Lütfen Dersinizi Seçiniz"
           className="w-full"
         />
       </div>
