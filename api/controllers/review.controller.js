@@ -3,6 +3,7 @@ import privateLessonModel from "../models/privateLesson.model.js";
 import reviewModel from "../models/review.model.js";
 import AppError from "../utils/appError.js";
 import { factoryGetAll } from "./handlerFactory.js";
+import studentModel from "../models/student.model.js";
 
 //! yorum ekleme
 export const createReview = async (req, res, next) => {
@@ -41,6 +42,14 @@ export const createReview = async (req, res, next) => {
       $inc: { starCount: req.body.star, reviewCount: 1 },
       //! mongodb operatörü inc sayesinde önceki değere söylediğimiz değer kadarını ekliyor
     });
+
+    //* 7) öğrencinin yorum sayısını güncelle
+    await studentModel.findByIdAndUpdate(req.userId, {
+      // öğrencinin yorum sayısını  mevcut değerin 1 fazlası kadar arttır
+      $inc: { reviewCount: 1 },
+      //! mongodb operatörü inc sayesinde önceki değere söylediğimiz değer kadarını ekliyor
+    });
+
     res.status(201).json({
       message: "Yorum gönderildi",
       review: newReview,

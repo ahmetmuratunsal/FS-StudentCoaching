@@ -49,6 +49,14 @@ const studentSchema = new Schema(
       default: true,
       required: [true, "Lütfen öğrenci misin alanını belirleyin."],
     },
+    studentReviewCount: {
+      type: Number,
+      default: 0,
+    },
+    questionCount: {
+      type: Number,
+      default: 0,
+    },
   },
   //* ayarlar alanı
   //* timestamps sayesinde oluşturduğumuz bütün belgelere otomatik olarak oluşturulma ve güncellenme tarihleri eklenir

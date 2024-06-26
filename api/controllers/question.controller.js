@@ -1,4 +1,5 @@
 import Question from "../models/question.model.js";
+import studentModel from "../models/student.model.js";
 import AppError from "../utils/appError.js";
 import catchAsync from "../utils/catchAsync.js";
 import {
@@ -31,6 +32,14 @@ export const createQuestion = catchAsync(async (req, res, next) => {
 
   //* yeni soruyu  kaydet
   const savedQuestion = await newQuestion.save();
+
+  //* öğrencinin soru sayısını güncelle
+  await studentModel.findByIdAndUpdate(req.userId, {
+    // öğrencinin yorum sayısını  mevcut değerin 1 fazlası kadar arttır
+    $inc: { questionCount: 1 },
+    //! mongodb operatörü inc sayesinde önceki değere söylediğimiz değer kadarını ekliyor
+  });
+
   //* clienta cevap gönder
   res.status(201).json({
     message: "Sorunuz başarıyla oluşturuldu",
