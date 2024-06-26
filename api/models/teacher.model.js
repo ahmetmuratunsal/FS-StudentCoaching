@@ -43,8 +43,9 @@ const teacherSchema = new Schema(
     bio: {
       type: String,
     },
-    lessonType: {
+    lesson: {
       type: String,
+      required: [true, "Lütfen alanınızı seçiniz"],
     },
     isPremium: {
       type: Boolean,
