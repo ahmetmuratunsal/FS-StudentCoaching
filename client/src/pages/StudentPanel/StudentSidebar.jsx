@@ -35,7 +35,7 @@ const StudentSidebar = () => {
     <div className="min-h-screen sticky top-0 left-0 h-screen">
       <div className="rounded-r bg-gray-900 xl:hidden flex justify-between w-full p-6 items-center ">
         <div className="flex justify-between  items-center space-x-3">
-          <p className="text-base leading-6 text-white">Öğrenci Paneli</p>
+          <p className="text-sm leading-6 text-white">Panel</p>
         </div>
         <div
           aria-label="toggler"
@@ -48,7 +48,7 @@ const StudentSidebar = () => {
             className="flex focus:outline-none focus:ring-2"
           >
             {/* menüyü aç */}
-            <VscArrowDown className="text-white text-xl" />
+            <VscArrowDown className="text-white text-base" />
           </button>
           <button
             aria-label="close"
@@ -57,7 +57,7 @@ const StudentSidebar = () => {
             className=" focus:outline-none focus:ring-2"
           >
             {/* menüyü kapat */}
-            <VscClose className="text-white text-3xl cursor-pointer" />
+            <VscClose className="text-white text-base cursor-pointer" />
           </button>
         </div>
       </div>
@@ -71,14 +71,14 @@ const StudentSidebar = () => {
           </p>
         </div>
         {/* Kontrol Paneli */}
-        <div className="mt-6 flex flex-col justify-start items-center  pl-8 w-full border-gray-600 border-b space-y-3 pb-5 ">
+        <div className="mt-6 flex flex-col justify-start items-center text-sm lg:text-base  pl-8 w-full border-gray-600 border-b space-y-3 pb-5 ">
           <Link
             to={"/"}
             className="flex jusitfy-start items-center mb-3 space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded "
           >
             <AiOutlineHome className="text-base lg:text-2xl" />
 
-            <p className="text-base leading-4 ">Anasayfaya Dön</p>
+            <p className=" leading-4 ">Anasayfaya Dön</p>
           </Link>
           <Link
             to={"/studentpanel"}
@@ -86,7 +86,7 @@ const StudentSidebar = () => {
           >
             <RxDashboard className="text-base lg:text-2xl" />
 
-            <p className="text-base leading-4 ">Kontrol Paneli</p>
+            <p className="leading-4 ">Kontrol Paneli</p>
           </Link>
         </div>
 
@@ -95,7 +95,9 @@ const StudentSidebar = () => {
             // onClick="showMenu1(true)"
             className="focus:outline-none focus:text-indigo-400 text-left  text-white flex justify-between items-center w-full py-5 space-x-14  "
           >
-            <p className="text-sm leading-5  uppercase">Öğrenci Alanı</p>
+            <p className="text-sm leading-5 whitespace-nowrap uppercase">
+              Öğrenci Alanı
+            </p>
             <svg
               id="icon1"
               className="transform"
@@ -117,33 +119,33 @@ const StudentSidebar = () => {
           {/* Öğrenci Alanı */}
           <div
             id="menu1"
-            className="flex justify-start  flex-col w-full text-base lg:text-lg md:w-auto items-start pb-1 "
+            className="flex justify-start  flex-col w-full text-sm lg:text-base md:w-auto items-start pb-1 "
           >
             {/* Mesajlar */}
             <Link className="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-52">
               <TiMessages className="text-base lg:text-2xl" />
 
-              <p className="text-base leading-4  ">Mesajlar</p>
+              <p className="leading-4  ">Mesajlar</p>
             </Link>
 
             <Link className="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-52">
-              <SiGooglemeet className="text-base lg:text-2xl" />
+              <SiGooglemeet className=" lg:text-2xl" />
 
-              <p className="text-base leading-4  ">Randevularım</p>
+              <p className=" leading-4  ">Randevularım</p>
             </Link>
             <Link className="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-52">
               <FaTurkishLiraSign className="text-base lg:text-2xl" />
 
-              <p className="text-base leading-4  ">Satın Aldıklarım</p>
+              <p className=" leading-4  ">Satın Aldıklarım</p>
             </Link>
           </div>
         </div>
-        <div className="flex flex-col justify-start items-center   px-6 border-b border-gray-600 w-full  ">
+        <div className="flex flex-col justify-start items-center text-sm lg:text-base  px-6 border-b border-gray-600 w-full  ">
           <button
             // onClick="showMenu2(true)"
             className="focus:outline-none focus:text-indigo-400  text-white flex justify-between items-center w-full py-5 space-x-14  "
           >
-            <p className="text-sm leading-5 uppercase">Sorularım</p>
+            <p className=" leading-5 uppercase">Sorularım</p>
             <svg
               id="icon2"
               className="transform rotate-180"
@@ -162,38 +164,38 @@ const StudentSidebar = () => {
               />
             </svg>
           </button>
-          <div className=" flex justify-start flex-col items-start pb-5 ">
+          <div className=" flex justify-start  flex-col w-full text-sm lg:text-base md:w-auto items-start pb-1">
             <Link
               to={"/studentquestions"}
               className="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-52"
             >
-              <VscQuestion className="text-base lg:text-2xl" />
+              <VscQuestion className=" lg:text-2xl" />
 
-              <p className="text-base leading-4  ">Sorularım</p>
+              <p className=" leading-4  ">Sorularım</p>
             </Link>
             <Link
               to={"/add-question"}
               className="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-52"
             >
-              <IoIosAddCircleOutline className="text-base lg:text-2xl" />
+              <IoIosAddCircleOutline className=" lg:text-2xl" />
 
-              <p className="text-base leading-4  ">Soru Ekle</p>
+              <p className="leading-4  ">Soru Ekle</p>
             </Link>
           </div>
         </div>
-        <div className="flex flex-col justify-start items-center   px-6 py-4 border-b border-gray-600 w-full  ">
+        <div className="flex flex-col justify-start items-center text-sm lg:text-base   px-6 py-4 border-b border-gray-600 w-full  ">
           <Link className="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2 w-full md:w-52">
             <VscSettingsGear className="text-base lg:text-2xl" />
 
-            <p className="text-base leading-4  ">Ayarlar</p>
+            <p className=" leading-4  ">Ayarlar</p>
           </Link>
           <button
             onClick={logout}
             className="flex justify-start items-center space-x-6 text-red-500 hover:text-white focus:bg-red-500 focus:text-white hover:bg-red-700 rounded px-3 py-2  w-full md:w-52"
           >
-            <IoMdLogOut className="text-base lg:text-2xl" />
+            <IoMdLogOut className=" lg:text-2xl" />
 
-            <p className="text-base leading-4  ">Çıkış Yap</p>
+            <p className=" leading-4  ">Çıkış Yap</p>
           </button>
         </div>
         <div className="flex flex-col justify-between h-full w-full items-center p-4">
