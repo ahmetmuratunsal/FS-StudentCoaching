@@ -53,7 +53,7 @@ const Reviews = ({ privateLessonId }) => {
     <div className="my-10">
       <h1 className="text-xl font-bold">Yorumlar</h1>
       {/* yorum gönderme */}
-      {user.isStudent && (
+      {user && user.isStudent && (
         <div>
           <h2 className="font-semibold my-4">Yorum Gönder</h2>
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -113,7 +113,7 @@ const Reviews = ({ privateLessonId }) => {
       ) : (
         <h2 className="my-2">
           Henüz yorum atılmamış :/{" "}
-          {user.isStudent && "İlk yorumu atmak ister misin ?"}
+          {user && user.isStudent && "İlk yorumu atmak ister misin ?"}
         </h2>
       )}
     </div>
