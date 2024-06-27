@@ -11,8 +11,8 @@ import {
 
 const router = express.Router();
 
-router.get("/", getQuestions);
-router.get("/:id", getOneQuestion);
+router.get("/", protect, getQuestions);
+router.get("/:id", protect, getOneQuestion);
 router.post("/", protect, createQuestion);
 router.patch("/:id", protect, updateQuestion);
 router.delete("/:id", protect, deleteQuestion);
