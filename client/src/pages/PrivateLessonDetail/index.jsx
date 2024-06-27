@@ -27,7 +27,7 @@ const PrivateLessonDetail = () => {
       ) : isError ? (
         <Error isError={isError} />
       ) : (
-        <div className="flex flex-col lg:flex-row gap-10">
+        <div className="flex flex-col lg:flex-row gap-10 lg:justify-between w-full">
           <div>
             {/* Info detaylar kısmı */}
             <Info lesson={onePrivateLesson.privateLesson} />
