@@ -6,8 +6,9 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { lessonOptions } from "../../constants/selectInput";
 import Select from "react-select";
+import { MdClose } from "react-icons/md";
 
-const AddQuestion = () => {
+const AddQuestion = ({ isEditQuestion, close }) => {
   const [selectedQuestionCategory, setQuestionCategory] = useState();
   const navigate = useNavigate();
 
@@ -28,26 +29,52 @@ const AddQuestion = () => {
     //* soru fotoğrafının  url'ini nesneye kaydet
     data.questionPhoto = questionPhotoUrl;
 
-    //* apiye veriyi kaydet
-    await api
-      .post("/question", data)
-      .then((res) => {
-        //* sorularım sayfasına yönlendir
-        navigate(`/studentquestions`);
-        //* bildirim ver
-        toast.success("Sorunuz başarıyla oluşturuldu.");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(`Bir hata oluştu`);
-      });
+    if (isEditQuestion) {
+      //* apiye veriyi kaydet
+      await api
+        .patch(`/question/${isEditQuestion}`, data)
+        .then((res) => {
+          //* sorularım sayfasına yönlendir
+          navigate(`/studentquestions`);
+          //* bildirim ver
+          toast.success("Sorunuz başarıyla güncellendi.");
+          close();
+          e.target.reset();
+          setQuestionCategory(" ");
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(`Bir hata oluştu`);
+        });
+    } else {
+      //* apiye veriyi kaydet
+      await api
+        .post("/question", data)
+        .then((res) => {
+          //* sorularım sayfasına yönlendir
+          navigate(`/studentquestions`);
+          //* bildirim ver
+          toast.success("Sorunuz başarıyla oluşturuldu.");
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(`Bir hata oluştu`);
+        });
+    }
   };
   return (
     <form
       onSubmit={handleSubmit}
       className="flex flex-col  gap-5 w-full items-center"
     >
-      <h2 className="font-semibold text-2xl"> Haydi Sorunu Sor</h2>
+      <div className="flex justify-between items-center gap-5 w-full">
+        <h2 className="font-semibold text-2xl mx-auto">
+          {isEditQuestion ? "Soruyu güncelle!" : " Haydi Sorunu Sor"}
+        </h2>
+        {isEditQuestion && (
+          <MdClose onClick={close} className="text-3xl cursor-pointer" />
+        )}
+      </div>
       {/* sorunun başlığı*/}
       <div className="w-full lg:w-1/2 h-12 relative flex rounded-xl">
         <input
@@ -123,7 +150,7 @@ const AddQuestion = () => {
           type="submit"
           className="bg-blue-500 px-5 py-3 mt-4 rounded-lg text-white font-semibold transition hover:bg-blue-600"
         >
-          Soruyu Gönder
+          {isEditQuestion ? "Soruyu güncelle" : "Soru Ekle"}
         </button>
       </div>
     </form>

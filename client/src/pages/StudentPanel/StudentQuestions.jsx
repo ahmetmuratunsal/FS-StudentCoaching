@@ -13,11 +13,13 @@ import { MdDeleteForever, MdEditNote } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { changeCategoryName } from "./../../utils/utils";
+import AddQuestion from "./AddQuestion";
 
 const StudentQuestions = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
   const [isShowQuestion, setIsShowQuestion] = useState(false);
+  const [isEditQuestion, setIsEditQuestion] = useState(false);
 
   const { isLoading, isError, questions } = useSelector(
     (store) => store.question
@@ -25,7 +27,7 @@ const StudentQuestions = () => {
 
   useEffect(() => {
     dispatch(getAllQuestion({ student: user._id }));
-  }, [dispatch]);
+  }, [dispatch, isEditQuestion]);
 
   const handleDelete = (id) => {
     dispatch(deleteQuestion(id))
@@ -102,12 +104,12 @@ const StudentQuestions = () => {
                                   </div>
                                   <div>
                                     {!isShowQuestion && (
-                                      <button
+                                      <a
                                         className="mx-2 bg-red-300 p-1 rounded-md"
-                                        onClick={() => setIsShowQuestion(true)}
+                                        href={question.questionPhoto}
                                       >
                                         Soruyu Gör
-                                      </button>
+                                      </a>
                                     )}
                                   </div>
                                   <div className="flex flex-col justify-start">
@@ -170,7 +172,12 @@ const StudentQuestions = () => {
                                   </button>
                                 ) : (
                                   <div className="flex flex-col gap-3 items-center justify-center my-auto">
-                                    <button className="font-semibold flex items-center justify-center mx-auto gap-2 text-yellow-500">
+                                    <button
+                                      onClick={() =>
+                                        setIsEditQuestion(question._id)
+                                      }
+                                      className="font-semibold flex items-center justify-center mx-auto gap-2 text-yellow-500"
+                                    >
                                       <MdEditNote className="text-xl" />{" "}
                                       <span>Düzenle</span>
                                     </button>
@@ -193,6 +200,18 @@ const StudentQuestions = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div
+            className={`${
+              isEditQuestion ? "grid" : "hidden"
+            }  fixed w-full bg-[#000000ad] inset-0  place-items-center `}
+          >
+            <div className="bg-white w-1/2 p-10 rounded-lg">
+              <AddQuestion
+                isEditQuestion={isEditQuestion}
+                close={() => setIsEditQuestion(false)}
+              />
             </div>
           </div>
         </div>
