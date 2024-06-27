@@ -19,7 +19,7 @@ const Reviews = ({ privateLessonId }) => {
 
   useEffect(() => {
     dispatch(getAllReviews(privateLessonId));
-  }, [privateLessonId]);
+  }, [privateLessonId, dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,8 +38,9 @@ const Reviews = ({ privateLessonId }) => {
     };
 
     try {
-      await dispatch(createReview(newReview));
+      dispatch(createReview(newReview));
       e.target[5].value = ""; // Açıklama alanını temizle
+      toast.success("Yorumunuz başarıyla eklenmiştir");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
