@@ -4,7 +4,7 @@ import moment from "moment";
 
 const TeacherInfo = ({ teacher, lessonType }) => {
   return (
-    <>
+    <div className="w-[300px] lg:w-[700px]">
       <div>
         <h1 className="text-lg font-bold mt-5">Öğretmen Hakkında</h1>
 
@@ -63,7 +63,7 @@ const TeacherInfo = ({ teacher, lessonType }) => {
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
