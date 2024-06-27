@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllQuestion } from "./questionActions";
+import { getAllQuestion, getOneQuestion } from "./questionActions";
 
 const initialState = {
   questions: [],
   isLoading: false,
   isError: false,
+  oneQuestion: {},
 };
 
 export const questionSlice = createSlice({
@@ -12,7 +13,7 @@ export const questionSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    //! Özel derse ait bütün yorumları al
+    //! Bütün soruları al
     builder.addCase(getAllQuestion.pending, (state) => {
       state.isLoading = true;
     });
@@ -22,6 +23,20 @@ export const questionSlice = createSlice({
       state.questions = action.payload;
     });
     builder.addCase(getAllQuestion.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = action.payload;
+    });
+
+    //! Tek bir soruyu al
+    builder.addCase(getOneQuestion.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getOneQuestion.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.oneQuestion = action.payload;
+    });
+    builder.addCase(getOneQuestion.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.payload;
     });
