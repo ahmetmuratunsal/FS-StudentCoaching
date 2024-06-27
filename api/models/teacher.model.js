@@ -56,6 +56,10 @@ const teacherSchema = new Schema(
       default: false,
       required: [true, "Lütfen öğrenci misin alanını belirleyin."],
     },
+    answeredCount: {
+      type: Number,
+      default: 0,
+    },
   },
   //* ayarlar alanı
   //* timestamps sayesinde oluşturduğumuz bütün belgelere otomatik olarak oluşturulma ve güncellenme tarihleri eklenir
