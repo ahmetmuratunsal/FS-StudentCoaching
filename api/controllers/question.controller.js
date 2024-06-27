@@ -48,7 +48,23 @@ export const createQuestion = catchAsync(async (req, res, next) => {
 });
 
 //* Soru düzenle
-export const updateQuestion = factoryUpdateOne(Question);
+export const updateQuestion = catchAsync(async (req, res, next) => {
+  const found = await Question.findOne({ student: req.userId });
+  if (!found)
+    return next(new AppError("Sadece kendi sorunuzu düzenleyebilirsiniz", 403));
+  // new parametresi ile döndürlecek olan değerin dökümanın eski değil yeni değerleri olmasını istedik
+  const updated = await Question.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+
+  if (updated) {
+    res
+      .status(200)
+      .json({ message: "Belge başarıyla güncellendi", data: updated });
+  } else {
+    next(new AppError("Girilen id'ye sahip bir belge bulunamadı.", 400));
+  }
+});
 
 //* Soruyu sil
 export const deleteQuestion = factoryDeleteOne(Question);
