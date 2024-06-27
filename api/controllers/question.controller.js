@@ -21,7 +21,7 @@ export const createQuestion = catchAsync(async (req, res, next) => {
   if (!req.isStudent)
     return next(new AppError("Öğretmenler soru gönderemez.", 403));
 
-  //* 2) yorum belgesi oluştur.
+  //* 2) soru belgesi oluştur.
   const newQuestion = new Question({
     student: req.userId, //? kullanıcı id protect mw sayesinde req içerisinde geliyor.
     questionTitle: req.body.questionTitle,
