@@ -30,3 +30,18 @@ export const getOneQuestion = createAsyncThunk(
     }
   }
 );
+
+//* async şekilde tek bir soruyu alma
+export const deleteQuestion = createAsyncThunk(
+  "question/deleteQuestion",
+  async (id, { rejectWithValue }) => {
+    try {
+      // apiden cevap geldiyse return ile slicea gönder
+      const res = await api.delete(`/question/${id}`);
+      return id;
+    } catch (err) {
+      // API'den gelen hatayı rejectWithValue ile slice'a gönder
+      return rejectWithValue(err.response.statusText);
+    }
+  }
+);

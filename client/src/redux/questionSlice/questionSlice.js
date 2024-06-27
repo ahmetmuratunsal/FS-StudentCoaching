@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllQuestion, getOneQuestion } from "./questionActions";
+import {
+  deleteQuestion,
+  getAllQuestion,
+  getOneQuestion,
+} from "./questionActions";
 
 const initialState = {
   questions: [],
@@ -37,6 +41,22 @@ export const questionSlice = createSlice({
       state.oneQuestion = action.payload;
     });
     builder.addCase(getOneQuestion.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = action.payload;
+    });
+
+    //! Soruyu sil
+    builder.addCase(deleteQuestion.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteQuestion.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.questions.data = state.questions.data.filter(
+        (question) => question._id !== action.payload
+      );
+    });
+    builder.addCase(deleteQuestion.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.payload;
     });
