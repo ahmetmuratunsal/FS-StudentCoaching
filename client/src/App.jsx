@@ -14,6 +14,7 @@ import Layout from "./Layout";
 import TeacherPanel from "./pages/TeacherPanel/TeacherPanel";
 import StudentQuestions from "./pages/StudentPanel/StudentQuestions";
 import TeacherQuestions from "./pages/TeacherPanel/TeacherQuestions";
+import QuestionDetail from "./pages/TeacherPanel/QuestionDetail";
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/add-privatelesson" element={<AddPrivateLesson />} />
           <Route path="/my-privatelesson" element={<MyPrivateLesson />} />
           <Route path="/teacherquestions" element={<TeacherQuestions />} />
+          <Route path="/teacherquestion/:id" element={<QuestionDetail />} />
         </Route>
         {/* korumalı route oluşturdum. Sadece ÖĞRENCİLER girebilecek */}
         <Route element={<StudentRoute />}>
