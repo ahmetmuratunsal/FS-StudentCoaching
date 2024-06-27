@@ -95,7 +95,7 @@ export const factoryGetAll = (Model, popOptions) =>
         data: docs,
       });
     } else {
-      res.status(400).json({
+      res.status(200).json({
         message: "Belge bulunamadı",
         data: docs,
       });
