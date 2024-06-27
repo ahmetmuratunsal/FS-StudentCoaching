@@ -44,7 +44,7 @@ const StudentSidebar = () => {
           <button
             aria-label="open"
             id="open"
-            onClick="showNav(true)"
+            // onClick="showNav(true)"
             className="flex focus:outline-none focus:ring-2"
           >
             {/* menüyü aç */}
@@ -53,7 +53,7 @@ const StudentSidebar = () => {
           <button
             aria-label="close"
             id="close"
-            onClick="showNav(true)"
+            // onClick="showNav(true)"
             className=" focus:outline-none focus:ring-2"
           >
             {/* menüyü kapat */}
@@ -92,7 +92,7 @@ const StudentSidebar = () => {
 
         <div className="flex flex-col justify-start items-center   px-6 py-4 border-b border-gray-600 w-full  ">
           <button
-            onClick="showMenu1(true)"
+            // onClick="showMenu1(true)"
             className="focus:outline-none focus:text-indigo-400 text-left  text-white flex justify-between items-center w-full py-5 space-x-14  "
           >
             <p className="text-sm leading-5  uppercase">Öğrenci Alanı</p>
@@ -140,7 +140,7 @@ const StudentSidebar = () => {
         </div>
         <div className="flex flex-col justify-start items-center   px-6 border-b border-gray-600 w-full  ">
           <button
-            onClick="showMenu2(true)"
+            // onClick="showMenu2(true)"
             className="focus:outline-none focus:text-indigo-400  text-white flex justify-between items-center w-full py-5 space-x-14  "
           >
             <p className="text-sm leading-5 uppercase">Sorularım</p>
