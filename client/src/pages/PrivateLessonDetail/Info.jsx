@@ -55,7 +55,7 @@ const Info = ({ lesson }) => {
         <Splide options={options} aria-label="Private Lesson Detail Images">
           {lesson?.images.map((url) => (
             <SplideSlide key={url}>
-              <div className="w-[500px] h-[50vh] mx-auto">
+              <div className="w-full h-[50vh] mx-auto">
                 <img
                   className="w-full h-full  object-contain"
                   src={url}
