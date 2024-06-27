@@ -6,6 +6,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import "moment/locale/tr";
 import Loader from "./../../components/Loader";
 import Error from "./../../components/Error";
+import { Link } from "react-router-dom";
 
 const TeacherQuestions = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -14,9 +15,10 @@ const TeacherQuestions = () => {
   const { isLoading, isError, questions } = useSelector(
     (store) => store.question
   );
+  const parametre = { category: user.lesson };
 
   useEffect(() => {
-    dispatch(getAllQuestion({ category: user.lesson }));
+    dispatch(getAllQuestion(parametre));
   }, []);
 
   return (
@@ -123,10 +125,13 @@ const TeacherQuestions = () => {
                                 </span>
                               )}
                             </td>
-                            <td className="p-3 pr-5 text-center">
-                              <button className="font-semibold text-light-inverse text-md/normal">
+                            <td className="p-3 pr-0 text-center">
+                              <Link
+                                to={`/teacherquestion/${question._id}`}
+                                className="font-semibold text-light-inverse text-md/normal"
+                              >
                                 <FaArrowLeft className="text-xl" />
-                              </button>
+                              </Link>
                             </td>
                           </tr>
                         ))
