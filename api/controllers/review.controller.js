@@ -46,7 +46,7 @@ export const createReview = async (req, res, next) => {
     //* 7) öğrencinin yorum sayısını güncelle
     await studentModel.findByIdAndUpdate(req.userId, {
       // öğrencinin yorum sayısını  mevcut değerin 1 fazlası kadar arttır
-      $inc: { reviewCount: 1 },
+      $inc: { studentReviewCount: 1 },
       //! mongodb operatörü inc sayesinde önceki değere söylediğimiz değer kadarını ekliyor
     });
 
