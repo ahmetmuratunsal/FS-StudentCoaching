@@ -15,6 +15,7 @@ const Login = () => {
 
     const user = Object.fromEntries(formData.entries());
     user.isStudent = isStudent;
+    user.username = user.username.toLowerCase();
 
     api
       .post("/auth/login", user)
