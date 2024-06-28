@@ -5,10 +5,11 @@ import { getOneQuestion } from "../../redux/questionSlice/questionActions";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { lessonOptions } from "../../constants/selectInput";
 import { FaArrowLeft, FaCheck } from "react-icons/fa";
-import { getCreateAnswer } from "./../../redux/answerSlice/answerActions";
+import { createAnswer } from "./../../redux/answerSlice/answerActions";
 import { upload } from "../../utils/upload";
 import { toast } from "react-toastify";
 import { AiOutlineClose } from "react-icons/ai";
+import Answer from "../Answer";
 
 const QuestionDetail = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const QuestionDetail = () => {
   );
   const [isOpenAnswer, setIsOpenAnswer] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isOpenAnswerModal, setIsOpenAnswerModal] = useState(false);
 
   useEffect(() => {
     dispatch(getOneQuestion(id));
@@ -39,7 +41,7 @@ const QuestionDetail = () => {
     //* kapat fotoğrafının  url'ini nesneye kaydet
     data.answerPhoto = answerPhotoUrl;
 
-    await dispatch(getCreateAnswer(data))
+    await dispatch(createAnswer(data))
       .then(() => {
         toast.success("Cevabınız başarıyla gönderildi.");
         e.target.reset();
@@ -115,10 +117,19 @@ const QuestionDetail = () => {
               </div>
 
               {oneQuestion?.data?.status === "Çözüldü" ? (
-                <h2 className="text-2xl font-semibold flex items-center justify-center gap-2 mt-20">
-                  <span>Soru çözülmüştür</span>{" "}
-                  <FaCheck className=" text-green-500" />
-                </h2>
+                <div className="flex flex-col gap-10 items-center">
+                  <h2 className="text-2xl font-semibold flex items-center justify-center gap-2 mt-20">
+                    <span>Soru çözülmüştür</span>{" "}
+                    <FaCheck className=" text-green-500" />
+                  </h2>
+
+                  <button
+                    onClick={() => setIsOpenAnswerModal(id)}
+                    className="text-2xl font-semibold bg-yellow-400 px-5 py-2 rounded-full text-blue-800"
+                  >
+                    Cevabı Gör
+                  </button>
+                </div>
               ) : (
                 <div className="flex items-center justify-center my-4">
                   {isOpenAnswer === false ? (
@@ -234,6 +245,20 @@ const QuestionDetail = () => {
               )}
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* cevabı gör alanı */}
+      <div
+        className={`${
+          isOpenAnswerModal ? "grid" : "hidden"
+        }  fixed w-full bg-[#000000ad] inset-0  place-items-center `}
+      >
+        <div className="bg-white w-1/2 p-10 rounded-lg">
+          <Answer
+            isOpenAnswer={isOpenAnswerModal}
+            close={() => setIsOpenAnswerModal(false)}
+          />
         </div>
       </div>
     </div>
