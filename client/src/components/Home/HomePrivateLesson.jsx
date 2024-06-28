@@ -5,6 +5,7 @@ import Loader from "../Loader";
 import HomePrivateLessonCard from "./HomePrivateLessonCard";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
+import Error from "../Error";
 
 const HomePrivateLesson = () => {
   const { isLoading, isError, privateLessons } = useSelector(
