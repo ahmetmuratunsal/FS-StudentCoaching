@@ -74,7 +74,7 @@ const Answer = ({ close, isOpenAnswer }) => {
                   <span className="font-bold text-gray-700 dark:text-gray-300">
                     Ders:
                   </span>
-                  <span className="text-gray-600 dark:text-gray-300">
+                  <span className="text-yellow-600 font-semibold dark:text-gray-300">
                     {" "}
                     {changeCategoryName(answer?.data[0]?.question?.category)}
                   </span>
