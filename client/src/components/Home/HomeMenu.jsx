@@ -8,8 +8,8 @@ const HomeMenu = () => {
     { id: 2, text: "Başarılarımız", to: "/basarilarimiz" },
     { id: 3, text: "Neler Yapıyoruz?", to: "/neleryapiyoruz" },
     { id: 4, text: "Rehberlik", to: "/rehberlik" },
-    { id: 4, text: "Özel Dersler", to: "/search/privatelesson" },
-    { id: 4, text: "İletişim", to: "/iletisim" },
+    { id: 5, text: "Özel Dersler", to: "/search/privatelesson" },
+    { id: 6, text: "İletişim", to: "/iletisim" },
   ];
   // State to manage the navbar's visibility
   const [nav, setNav] = useState(false);
