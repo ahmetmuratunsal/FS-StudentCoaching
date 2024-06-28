@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllAnswer, getOneAnswer } from "./answerActions";
+import { createAnswer, getAllAnswer, getOneAnswer } from "./answerActions";
 
 const initialState = {
   answer: [],
@@ -20,7 +20,7 @@ export const answerSlice = createSlice({
     builder.addCase(getAllAnswer.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      state.questions = action.payload;
+      state.answer = action.payload;
     });
     builder.addCase(getAllAnswer.rejected, (state, action) => {
       state.isLoading = false;
@@ -37,6 +37,21 @@ export const answerSlice = createSlice({
       state.oneAnswer = action.payload;
     });
     builder.addCase(getOneAnswer.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = action.payload;
+    });
+
+    //! Soru ekle
+    builder.addCase(createAnswer.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(createAnswer.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      console.log(action);
+      state.answer.unshift(action.payload);
+    });
+    builder.addCase(createAnswer.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.payload;
     });

@@ -32,8 +32,8 @@ export const getOneAnswer = createAsyncThunk(
 );
 
 //* async şekilde yeni cevap oluştur
-export const getCreateAnswer = createAsyncThunk(
-  "answer/getCreateAnswer",
+export const createAnswer = createAsyncThunk(
+  "answer/createAnswer",
   async (newAnswer, { rejectWithValue }) => {
     try {
       // apiden cevap geldiyse return ile slicea gönder
