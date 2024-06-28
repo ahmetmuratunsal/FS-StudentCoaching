@@ -19,8 +19,10 @@ export const createAnswer = catchAsync(async (req, res, next) => {
     return next(new AppError("Öğrenciler cevap gönderemez.", 403));
 
   const foundAnswer = await Answer.findOne({
+    question: req.questionId,
     teacher: req.userId,
   });
+
   if (foundAnswer)
     return next(
       new AppError(
@@ -59,4 +61,6 @@ export const createAnswer = catchAsync(async (req, res, next) => {
   });
 });
 export const updateAnswer = factoryUpdateOne(Answer);
+
 export const deleteAnswer = factoryDeleteOne(Answer);
+//TODO Cevap silerken sorunun durumunu "devam ediyor" diye değiştir
