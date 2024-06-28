@@ -36,7 +36,7 @@ const Register = () => {
     const url = await upload(newUser.profilePhoto, "profile");
 
     // buluttaki fotoğrafın urlini nesneye kaydet
-
+    newUser.username = newUser.username.toLowerCase();
     newUser.profilePhoto = url;
 
     // şehir bilgisini bu nesnenin içerisine kaydet.
