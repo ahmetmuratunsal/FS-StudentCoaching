@@ -14,12 +14,14 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { changeCategoryName } from "./../../utils/utils";
 import AddQuestion from "./AddQuestion";
+import Answer from "../Answer";
 
 const StudentQuestions = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
   const [isShowQuestion, setIsShowQuestion] = useState(false);
   const [isEditQuestion, setIsEditQuestion] = useState(false);
+  const [isOpenAnswer, setIsOpenAnswer] = useState(false);
 
   const { isLoading, isError, questions } = useSelector(
     (store) => store.question
@@ -54,8 +56,10 @@ const StudentQuestions = () => {
               <div className="relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30">
                 <div className="flex-auto block py-8 pt-6 px-9">
                   <div className="overflow-x-auto">
+                    {/* tablo alanı */}
                     <table className="w-full my-0 align-middle text-dark border-neutral-200">
                       <thead className="align-bottom">
+                        {/* Tablo başlıkları */}
                         <tr className="font-semibold text-[0.95rem] text-secondary-dark">
                           <th className="pb-3 text-start min-w-[100px]">
                             Sorularım
@@ -78,6 +82,7 @@ const StudentQuestions = () => {
                         </tr>
                       </thead>
                       <tbody>
+                        {/* Tablo içeriği */}
                         {isLoading ? (
                           <Loader />
                         ) : isError ? (
@@ -166,7 +171,12 @@ const StudentQuestions = () => {
                               </td>
                               <td className="text-center">
                                 {question.status === "Çözüldü" ? (
-                                  <button className="font-semibold flex items-center justify-center mx-auto gap-2">
+                                  <button
+                                    onClick={() =>
+                                      setIsOpenAnswer(question._id)
+                                    }
+                                    className="font-semibold flex items-center justify-center mx-auto gap-2"
+                                  >
                                     <FaArrowLeft className="text-xl" />{" "}
                                     <span>Cevabı Gör</span>
                                   </button>
@@ -202,18 +212,6 @@ const StudentQuestions = () => {
               </div>
             </div>
           </div>
-          <div
-            className={`${
-              isEditQuestion ? "grid" : "hidden"
-            }  fixed w-full bg-[#000000ad] inset-0  place-items-center `}
-          >
-            <div className="bg-white w-1/2 p-10 rounded-lg">
-              <AddQuestion
-                isEditQuestion={isEditQuestion}
-                close={() => setIsEditQuestion(false)}
-              />
-            </div>
-          </div>
         </div>
       ) : (
         <div className="flex flex-col my-16 gap-5 items-center ">
@@ -226,6 +224,33 @@ const StudentQuestions = () => {
           </Link>
         </div>
       )}
+      {/* düzenleme alanı */}
+      <div
+        className={`${
+          isEditQuestion ? "grid" : "hidden"
+        }  fixed w-full bg-[#000000ad] inset-0  place-items-center `}
+      >
+        <div className="bg-white w-1/2 p-10 rounded-lg">
+          <AddQuestion
+            isEditQuestion={isEditQuestion}
+            close={() => setIsEditQuestion(false)}
+          />
+        </div>
+      </div>
+
+      {/* cevabı gör alanı */}
+      <div
+        className={`${
+          isOpenAnswer ? "grid" : "hidden"
+        }  fixed w-full bg-[#000000ad] inset-0  place-items-center `}
+      >
+        <div className="bg-white w-1/2 p-10 rounded-lg">
+          <Answer
+            isOpenAnswer={isOpenAnswer}
+            close={() => setIsOpenAnswer(false)}
+          />
+        </div>
+      </div>
     </div>
   );
 };
