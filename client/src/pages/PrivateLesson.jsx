@@ -19,10 +19,9 @@ const PrivateLesson = () => {
   const min = params.get("min");
   const max = params.get("max");
   const sort = params.get("sort");
-  const fields =
-    "title,coverImg,price,category,teacher,avgRating,reviewCount,starCount";
+
   //* parametrelerin hepsini göndermek için bir obje haline getir.
-  const parametre = { title, min, max, sort, fields };
+  const parametre = { title, min, max, sort };
   //* apidan filtrelere uygun verileri al statee aktar. isloading iserror kontrolünü de yap
   useEffect(() => {
     dispatch(getAllPrivateLessons(parametre));
