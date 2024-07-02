@@ -26,13 +26,11 @@ export const buildFilters = (query) => {
       filters.price.lt = query.max;
     }
   }
-
-  if (query.username) {
+  if (query.firstName) {
     //* regex operatörü ile içinde varsa karşılaştırması yaptık.
     //* options operatörü ile büyük küçük harf duyarlılığını kaldırdık
-    filters.username = { $regex: query.username, $options: "i" };
+    filters.firstName = { $regex: query.firstName, $options: "i" };
   }
-
   if (query.title) {
     //* regex operatörü ile içinde varsa karşılaştırması yaptık.
     //* options operatörü ile büyük küçük harf duyarlılığını kaldırdık
