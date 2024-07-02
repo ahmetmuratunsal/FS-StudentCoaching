@@ -70,7 +70,7 @@ const Register = () => {
   };
 
   return (
-    <div className="font-[sans-serif] bg-white text-white md:h-screen ">
+    <div className="font-[sans-serif] bg-white text-white md:h-screen mb-72  ">
       <div className="grid md:grid-cols-2 items-center gap-0 md:gap-6 h-full">
         <div className="max-md:order-1 w-full h-full relative bg-[url('/banner3.jpg')] bg-center bg-no-repeat bg-cover items-center ">
           <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
