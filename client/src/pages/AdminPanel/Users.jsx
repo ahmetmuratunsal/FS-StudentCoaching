@@ -33,23 +33,31 @@ const Users = () => {
 
   const handleTeacherSearch = (e) => {
     e.preventDefault();
-    setTeacherSearchName(e.target[0].value);
-    e.target[0].value = "";
+    if (e.target[0].value == "") {
+      setTeacherSearchName(null);
+    } else {
+      setTeacherSearchName(e.target[0].value);
+      e.target[0].value = "";
+    }
   };
 
   const handleStudentSearch = (e) => {
     e.preventDefault();
-    setStudentSearchName(e.target[0].value);
-    e.target[0].value = "";
+    if (e.target[0].value == "") {
+      setStudentSearchName(null);
+    } else {
+      setStudentSearchName(e.target[0].value);
+      e.target[0].value = "";
+    }
   };
 
   const studentParam = {
-    username: studentSearchName,
+    firstName: studentSearchName,
     page: studentParamPage,
     limit: 5,
   };
   const teacherParam = {
-    username: teacherSearchName,
+    firstName: teacherSearchName,
     page: teacherParamPage,
     limit: 5,
   };
@@ -68,24 +76,24 @@ const Users = () => {
     <div className="w-full">
       <div className="w-full">
         <h2 className="font-semibold text-xl"> Bütün Öğretmenler</h2>
+        <form onSubmit={handleTeacherSearch} className="p-5 flex items-center ">
+          <input
+            type="search"
+            placeholder="İsme Göre Öğretmen Ara"
+            className="border rounded-l-lg px-5 py-1 outline-none"
+          />
+          <button
+            type="submit"
+            className="rounded-r-lg bg-green-500 py-1 px-4 border text-white font-semibold"
+          >
+            Ara
+          </button>
+        </form>
         {teachers?.data?.length > 0 ? (
           <div className="flex flex-wrap -mx-3 mb-5">
             <div className="w-full max-w-full px-3 mb-6 mx-auto">
               <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">
                 <div className="relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30">
-                  <form
-                    onSubmit={handleTeacherSearch}
-                    className="p-5 flex items-center"
-                  >
-                    <input
-                      type="search"
-                      placeholder="İsme Göre Ara"
-                      className="border rounded-l-lg px-4 py-1 outline-none"
-                    />
-                    <button className="rounded-r-lg bg-green-500 py-1 px-4 border text-white font-semibold">
-                      Ara
-                    </button>
-                  </form>
                   <div className="flex-auto block py-8 pt-6 px-9">
                     <div className="overflow-x-auto">
                       <table className="w-full my-0 align-middle text-dark border-neutral-200">
@@ -198,14 +206,14 @@ const Users = () => {
         ) : (
           <div className="flex flex-col my-16 gap-5 items-center ">
             <h2 className="font-semibold text-2xl">
-              Burada hiç kullanıcı yok :(
+              Aradığınız isimde hiç öğretmen yok :(
             </h2>
-            <Link
-              className="text-blue-600 text-xl bg-green-500 p-2 rounded-lg font-semibold "
-              to={"/adminpanel"}
+            <button
+              className="text-blue-600 text-base bg-green-300 p-2 rounded-lg font-semibold "
+              onClick={() => setTeacherSearchName(null)}
             >
-              Anasayfaya dönmek için tıkla!
-            </Link>
+              Bütün Öğretmenleri görmek için tıklayın
+            </button>
           </div>
         )}
       </div>
@@ -213,24 +221,21 @@ const Users = () => {
       {/* Bütün Öğrenciler */}
       <div className="w-full">
         <h2 className="font-semibold text-xl"> Bütün Öğrenciler</h2>
+        <form onSubmit={handleStudentSearch} className="p-5 flex items-center">
+          <input
+            type="search"
+            placeholder="İsme Göre Öğrenci Ara"
+            className="border rounded-l-lg px-4 py-1 outline-none"
+          />
+          <button className="rounded-r-lg bg-green-500 py-1 px-4 border text-white font-semibold">
+            Ara
+          </button>
+        </form>
         {students?.data?.length > 0 ? (
           <div className="flex flex-wrap -mx-3 mb-5">
             <div className="w-full max-w-full px-3 mb-6 mx-auto">
               <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">
                 <div className="relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30">
-                  <form
-                    onSubmit={handleStudentSearch}
-                    className="p-5 flex items-center"
-                  >
-                    <input
-                      type="search"
-                      placeholder="İsme Göre Ara"
-                      className="border rounded-l-lg px-4 py-1 outline-none"
-                    />
-                    <button className="rounded-r-lg bg-green-500 py-1 px-4 border text-white font-semibold">
-                      Ara
-                    </button>
-                  </form>
                   <div className="flex-auto block py-8 pt-6 px-9">
                     <div className="overflow-x-auto">
                       <table className="w-full my-0 align-middle text-dark border-neutral-200">
@@ -351,14 +356,14 @@ const Users = () => {
         ) : (
           <div className="flex flex-col my-16 gap-5 items-center ">
             <h2 className="font-semibold text-2xl">
-              Burada hiç kullanıcı yok :(
+              Aradığınız isimde hiç öğrenci yok :(
             </h2>
-            <Link
-              className="text-blue-600 text-xl bg-green-500 p-2 rounded-lg font-semibold "
-              to={"/adminpanel"}
+            <button
+              className="text-blue-600 text-base bg-green-300 p-2 rounded-lg font-semibold "
+              onClick={() => setStudentSearchName(null)}
             >
-              Anasayfaya dönmek için tıkla!
-            </Link>
+              Bütün öğrencileri görmek için tıklayın
+            </button>
           </div>
         )}
       </div>

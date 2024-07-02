@@ -69,7 +69,6 @@ const Header = () => {
                     >
                       Öğretmen Paneli
                     </Link>
-
                     {user.isAdmin && (
                       <Link
                         to={"/adminpanel"}

@@ -6,7 +6,6 @@ import {
   factoryDeleteOne,
   factoryGetAll,
   factoryGetOne,
-  factoryUpdateOne,
 } from "./handlerFactory.js";
 
 //* Bütün soruları al

@@ -20,7 +20,7 @@ const HomePrivateLesson = () => {
   const options = {
     type: "slide", // Slider tipi: 'fade', 'slide', 'loop', vb.
     rewind: true, // Slider geri sarma
-    gap: "10px", // Slider genişliği
+    gap: "100px", // Slider genişliği
     perPage: 3, // Aynı anda görünecek slayt sayısı
     perMove: 1, // Bir seferde kaydırılacak slayt sayısı
     autoplay: true, // Otomatik oynatma
