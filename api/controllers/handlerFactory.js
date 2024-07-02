@@ -81,6 +81,7 @@ export const factoryGetAll = (Model, popOptions) =>
     const filters = buildFilters(req.query);
 
     const allFilters = {
+      ...req.query,
       ...filters,
       sort: req.query.sort,
       fields: req.query.fields,
@@ -102,6 +103,7 @@ export const factoryGetAll = (Model, popOptions) =>
 
     // Hazırldaığımız Komutu Çalıştır Verileri Al
     const docs = await features.query;
+    console.log(docs);
 
     if (docs.length > 0) {
       res.status(200).json({
@@ -111,9 +113,6 @@ export const factoryGetAll = (Model, popOptions) =>
         data: docs,
       });
     } else {
-      res.status(200).json({
-        message: "Belge bulunamadı",
-        data: docs,
-      });
+      return next(new AppError("Belge Bulunamadı", 400));
     }
   });
