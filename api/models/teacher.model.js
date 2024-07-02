@@ -60,6 +60,10 @@ const teacherSchema = new Schema(
       type: Number,
       default: 0,
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   //* ayarlar alanı
   //* timestamps sayesinde oluşturduğumuz bütün belgelere otomatik olarak oluşturulma ve güncellenme tarihleri eklenir
