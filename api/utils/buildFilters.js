@@ -27,6 +27,12 @@ export const buildFilters = (query) => {
     }
   }
 
+  if (query.username) {
+    //* regex operatörü ile içinde varsa karşılaştırması yaptık.
+    //* options operatörü ile büyük küçük harf duyarlılığını kaldırdık
+    filters.username = { $regex: query.username, $options: "i" };
+  }
+
   if (query.title) {
     //* regex operatörü ile içinde varsa karşılaştırması yaptık.
     //* options operatörü ile büyük küçük harf duyarlılığını kaldırdık
