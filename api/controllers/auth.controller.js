@@ -89,7 +89,7 @@ export const login = async (req, res, next) => {
   //* 5) Şifre doğruysa jwt tokeni oluştur.
 
   const token = jwt.sign(
-    { id: user._id, isStudent: user.isStudent },
+    { id: user._id, isStudent: user.isStudent, isAdmin: user.isAdmin },
     process.env.JWT_KEY,
     {
       expiresIn: "7d",
