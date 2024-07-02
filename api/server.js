@@ -6,6 +6,7 @@ import privateLessonRouter from "./routes/privateLesson.route.js";
 import reviewRouter from "./routes/review.route.js";
 import questionRouter from "./routes/question.route.js";
 import answerRouter from "./routes/answer.route.js";
+import userRouter from "./routes/user.route.js";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
@@ -72,6 +73,7 @@ app.use("/api/privatelesson", privateLessonRouter);
 app.use("/api/review", reviewRouter);
 app.use("/api/question", questionRouter);
 app.use("/api/answer", answerRouter);
+app.use("/api/user", userRouter);
 
 // tanımlanmayan bir route istek atıldığında hata ver
 app.all("*", (req, res, next) => {
