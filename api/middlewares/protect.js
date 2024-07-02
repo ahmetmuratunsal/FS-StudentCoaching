@@ -19,6 +19,7 @@ const protect = (req, res, next) => {
     //* 4) req içerisine kullanıcı id ve isStudent değerini ekle
     req.userId = payload.id;
     req.isStudent = payload.isStudent;
+    req.isAdmin = payload.isAdmin;
   });
 
   //* 5) sonraki adıma devam et
