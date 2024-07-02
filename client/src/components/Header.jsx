@@ -62,14 +62,23 @@ const Header = () => {
 
               <div className="text-[13px] hidden group-hover:flex flex-col items-start absolute top-[50px] left-5 transition bg-gray-200 rounded-md">
                 {!user.isStudent && (
-                  <>
+                  <div className="flex flex-col bg-red-300">
                     <Link
                       to={"/teacherpanel"}
                       className="px-5 py-2 hover:bg-gray-100 whitespace-nowrap"
                     >
                       Öğretmen Paneli
                     </Link>
-                  </>
+
+                    {user.isAdmin && (
+                      <Link
+                        to={"/adminpanel"}
+                        className="px-5 py-2 hover:bg-gray-100 whitespace-nowrap"
+                      >
+                        Admin Paneli
+                      </Link>
+                    )}
+                  </div>
                 )}
 
                 {user.isStudent && (
