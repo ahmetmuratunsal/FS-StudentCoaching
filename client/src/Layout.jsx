@@ -8,7 +8,7 @@ const Layout = () => (
     <div className="flex-1 max-w-[1440px] mx-auto p-5 w-full">
       <Outlet />
     </div>
-    <div className="mt-0 md:mt-80">
+    <div>
       <Footer />
     </div>
   </div>
