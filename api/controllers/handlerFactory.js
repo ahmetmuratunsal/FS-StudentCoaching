@@ -81,6 +81,7 @@ export const factoryGetAll = (Model, popOptions) =>
     const filters = buildFilters(req.query);
 
     const allFilters = {
+      ...req.query,
       ...filters,
       sort: req.query.sort,
       fields: req.query.fields,
