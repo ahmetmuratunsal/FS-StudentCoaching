@@ -32,7 +32,10 @@ const studentSchema = new Schema(
       type: String,
       required: [true, "Lütfen şifre alanını belirleyin"],
     },
-    profilePhoto: { type: String },
+    profilePhoto: {
+      type: String,
+      required: [true, "Lütfen bir fotoğraf seçiniz."],
+    },
     city: {
       type: String,
       required: [true, "Lütfen şehir alanını belirleyin."],
@@ -56,6 +59,10 @@ const studentSchema = new Schema(
     questionCount: {
       type: Number,
       default: 0,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
     },
   },
   //* ayarlar alanı
