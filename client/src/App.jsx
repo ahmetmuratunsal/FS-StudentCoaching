@@ -15,6 +15,10 @@ import TeacherPanel from "./pages/TeacherPanel/TeacherPanel";
 import StudentQuestions from "./pages/StudentPanel/StudentQuestions";
 import TeacherQuestions from "./pages/TeacherPanel/TeacherQuestions";
 import QuestionDetail from "./pages/TeacherPanel/QuestionDetail";
+import AdminRoute from "./pages/AdminPanel/AdminRoute";
+import AdminPanel from "./pages/AdminPanel/AdminPanel";
+import Users from "./pages/AdminPanel/Users";
+import User from "./pages/AdminPanel/User";
 
 const App = () => {
   return (
@@ -44,6 +48,13 @@ const App = () => {
           <Route path="/studentpanel" element={<StudentPanel />} />
           <Route path="/studentquestions" element={<StudentQuestions />} />
           <Route path="/add-question" element={<AddQuestion />} />
+        </Route>
+
+        {/* Korumalı route - ADMİNler için */}
+        <Route element={<AdminRoute />}>
+          <Route path="/adminpanel" element={<AdminPanel />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/user/:id" element={<User />} />
         </Route>
       </Routes>
     </BrowserRouter>
