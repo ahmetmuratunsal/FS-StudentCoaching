@@ -18,7 +18,7 @@ import QuestionDetail from "./pages/TeacherPanel/QuestionDetail";
 import AdminRoute from "./pages/AdminPanel/AdminRoute";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import Users from "./pages/AdminPanel/Users";
-import User from "./pages/AdminPanel/User";
+import UserDetail from "./pages/AdminPanel/UserDetail";
 
 const App = () => {
   return (
@@ -54,7 +54,7 @@ const App = () => {
         <Route element={<AdminRoute />}>
           <Route path="/adminpanel" element={<AdminPanel />} />
           <Route path="/users" element={<Users />} />
-          <Route path="/user/:id" element={<User />} />
+          <Route path="/userdetail/:id" element={<UserDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>
