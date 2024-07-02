@@ -27,7 +27,7 @@ export const answerSlice = createSlice({
       state.isError = action.payload;
     });
 
-    //! Tek bir soruyu al
+    //! Tek bir cevabı al
     builder.addCase(getOneAnswer.pending, (state) => {
       state.isLoading = true;
     });
@@ -41,14 +41,13 @@ export const answerSlice = createSlice({
       state.isError = action.payload;
     });
 
-    //! Soru ekle
+    //! Cevap ekle
     builder.addCase(createAnswer.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(createAnswer.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      console.log(action);
       state.answer.unshift(action.payload);
     });
     builder.addCase(createAnswer.rejected, (state, action) => {
