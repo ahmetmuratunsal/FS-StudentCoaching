@@ -1,6 +1,7 @@
 import APIFeatures from "../utils/apiFeatures.js";
 import AppError from "../utils/appError.js";
 import catchAsync from "../utils/catchAsync.js";
+import { buildFilters } from "./../utils/buildFilters.js";
 
 //* delete işlemini proje içerisnde sadece model ismini değiştirerek defalarca kullanıp gereksiz
 //* kod tekrarına sebep oluyorduk bizde bu kod tekrarini önlemek için silme işlevindeki dinamik olan
@@ -75,15 +76,29 @@ export const factoryGetOne = (Model, popOptions) =>
 
 export const factoryGetAll = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
+    //* filtreleme ayarlarını oluşturan fonk. çağır
+
+    const filters = buildFilters(req.query);
+
+    const allFilters = {
+      ...filters,
+      sort: req.query.sort,
+      fields: req.query.fields,
+      limit: req.query.limit,
+      page: req.query.page,
+    };
+
     // apiFeatures class'ından örnek oluşturduk ve içerisndeki istediğimiz api özelliklerini çağırdık
     const features = new APIFeatures(
       Model.find().populate(popOptions),
-      req.query
+      allFilters
     )
       .filter()
       .sort()
       .limit()
       .paginate();
+
+    const allDoc = await Model.find();
 
     // Hazırldaığımız Komutu Çalıştır Verileri Al
     const docs = await features.query;
@@ -91,7 +106,8 @@ export const factoryGetAll = (Model, popOptions) =>
     if (docs.length > 0) {
       res.status(200).json({
         message: "Belgeler başarıyla alındı",
-        results: docs.length,
+        totalDataLength: allDoc.length,
+        filteredDataLength: docs.length,
         data: docs,
       });
     } else {
