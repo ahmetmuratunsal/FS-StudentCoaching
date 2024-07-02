@@ -8,6 +8,21 @@ body {
     overflow-x: hidden;
 }
 
+
+/* pagination */
+.pagination a {
+    padding: 12px;
+    user-select: none;
+}
+
+.pagination .selected {
+    border-radius: 50%;
+    background-color: #646cff;
+    color: white;
+}
+
+
+
 .privateLessons {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
