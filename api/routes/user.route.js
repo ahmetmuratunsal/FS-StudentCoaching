@@ -15,8 +15,8 @@ const router = express.Router();
 // 2) yolları belirle
 
 /* Genellikle adminler kullanır. */
-router.get("/student", protect, adminProtect, getAllStudent);
-router.get("/teacher", protect, adminProtect, getAllTeacher);
+router.get("/student", protect, getAllStudent);
+router.get("/teacher", protect, getAllTeacher);
 router.post("/", protect, adminProtect, createUser);
 
 /* kullanıcıların kullandığı kısım */
