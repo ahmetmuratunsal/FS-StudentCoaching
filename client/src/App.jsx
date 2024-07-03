@@ -19,6 +19,9 @@ import AdminRoute from "./pages/AdminPanel/AdminRoute";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import Users from "./pages/AdminPanel/Users";
 import UserDetail from "./pages/AdminPanel/UserDetail";
+import AdminQuestions from "./pages/AdminPanel/AdminQuestions";
+import StudentMeetings from "./pages/StudentPanel/StudentMeetings";
+import AddMeeting from "./pages/StudentPanel/AddMeeting";
 
 const App = () => {
   return (
@@ -48,11 +51,14 @@ const App = () => {
           <Route path="/studentpanel" element={<StudentPanel />} />
           <Route path="/studentquestions" element={<StudentQuestions />} />
           <Route path="/add-question" element={<AddQuestion />} />
+          <Route path="/studentmeetings" element={<StudentMeetings />} />
+          <Route path="/add-meeting" element={<AddMeeting />} />
         </Route>
 
         {/* Korumalı route - ADMİNler için */}
         <Route element={<AdminRoute />}>
           <Route path="/adminpanel" element={<AdminPanel />} />
+          <Route path="/adminquestions" element={<AdminQuestions />} />
           <Route path="/users" element={<Users />} />
           <Route path="/userdetail/:id" element={<UserDetail />} />
         </Route>
