@@ -3,10 +3,11 @@ import { Schema, model } from "mongoose";
 const QuestionSchema = new Schema(
   {
     student: {
-      type: Schema.Types.ObjectId,
+      type: Schema.ObjectId,
       ref: "Student",
       required: [true, "Soruyu hangi öğrenci sormuş belirtilmelidir."],
     }, // Soruyu soran öğrenci (Many-to-One)
+    answers: [{ type: Schema.ObjectId, ref: "Answer" }], // Sorunun cevapları (One-to-Many)
     questionTitle: {
       type: String,
       required: [true, "Sorunun bir başlığı olmalıdır."],
