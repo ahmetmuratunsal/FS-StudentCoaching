@@ -103,7 +103,6 @@ export const factoryGetAll = (Model, popOptions) =>
 
     // Hazırldaığımız Komutu Çalıştır Verileri Al
     const docs = await features.query;
-    console.log(docs);
 
     if (docs.length > 0) {
       res.status(200).json({
