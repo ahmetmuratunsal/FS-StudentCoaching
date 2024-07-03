@@ -3,12 +3,12 @@ import { Schema, model } from "mongoose";
 const AnswerSchema = new Schema(
   {
     teacher: {
-      type: Schema.Types.ObjectId,
+      type: Schema.ObjectId,
       ref: "Teacher",
       required: [true, "Soruyu hangi öğretmen cevaplamış belirtilmelidir."],
     }, // Soruyu çözen öğretmen (Many-to-One)
     question: {
-      type: Schema.Types.ObjectId,
+      type: Schema.ObjectId,
       ref: "Question",
       required: [true, "Soru bilgisi eklenmelidir."],
     }, // Cevabın ilgili olduğu soru (Many-to-One)
