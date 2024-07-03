@@ -20,9 +20,9 @@ router.get("/teacher", protect, adminProtect, getAllTeacher);
 router.post("/", protect, adminProtect, createUser);
 
 /* kullanıcıların kullandığı kısım */
-router.get("/:id", getUser);
-router.patch("/:id", updateUser);
-router.delete("/:id", deleteUser);
+router.get("/:id", protect, getUser);
+router.patch("/:id", protect, updateUser);
+router.delete("/:id", protect, deleteUser);
 
 // 3) app'e tanıtmak için export et
 
