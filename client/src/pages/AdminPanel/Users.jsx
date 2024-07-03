@@ -16,9 +16,14 @@ import { changeCategoryName } from "./../../utils/utils";
 const Users = () => {
   const dispatch = useDispatch();
 
-  const { isLoading, isError, students, teachers } = useSelector(
-    (store) => store.user
-  );
+  const {
+    isStudentLoading,
+    isStudentError,
+    isTeacherLoading,
+    isTeacherError,
+    students,
+    teachers,
+  } = useSelector((store) => store.user);
   const [studentParamPage, setStudentParamPage] = useState(1);
   const [teacherParamPage, setTeacherParamPage] = useState(1);
   const [teacherSearchName, setTeacherSearchName] = useState(null);
@@ -120,10 +125,10 @@ const Users = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {isLoading ? (
+                          {isTeacherLoading ? (
                             <Loader />
-                          ) : isError ? (
-                            <Error isError={isError} />
+                          ) : isTeacherError ? (
+                            <Error isError={isTeacherError} />
                           ) : (
                             teachers?.data?.map((user) => (
                               <tr
@@ -262,10 +267,10 @@ const Users = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {isLoading ? (
+                          {isStudentLoading ? (
                             <Loader />
-                          ) : isError ? (
-                            <Error isError={isError} />
+                          ) : isStudentError ? (
+                            <Error isError={isStudentError} />
                           ) : (
                             students?.data?.map((user) => (
                               <tr
