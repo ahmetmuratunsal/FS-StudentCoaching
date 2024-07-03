@@ -64,6 +64,7 @@ const studentSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    meetings: [{ type: Schema.ObjectId, ref: "Meeting" }], // Öğrencinin randevuları (One-to-Many)
   },
   //* ayarlar alanı
   //* timestamps sayesinde oluşturduğumuz bütün belgelere otomatik olarak oluşturulma ve güncellenme tarihleri eklenir
