@@ -124,7 +124,7 @@ const TeacherSidebar = () => {
             <p className="text-base leading-4 ">Anasayfaya Dön</p>
           </Link>
           <Link
-            to={"/studentpanel"}
+            to={"/teacherpanel"}
             className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded "
           >
             <RxDashboard className="text-base lg:text-2xl" />
