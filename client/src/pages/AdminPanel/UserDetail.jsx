@@ -21,15 +21,23 @@ const UserDetail = () => {
   }, [id]);
 
   const handleUserDelete = () => {
-    api
-      .delete(`/user/${id}`, { data: { isStudent: user?.user?.isStudent } })
-      .then(() => {
-        toast.success("Kullanıcı başarıyla silindi.");
-        navigate("/users");
-      })
-      .catch((err) => {
-        toast.error("Kullanıcı silinirken hata oluştu."), console.log(err);
-      });
+    const deleteConfirm = confirm(
+      "Kullanıcıyı silmek istediğinize emin misiniz ?"
+    );
+
+    if (deleteConfirm) {
+      api
+        .delete(`/user/${id}`, { data: { isStudent: user?.user?.isStudent } })
+        .then(() => {
+          toast.success("Kullanıcı başarıyla silindi.");
+          navigate("/users");
+        })
+        .catch((err) => {
+          toast.error("Kullanıcı silinirken hata oluştu."), console.log(err);
+        });
+    } else {
+      toast.error("Kullanıcı silme işlemi reddedildi.");
+    }
   };
 
   return isLoading ? (
