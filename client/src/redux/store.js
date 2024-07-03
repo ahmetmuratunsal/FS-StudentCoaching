@@ -4,6 +4,7 @@ import reviewReducer from "./reviewSlice/reviewSlice";
 import questionReducer from "./questionSlice/questionSlice";
 import answerReducer from "./answerSlice/answerSlice";
 import userReducer from "./userSlice/userSlice";
+import meetingReducer from "./meetingSlice/meetingSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     question: questionReducer,
     answer: answerReducer,
     user: userReducer,
+    meeting: meetingReducer,
   },
 });
