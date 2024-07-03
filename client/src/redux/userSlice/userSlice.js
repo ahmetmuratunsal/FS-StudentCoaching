@@ -9,8 +9,10 @@ import {
 const initialState = {
   students: [],
   teachers: [],
-  isLoading: false,
-  isError: false,
+  isStudentLoading: false,
+  isStudentError: false,
+  isTeacherLoading: false,
+  isTeacherError: false,
   user: {},
 };
 
@@ -21,30 +23,30 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     //! Bütün öğrencileri al
     builder.addCase(getAllStudent.pending, (state) => {
-      state.isLoading = true;
+      state.isStudentLoading = true;
     });
     builder.addCase(getAllStudent.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.isError = false;
+      state.isStudentLoading = false;
+      state.isStudentError = false;
       state.students = action.payload;
     });
     builder.addCase(getAllStudent.rejected, (state, action) => {
-      state.isLoading = false;
-      state.isError = action.payload;
+      state.isStudentLoading = false;
+      state.isStudentError = action.payload;
     });
 
     //! Bütün öğretmenleri al
     builder.addCase(getAllTeacher.pending, (state) => {
-      state.isLoading = true;
+      state.isTeacherLoading = true;
     });
     builder.addCase(getAllTeacher.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.isError = false;
+      state.isTeacherLoading = false;
+      state.isTeacherError = false;
       state.teachers = action.payload;
     });
     builder.addCase(getAllTeacher.rejected, (state, action) => {
-      state.isLoading = false;
-      state.isError = action.payload;
+      state.isTeacherLoading = false;
+      state.isTeacherError = action.payload;
     });
 
     //! Tek bir kullanıcıyı al
