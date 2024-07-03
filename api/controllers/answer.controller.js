@@ -41,8 +41,33 @@ export const createAnswer = catchAsync(async (req, res, next) => {
   });
 
   //* yeni cevabı  kaydet
-  const savedAnswer = await newAnswer.save();
+  const savedAnswer = await newAnswer
+    .save()
+    .then((answer) => {
+      console.log("Cevap oluşturuldu:", answer);
 
+      // Şimdi cevabı ilgili soruya eklememiz gerekiyor
+      const questionId = req.body.questionId; // Sorunun MongoDB ID'si
+
+      // Soruyu güncelle ve cevabı ekleyerek kaydet
+      Question.findByIdAndUpdate(
+        questionId,
+        { $push: { answers: answer._id } }, // answers dizisine yeni cevabın ID'sini ekle
+        { new: true, useFindAndModify: false }
+      )
+        .populate("answers") // Eğer gerekliyse cevapları doldur
+        .then((updatedQuestion) => {
+          console.log("Soruya cevap eklendi:", updatedQuestion);
+        })
+        .catch((err) => {
+          console.error("Soruya cevap eklenirken hata oluştu:", err);
+        });
+    })
+    .catch((err) => {
+      console.error("Cevap oluşturulurken hata oluştu:", err);
+    });
+
+  //* sorunun status değerini güncelle ve cevap ekle
   await Question.findByIdAndUpdate(req.body.questionId, {
     $set: { status: "Çözüldü" },
   });
