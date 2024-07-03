@@ -11,7 +11,7 @@ export const getAllStudent = createAsyncThunk(
       return res.data;
     } catch (err) {
       // API'den gelen hatayı rejectWithValue ile slice'a gönder
-      return rejectWithValue(err.response.statusText);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -25,8 +25,9 @@ export const getAllTeacher = createAsyncThunk(
       const res = await api.get(`/user/teacher`, { params: parametre });
       return res.data;
     } catch (err) {
+      console.log(rejectWithValue(err));
       // API'den gelen hatayı rejectWithValue ile slice'a gönder
-      return rejectWithValue(err.response.statusText);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -41,7 +42,7 @@ export const getOneUser = createAsyncThunk(
       return res.data;
     } catch (err) {
       // API'den gelen hatayı rejectWithValue ile slice'a gönder
-      return rejectWithValue(err.response.statusText);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -56,7 +57,7 @@ export const createUser = createAsyncThunk(
       return res.data;
     } catch (err) {
       // API'den gelen hatayı rejectWithValue ile slice'a gönder
-      return rejectWithValue(err.response.statusText);
+      return rejectWithValue(err.response.data);
     }
   }
 );
