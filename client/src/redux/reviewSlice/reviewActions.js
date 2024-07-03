@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../utils/api";
 
-//* async şekilde bütün özel dersleri alma
+//* async şekilde bütün yorumları alma
 export const getAllReviews = createAsyncThunk(
   "reviews/getAllReviews",
   async (privateLessonId, { rejectWithValue }) => {
@@ -16,7 +16,7 @@ export const getAllReviews = createAsyncThunk(
   }
 );
 
-//* async şekilde yeni özel ders ekleme
+//* async şekilde yeni yorum ekleme
 export const createReview = createAsyncThunk(
   "reviews/createReview",
   async (newReview, { rejectWithValue }) => {
