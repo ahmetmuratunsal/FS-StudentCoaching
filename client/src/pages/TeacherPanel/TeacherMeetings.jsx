@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 const TeacherMeetings = () => {
   const dispatch = useDispatch();
   const [filterParam, setFilterParam] = useState("");
-  console.log(filterParam);
   const { isLoading, isError, meetings } = useSelector(
     (store) => store.meeting
   );
