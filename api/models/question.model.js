@@ -7,7 +7,7 @@ const QuestionSchema = new Schema(
       ref: "Student",
       required: [true, "Soruyu hangi öğrenci sormuş belirtilmelidir."],
     }, // Soruyu soran öğrenci (Many-to-One)
-    answers: [{ type: Schema.ObjectId, ref: "Answer" }], // Sorunun cevapları (One-to-Many)
+    answer: { type: Schema.ObjectId, ref: "Answer" }, // Sorunun cevapları (One-to-Many)
     questionTitle: {
       type: String,
       required: [true, "Sorunun bir başlığı olmalıdır."],
@@ -28,7 +28,6 @@ const QuestionSchema = new Schema(
       type: String,
       default: "Devam ediyor",
     },
-    //! answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }], // Sorunun cevapları (One-to-Many)
   },
   { timestamps: true }
 ); // Otomatik olarak createdAt ve updatedAt alanlarını ekler
