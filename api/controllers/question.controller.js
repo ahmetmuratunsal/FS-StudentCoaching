@@ -9,7 +9,7 @@ import {
 } from "./handlerFactory.js";
 
 //* Bütün soruları al
-export const getQuestions = factoryGetAll(Question);
+export const getQuestions = factoryGetAll(Question, "answer");
 
 //* Tek bir soruyu al
 export const getOneQuestion = factoryGetOne(Question);
