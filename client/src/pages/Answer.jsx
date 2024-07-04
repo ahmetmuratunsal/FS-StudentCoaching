@@ -5,10 +5,12 @@ import { getAllAnswer } from "../redux/answerSlice/answerActions";
 import { changeCategoryName } from "../utils/utils";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import moment from "moment";
 
 const Answer = ({ close, isOpenAnswer }) => {
   const { answer, isLoading, isError } = useSelector((store) => store.answer);
   const dispatch = useDispatch();
+  console.log(answer);
 
   useEffect(() => {
     if (isOpenAnswer) dispatch(getAllAnswer({ question: isOpenAnswer }));
@@ -69,6 +71,16 @@ const Answer = ({ close, isOpenAnswer }) => {
                   {answer?.data[0]?.suggestion}
                 </span>
               </p>
+
+              <p className=" dark:text-gray-300  mb-4 flex flex-col gap-2 my-4">
+                <span className="text-base font-bold text-blue-500">
+                  Çözen Öğretmen:{" "}
+                </span>
+                <span className="indent-5 text-gray-800">
+                  {answer?.data[0]?.teacher?.firstName}{" "}
+                  {answer?.data[0]?.teacher?.lastName}
+                </span>
+              </p>
               <div className="flex mb-4">
                 <div className="mr-4">
                   <span className="font-bold text-gray-700 dark:text-gray-300">
@@ -81,17 +93,15 @@ const Answer = ({ close, isOpenAnswer }) => {
                 </div>
                 <div>
                   <span className="font-bold text-gray-700 dark:text-gray-300">
-                    Çözülme Durumu:
+                    Çözülme Zamanı:
                   </span>
                   <span
-                    className={`${
-                      answer?.data[0]?.question?.status === "Çözüldü"
-                        ? "text-green-500"
-                        : "text-red-500"
-                    } font-semibold dark:text-gray-300 `}
+                    className={`text-green-500 font-semibold dark:text-gray-300 `}
                   >
                     {" "}
-                    {answer?.data[0]?.question?.status}
+                    {moment(answer?.data[0]?.question?.updatedAt).format(
+                      "DD-MMMM-YYYY"
+                    )}
                   </span>
                 </div>
               </div>
