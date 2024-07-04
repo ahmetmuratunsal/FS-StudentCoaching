@@ -62,22 +62,25 @@ export const createUser = catchAsync(async (req, res, next) => {
 
 /* bir tane kullanıcıyı al */
 export const getUser = catchAsync(async (req, res, next) => {
-  console.log(req.params.id);
-  const students = await Student.find().select("-password");
+  try {
+    const students = await Student.find().select("-password");
 
-  const teachers = await Teacher.find().select("-password");
+    const teachers = await Teacher.find().select("-password");
 
-  let users = [...students, ...teachers];
+    let users = [...students, ...teachers];
 
-  const user = users.find((user) => user._id == req.params.id);
+    const user = users.find((user) => user._id == req.params.id);
 
-  if (!user)
-    return next(
-      new AppError("Belirttiğiniz id'ye sahip kullanıcı bulunamadı.")
-    );
-  res
-    .status(200)
-    .json({ message: "Parametredeki idli kullanıcı bulunmuştur.", user });
+    if (!user)
+      return next(
+        new AppError("Belirttiğiniz id'ye sahip kullanıcı bulunamadı.")
+      );
+    res
+      .status(200)
+      .json({ message: "Parametredeki idli kullanıcı bulunmuştur.", user });
+  } catch (err) {
+    next(new AppError("Kullanıcı bulunurken bir hata oluştu.", 400));
+  }
 });
 
 /* kullanıcıyı güncelle */
@@ -95,19 +98,25 @@ export const updateUser = catchAsync(async (req, res, next) => {
     return next(new AppError("Öğrenci misin alanını belirtiniz.", 400));
   }
 
-  const updatedUser = await collection
-    .findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    })
-    .select("-password");
+  try {
+    const updatedUser = await collection
+      .findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      })
+      .select("-password");
 
-  if (!updatedUser)
-    return next(new AppError("Kullanıcı güncellenirken bir hata oluştu", 400));
+    if (!updatedUser)
+      return next(
+        new AppError("Kullanıcı güncellenirken bir hata oluştu", 400)
+      );
 
-  res.status(200).json({
-    message: `${userType} kullanıcısı başarıyla güncellendi.`,
-    updatedUser,
-  });
+    res.status(200).json({
+      message: `${userType} kullanıcısı başarıyla güncellendi.`,
+      updatedUser,
+    });
+  } catch (err) {
+    next(new AppError("Kullanıcı güncellenirken bir hata oluştu.", 400));
+  }
 });
 
 /* kullanıcıyı sil */
@@ -124,8 +133,11 @@ export const deleteUser = catchAsync(async (req, res, next) => {
   } else {
     return next(new AppError("Öğrenci misin alanını belirtiniz.", 400));
   }
+  try {
+    await collection.findByIdAndDelete(req.params.id);
 
-  await collection.findByIdAndDelete(req.params.id);
-
-  res.status(204).json({ message: `${userType} başarıyla silindi.` });
+    res.status(204).json({ message: `${userType} başarıyla silindi.` });
+  } catch (err) {
+    next(new AppError("Kullanıcı silinirken bir hata oluştu.", 400));
+  }
 });

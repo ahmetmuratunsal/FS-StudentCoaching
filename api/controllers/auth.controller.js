@@ -3,10 +3,11 @@ import Student from "../models/student.model.js";
 import Teacher from "../models/teacher.model.js";
 import error from "./../utils/error.js";
 import jwt from "jsonwebtoken";
-
+import AppError from "./../utils/appError.js";
+import catchAsync from "./../utils/catchAsync.js"; // catchAsync
 //* kaydol : yeni hesap oluşturma
 
-export const register = async (req, res, next) => {
+export const register = catchAsync(async (req, res, next) => {
   try {
     //* şifreyi hashle ve saltla
     const hashedPass = await bcrypt.hash(req.body.password, 5);
@@ -21,7 +22,7 @@ export const register = async (req, res, next) => {
       collection = Teacher;
       userType = "Teacher";
     } else {
-      return next(error(400, "Öğrenci misin alanını belirtiniz."));
+      return next(new AppError("Öğrenci misin alanını belirtiniz.", 400));
     }
 
     //* veritabanına kaydedilecek kullanıcıyı oluştur
@@ -33,9 +34,11 @@ export const register = async (req, res, next) => {
     const haveEmail = await collection.findOne({ email: req.body.email });
 
     if (haveUsername)
-      return next(error(404, "Bu kullanıcı adına sahip bir kullanıcı mevcut"));
+      return next(
+        new AppError("Bu kullanıcı adına sahip bir kullanıcı mevcut", 404)
+      );
     if (haveEmail)
-      return next(error(404, "Bu emaile sahip bir kullanıcı mevcut"));
+      return next(new AppError("Bu emaile sahip bir kullanıcı mevcut", 404));
 
     //* veritabanına kaydet
     await newUser.save();
@@ -49,14 +52,14 @@ export const register = async (req, res, next) => {
     });
   } catch (err) {
     // hata middlewareine yönlendirdik. ve hata açıklamasını gönderdik
-    next(error(400, "Hesap oluşturulurken bir hata oluştu."));
+    next(new AppError("Hesap oluşturulurken bir hata oluştu.", 400));
     console.log(err);
   }
-};
+});
 
 //* Giriş yapma: varolan hesaba giriş yapacak
 
-export const login = async (req, res, next) => {
+export const login = catchAsync(async (req, res, next) => {
   let collection;
   let userType;
 
@@ -67,7 +70,7 @@ export const login = async (req, res, next) => {
     collection = Teacher;
     userType = "Teacher";
   } else {
-    return next(error(404, "Kullanıcı tipinizi belirtiniz."));
+    return next(new AppError("Kullanıcı tipinizi belirtiniz.", 404));
   }
   //* 1) İsmine göre kullanıcıyı bul.
 
@@ -84,7 +87,9 @@ export const login = async (req, res, next) => {
   //* 4) Şifre yanlışsa hata ver
 
   if (!isCorrect)
-    return next(error(404, "Girdiğiniz bilgilere ait kullanıcı bulunamadı."));
+    return next(
+      new AppError("Girdiğiniz bilgilere ait kullanıcı bulunamadı.", 404)
+    );
 
   //* 5) Şifre doğruysa jwt tokeni oluştur.
 
@@ -105,13 +110,13 @@ export const login = async (req, res, next) => {
     .cookie("accessToken", token, { httpOnly: true })
     .status(200)
     .json({ message: "Başarılı bir şekilde giriş yapıldı.", user });
-};
+});
 
 //* Çıkış yap : oturumu kapat
 //* kullanıcıya giriş yaptığında gönderdiğimiz accessToken çerezinin geçerliliğini sonlandır.
 
-export const logout = async (req, res, next) => {
+export const logout = catchAsync(async (req, res, next) => {
   res.clearCookie("accessToken").status(200).json({
     message: "Başarılı bir şekilde çıkış yapıldı Yine bekleriz.",
   });
-};
+});

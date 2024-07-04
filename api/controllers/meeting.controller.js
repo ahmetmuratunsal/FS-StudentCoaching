@@ -46,9 +46,7 @@ export const createMeeting = catchAsync(async (req, res, next) => {
       .status(201)
       .json({ message: "Randevu başarıyla kaydedildi", data: savedMeeting });
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Randevu oluşturulurken bir hata oluştu.", err });
+    next(new AppError("Randevu oluşturulurken bir hata oluştu.", 500));
   }
 });
 
@@ -70,9 +68,7 @@ export const getOneMeeting = catchAsync(async (req, res, next) => {
       .status(200)
       .json({ message: "Randevu başarıyla getirildi", data: meeting });
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Randevu getirilirken bir hata oluştu", err });
+    next(new AppError("Randevu getirilirken bir hata oluştu", 500));
   }
 });
 
@@ -99,9 +95,7 @@ export const updateMeeting = catchAsync(async (req, res, next) => {
       data: updatedMeeting,
     });
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Randevu güncellenirken bir hata oluştu", err });
+    next(new AppError("Randevu güncellenirken bir hata oluştu", 500));
   }
 });
 
@@ -124,8 +118,6 @@ export const deleteMeeting = catchAsync(async (req, res, next) => {
 
     res.status(200).json({ message: "Randevu başarıyla silindi" });
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Randevu silinirken bir hata oluştu", err });
+    next(new AppError("Randevu silinirken bir hata oluştu", 500));
   }
 });

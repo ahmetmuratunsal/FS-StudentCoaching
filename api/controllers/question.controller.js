@@ -29,21 +29,25 @@ export const createQuestion = catchAsync(async (req, res, next) => {
     category: req.body.category,
   });
 
-  //* yeni soruyu  kaydet
-  const savedQuestion = await newQuestion.save();
+  try {
+    //* yeni soruyu  kaydet
+    const savedQuestion = await newQuestion.save();
 
-  //* öğrencinin soru sayısını güncelle
-  await studentModel.findByIdAndUpdate(req.userId, {
-    // öğrencinin yorum sayısını  mevcut değerin 1 fazlası kadar arttır
-    $inc: { questionCount: 1 },
-    //! mongodb operatörü inc sayesinde önceki değere söylediğimiz değer kadarını ekliyor
-  });
+    //* öğrencinin soru sayısını güncelle
+    await studentModel.findByIdAndUpdate(req.userId, {
+      // öğrencinin yorum sayısını  mevcut değerin 1 fazlası kadar arttır
+      $inc: { questionCount: 1 },
+      //! mongodb operatörü inc sayesinde önceki değere söylediğimiz değer kadarını ekliyor
+    });
 
-  //* clienta cevap gönder
-  res.status(201).json({
-    message: "Sorunuz başarıyla oluşturuldu",
-    question: savedQuestion,
-  });
+    //* clienta cevap gönder
+    res.status(201).json({
+      message: "Sorunuz başarıyla oluşturuldu",
+      question: savedQuestion,
+    });
+  } catch (err) {
+    next(new AppError("Sorunuz oluşturulurken hata oluştu", 500));
+  }
 });
 
 //* Soru düzenle

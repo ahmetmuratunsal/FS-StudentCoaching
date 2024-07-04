@@ -10,14 +10,18 @@ import { buildFilters } from "./../utils/buildFilters.js";
 
 export const factoryDeleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    const document = await Model.findByIdAndDelete(req.params.id);
+    try {
+      const document = await Model.findByIdAndDelete(req.params.id);
 
-    if (document) {
-      res.status(204).json({
-        status: "success",
-        data: null,
-      });
-    } else {
+      if (document) {
+        res.status(204).json({
+          status: "success",
+          data: null,
+        });
+      } else {
+        next(new AppError("Silinmeye çalışan id'li belge bulunamadı", 400));
+      }
+    } catch (err) {
       next(new AppError("Silinmeye çalışan id'li belge bulunamadı", 400));
     }
   });
@@ -26,16 +30,20 @@ export const factoryDeleteOne = (Model) =>
 
 export const factoryUpdateOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    // new parametresi ile döndürlecek olan değerin dökümanın eski değil yeni değerleri olmasını istedik
-    const updated = await Model.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    try {
+      // new parametresi ile döndürlecek olan değerin dökümanın eski değil yeni değerleri olmasını istedik
+      const updated = await Model.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      });
 
-    if (updated) {
-      res
-        .status(200)
-        .json({ message: "Belge başarıyla güncellendi", data: updated });
-    } else {
+      if (updated) {
+        res
+          .status(200)
+          .json({ message: "Belge başarıyla güncellendi", data: updated });
+      } else {
+        next(new AppError("Girilen id'ye sahip bir belge bulunamadı.", 400));
+      }
+    } catch (err) {
       next(new AppError("Girilen id'ye sahip bir belge bulunamadı.", 400));
     }
   });
@@ -44,11 +52,15 @@ export const factoryUpdateOne = (Model) =>
 
 export const factoryCreateOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    const document = await Model.create(req.body);
+    try {
+      const document = await Model.create(req.body);
 
-    res
-      .status(200)
-      .json({ message: "Belge başarıyla oluşturuldu", data: document });
+      res
+        .status(200)
+        .json({ message: "Belge başarıyla oluşturuldu", data: document });
+    } catch (err) {
+      next(new AppError("Belge oluşturulurken hata oluştu", 400));
+    }
   });
 
 // Tek bir elemanı alma işlemi için ortak olarak kullanılabilecek method
