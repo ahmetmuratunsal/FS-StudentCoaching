@@ -3,20 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllQuestion } from "../../redux/questionSlice/questionActions";
 import moment from "moment";
 import { FaArrowLeft } from "react-icons/fa";
-import "moment/locale/tr";
 import Loader from "./../../components/Loader";
 import Error from "./../../components/Error";
 import { Link } from "react-router-dom";
 import { changeCategoryName } from "./../../utils/utils";
 
 const AdminQuestions = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
 
   const { isLoading, isError, questions } = useSelector(
     (store) => store.question
   );
-
   useEffect(() => {
     dispatch(getAllQuestion());
   }, [dispatch]);
@@ -80,9 +77,13 @@ const AdminQuestions = () => {
                                   <div className="flex flex-col justify-start">
                                     <a
                                       href="#"
-                                      className="mb-1 font-semibold transition-colors duration-200 ease-in-out text-lg/normal text-secondary-inverse hover:text-primary"
+                                      className="mb-1 font-semibold flex items-center gap-1 transition-colors duration-200 ease-in-out text-lg/normal text-secondary-inverse hover:text-primary"
                                     >
-                                      {question.questionTitle}
+                                      {question.questionTitle} {" - "}
+                                      <span className="text-xs text-red-300 capitalize">
+                                        {question?.student?.firstName}{" "}
+                                        {question?.student?.lastName}
+                                      </span>
                                     </a>
                                   </div>
                                 </Link>
@@ -100,7 +101,15 @@ const AdminQuestions = () => {
                                       : "text-red-500"
                                   } font-semibold text-light-inverse text-md/normal`}
                                 >
-                                  {question.status}
+                                  {question.status === "Çözüldü" ? (
+                                    <span>
+                                      Çözen:{" "}
+                                      {question?.answer?.teacher?.firstName}{" "}
+                                      {question?.answer?.teacher?.lastName}
+                                    </span>
+                                  ) : (
+                                    <span>Henüz Çözülmedi</span>
+                                  )}
                                 </span>
                               </td>
                               <td className="p-3 pr-0 text-center">
