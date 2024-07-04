@@ -3,6 +3,7 @@ import Student from "../models/student.model.js"; // Student modelini import et
 import Teacher from "../models/teacher.model.js"; // Teacher modelini import et
 import AppError from "../utils/appError.js";
 import catchAsync from "../utils/catchAsync.js";
+import { factoryGetAll } from "./handlerFactory.js";
 
 // Randevu oluşturma
 export const createMeeting = catchAsync(async (req, res, next) => {
@@ -52,25 +53,7 @@ export const createMeeting = catchAsync(async (req, res, next) => {
 });
 
 // Randevuları listeleme
-export const getAllMeetings = catchAsync(async (req, res, next) => {
-  try {
-    const meeting = await Meeting.find()
-      .populate("student", "firstName lastName email") // Öğrenci bilgilerini doldur
-      .populate("teacher", "firstName lastName email lesson profilePhoto"); // Öğretmen bilgilerini doldur
-
-    if (meeting.length === 0) {
-      return next(new AppError("Randevu bulunamadı", 404));
-    }
-
-    res
-      .status(200)
-      .json({ message: "Randevular başarıyla listelendi", data: meeting });
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Randevu listelenirken bir hata oluştu", err });
-  }
-});
+export const getAllMeetings = factoryGetAll(Meeting);
 
 // Tek bir randevuyu getirme
 export const getOneMeeting = catchAsync(async (req, res, next) => {
