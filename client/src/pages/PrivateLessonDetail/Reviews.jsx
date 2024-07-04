@@ -40,6 +40,11 @@ const Reviews = ({ privateLessonId }) => {
     try {
       dispatch(createReview(newReview));
       e.target[5].value = ""; // Açıklama alanını temizle
+      const radioButtons = document.querySelectorAll('input[name="rate"]');
+      radioButtons.forEach((radio) => {
+        radio.checked = false;
+      });
+
       toast.success("Yorumunuz başarıyla eklenmiştir");
     } catch (err) {
       console.log(err);
