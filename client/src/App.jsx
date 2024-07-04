@@ -23,6 +23,7 @@ import AdminQuestions from "./pages/AdminPanel/AdminQuestions";
 import StudentMeetings from "./pages/StudentPanel/StudentMeetings";
 import AddMeeting from "./pages/StudentPanel/AddMeeting";
 import TeacherMeetings from "./pages/TeacherPanel/TeacherMeetings";
+import AdminMeetings from "./pages/AdminPanel/AdminMeetings";
 
 const App = () => {
   return (
@@ -61,6 +62,7 @@ const App = () => {
         <Route element={<AdminRoute />}>
           <Route path="/adminpanel" element={<AdminPanel />} />
           <Route path="/adminquestions" element={<AdminQuestions />} />
+          <Route path="/adminmeetings" element={<AdminMeetings />} />
           <Route path="/users" element={<Users />} />
           <Route path="/userdetail/:id" element={<UserDetail />} />
         </Route>
