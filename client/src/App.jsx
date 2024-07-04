@@ -22,6 +22,7 @@ import UserDetail from "./pages/AdminPanel/UserDetail";
 import AdminQuestions from "./pages/AdminPanel/AdminQuestions";
 import StudentMeetings from "./pages/StudentPanel/StudentMeetings";
 import AddMeeting from "./pages/StudentPanel/AddMeeting";
+import TeacherMeetings from "./pages/TeacherPanel/TeacherMeetings";
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/my-privatelesson" element={<MyPrivateLesson />} />
           <Route path="/teacherquestions" element={<TeacherQuestions />} />
           <Route path="/teacherquestion/:id" element={<QuestionDetail />} />
+          <Route path="/teachermeetings" element={<TeacherMeetings />} />
         </Route>
         {/* korumalı route oluşturdum. Sadece ÖĞRENCİLER girebilecek */}
         <Route element={<StudentRoute />}>
