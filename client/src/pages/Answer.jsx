@@ -10,7 +10,6 @@ import moment from "moment";
 const Answer = ({ close, isOpenAnswer }) => {
   const { answer, isLoading, isError } = useSelector((store) => store.answer);
   const dispatch = useDispatch();
-  console.log(answer);
 
   useEffect(() => {
     if (isOpenAnswer) dispatch(getAllAnswer({ question: isOpenAnswer }));
