@@ -92,7 +92,7 @@ export const login = async (req, res, next) => {
     { id: user._id, isStudent: user.isStudent, isAdmin: user.isAdmin },
     process.env.JWT_KEY,
     {
-      expiresIn: "7d",
+      expiresIn: "30d",
     }
   );
 
