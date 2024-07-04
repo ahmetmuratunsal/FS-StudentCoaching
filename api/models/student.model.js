@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-
+import validator from "validator";
 // öğrenci şemasını belirle
 
 const studentSchema = new Schema(
@@ -7,6 +7,7 @@ const studentSchema = new Schema(
     username: {
       type: String,
       required: [true, "Lütfen username alanını belirleyin"],
+      lowercase: true,
       unique: [
         true,
         "Bu isimde bir kullanıcı mevcut. Lütfen farklı bir username belirleyin.",
@@ -23,6 +24,8 @@ const studentSchema = new Schema(
     email: {
       type: String,
       required: [true, "Lütfen email alanını belirleyin"],
+      lowercase: true,
+      validate: [validator.isEmail, "Lütfen geçerli bir email adresi giriniz"],
       unique: [
         true,
         "Bu email adresinde bir kullanıcı mevcut. Lütfen farklı bir email belirleyin.",
@@ -31,6 +34,8 @@ const studentSchema = new Schema(
     password: {
       type: String,
       required: [true, "Lütfen şifre alanını belirleyin"],
+      minLength: [8, "Şifreniz en az 8 karakter olmalıdır."],
+      validate: [validator.isStrongPassword, "Şifreniz yeterince güçlü değil."],
     },
     profilePhoto: {
       type: String,
