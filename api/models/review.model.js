@@ -30,4 +30,10 @@ ReviewSchema.pre(/^find/, function (next) {
   next();
 });
 
+ReviewSchema.pre("save", function (next) {
+  this.populate("student");
+
+  next();
+});
+
 export default model("Review", ReviewSchema);
