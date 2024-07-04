@@ -15,13 +15,25 @@ const MeetingSchema = new Schema(
     date: { type: Date, required: [true, "Randevunun tarihi olmalı."] }, // Randevu tarihi ve saati
     status: {
       type: String,
-      enum: ["Planlanmış", "Tamamlandı", "İptal Edildi"],
-      default: "Planlanmış",
+      enum: ["Beklemede", "Planlanmış", "Tamamlandı", "İptal Edildi"],
+      default: "Beklemede",
     }, // Randevu durumu
     notes: { type: String }, // Randevu notları (opsiyonel)
     link: { type: String },
   },
   { timestamps: true }
 ); // Otomatik olarak createdAt ve updatedAt alanlarını ekler
+
+MeetingSchema.pre(/^find/, function (next) {
+  this.populate("teacher");
+
+  next();
+});
+
+MeetingSchema.pre(/^find/, function (next) {
+  this.populate("student");
+
+  next();
+});
 
 export default model("Meeting", MeetingSchema);
