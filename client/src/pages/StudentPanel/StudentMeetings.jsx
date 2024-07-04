@@ -111,7 +111,7 @@ const StudentMeetings = () => {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-sm border">
-                      {moment(meeting.date).format("DD/MMMM/YYYY")}
+                      {moment(meeting.date).format("LLLL")}
                     </td>
 
                     <td className="px-4 py-3 text-ms font-semibold border">
