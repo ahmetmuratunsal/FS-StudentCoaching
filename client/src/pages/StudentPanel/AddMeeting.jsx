@@ -5,6 +5,7 @@ import Spinner from "./../../components/Spinner";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import api from "../../utils/api";
+import { changeCategoryName } from "../../utils/utils";
 
 const AddMeeting = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,8 @@ const AddMeeting = () => {
             <option value="">Öğretmen seçin</option>
             {teachers?.data?.map((teacher) => (
               <option key={teacher._id} value={teacher._id}>
-                {teacher.firstName} {teacher.lastName}
+                {teacher.firstName} {teacher.lastName} -{" "}
+                {changeCategoryName(teacher.lesson)}
               </option>
             ))}
           </select>
@@ -61,7 +63,7 @@ const AddMeeting = () => {
           />
         </div>
         <div>
-          <label className="block mb-2 font-semibold">Notlar:</label>
+          <label className="block mb-2 font-semibold">Randevu Konusu:</label>
           <textarea
             name="notes"
             className="w-full p-2 border border-gray-300 rounded-md"
