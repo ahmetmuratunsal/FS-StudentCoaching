@@ -52,7 +52,7 @@ export const createAnswer = catchAsync(async (req, res, next) => {
         // Soruyu güncelle ve cevabı ekleyerek kaydet
         Question.findByIdAndUpdate(
           questionId,
-          { $push: { answers: answer._id } }, // answers dizisine yeni cevabın ID'sini ekle
+          { $set: { answer: answer._id } }, // answers dizisine yeni cevabın ID'sini ekle
           { new: true, useFindAndModify: false }
         )
           .populate("answers") // Eğer gerekliyse cevapları doldur
