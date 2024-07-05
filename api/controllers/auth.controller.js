@@ -97,7 +97,7 @@ export const login = catchAsync(async (req, res, next) => {
     { id: user._id, isStudent: user.isStudent, isAdmin: user.isAdmin },
     process.env.JWT_KEY,
     {
-      expiresIn: "30d",
+      expiresIn: "7d",
     }
   );
 
@@ -107,7 +107,7 @@ export const login = catchAsync(async (req, res, next) => {
 
   //* 6) tokeni çerezler (cookie) ile client'a gönder
   res
-    .cookie("accessToken", token, { httpOnly: true })
+    .cookie("accessToken", token, { httpOnly: true, maxAge: 604800000 })
     .status(200)
     .json({ message: "Başarılı bir şekilde giriş yapıldı.", user });
 });
