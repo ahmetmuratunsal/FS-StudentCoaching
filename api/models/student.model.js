@@ -70,10 +70,24 @@ const studentSchema = new Schema(
       default: false,
     },
     meetings: [{ type: Schema.ObjectId, ref: "Meeting" }], // Öğrencinin randevuları (One-to-Many)
+    passwordChangedAt: Date,
   },
   //* ayarlar alanı
   //* timestamps sayesinde oluşturduğumuz bütün belgelere otomatik olarak oluşturulma ve güncellenme tarihleri eklenir
   { timestamps: true }
 );
+
+studentSchema.methods.controlPassDate = function (JWTTime) {
+  if (JWTTime && this.passwordChangedAt) {
+    //* Şifre değiştirme tarihini saniye formatına çevirme
+    const changeTime = parseInt(this.passwordChangedAt.getTime() / 1000);
+    console.log(changeTime);
+
+    //* eğer jwt verilme tarihi şifre sıfırlama tarihinden önceyse true döndürür
+    //* jwt verilme tarihi sifre sıfırlama tarihinden sonra ise jwt geçersiz olacağından false döndürür
+    return JWTTime < changeTime;
+  }
+  return false;
+};
 
 export default model("Student", studentSchema);
