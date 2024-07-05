@@ -11,7 +11,7 @@ export const getAllQuestion = createAsyncThunk(
       return res.data;
     } catch (err) {
       // API'den gelen hatayı rejectWithValue ile slice'a gönder
-      return rejectWithValue(err.response.statusText);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -26,7 +26,7 @@ export const getOneQuestion = createAsyncThunk(
       return res.data;
     } catch (err) {
       // API'den gelen hatayı rejectWithValue ile slice'a gönder
-      return rejectWithValue(err.response.statusText);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -41,7 +41,7 @@ export const deleteQuestion = createAsyncThunk(
       return id;
     } catch (err) {
       // API'den gelen hatayı rejectWithValue ile slice'a gönder
-      return rejectWithValue(err.response.statusText);
+      return rejectWithValue(err.response.data);
     }
   }
 );

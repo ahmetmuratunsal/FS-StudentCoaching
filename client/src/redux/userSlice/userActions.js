@@ -25,7 +25,6 @@ export const getAllTeacher = createAsyncThunk(
       const res = await api.get(`/user/teacher`, { params: parametre });
       return res.data;
     } catch (err) {
-      console.log(rejectWithValue(err));
       // API'den gelen hatayı rejectWithValue ile slice'a gönder
       return rejectWithValue(err.response.data);
     }
