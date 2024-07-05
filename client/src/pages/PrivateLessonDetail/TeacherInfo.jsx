@@ -1,6 +1,7 @@
 import { FaStar } from "react-icons/fa";
 import { cityOptions } from "./../../constants/selectInput";
-import moment from "moment";
+import { format } from "date-fns";
+import { tr } from "date-fns/locale";
 
 const TeacherInfo = ({ teacher, lessonType }) => {
   return (
@@ -58,7 +59,7 @@ const TeacherInfo = ({ teacher, lessonType }) => {
           <p className="flex flex-col gap-1">
             <span>Üyelik Tarihi</span>
             <span className="font-bold capitalize">
-              {moment(teacher?.createdAt).format("DD-MMMM-YYYY")}
+              {format(teacher?.createdAt, "dd MMMM yyyy", { locale: tr })}
             </span>
           </p>
         </div>

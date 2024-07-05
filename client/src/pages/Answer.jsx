@@ -5,7 +5,8 @@ import { getAllAnswer } from "../redux/answerSlice/answerActions";
 import { changeCategoryName } from "../utils/utils";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import moment from "moment";
+import { format } from "date-fns";
+import { tr } from "date-fns/locale";
 
 const Answer = ({ close, isOpenAnswer }) => {
   const { answer, isLoading, isError } = useSelector((store) => store.answer);
@@ -98,8 +99,12 @@ const Answer = ({ close, isOpenAnswer }) => {
                     className={`text-green-500 font-semibold dark:text-gray-300 `}
                   >
                     {" "}
-                    {moment(answer?.data[0]?.question?.updatedAt).format(
-                      "DD-MMMM-YYYY"
+                    {format(
+                      answer?.data[0]?.question?.updatedAt,
+                      "dd MMMM yyyy",
+                      {
+                        locale: tr,
+                      }
                     )}
                   </span>
                 </div>

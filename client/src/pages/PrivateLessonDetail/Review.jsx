@@ -1,6 +1,7 @@
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
-import moment from "moment";
+import { formatDistanceToNow } from "date-fns";
+import { tr } from "date-fns/locale";
 
 const Review = ({ item }) => {
   const arr = Array(Math.round(item.star)).fill();
@@ -26,7 +27,7 @@ const Review = ({ item }) => {
 
         <span className="ms-1 me-3">{item.star}</span>
         <span className="border-s px-3 text-gray-600">
-          {moment(item.createdAt).fromNow()}
+          {formatDistanceToNow(item.createdAt, { locale: tr, addSuffix: true })}
         </span>
       </div>
 

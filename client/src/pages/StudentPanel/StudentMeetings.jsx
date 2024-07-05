@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMeetings } from "../../redux/meetingSlice/meetingActions";
 import { changeCategoryName } from "./../../utils/utils";
-import moment from "moment";
 import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import api from "../../utils/api";
 import { toast } from "react-toastify";
+import { format } from "date-fns";
+import { tr } from "date-fns/locale";
 
 const StudentMeetings = () => {
   const dispatch = useDispatch();
@@ -111,7 +112,7 @@ const StudentMeetings = () => {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-sm border">
-                      {moment(meeting.date).format("LLLL")}
+                      {format(meeting.date, "PPPPp", { locale: tr })}
                     </td>
 
                     <td className="px-4 py-3 text-ms font-semibold border">
