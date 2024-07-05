@@ -101,29 +101,33 @@ export const factoryGetAll = (Model, popOptions) =>
       page: req.query.page,
     };
 
-    // apiFeatures class'ından örnek oluşturduk ve içerisndeki istediğimiz api özelliklerini çağırdık
-    const features = new APIFeatures(
-      Model.find().populate(popOptions),
-      allFilters
-    )
-      .filter()
-      .sort()
-      .limit()
-      .paginate();
+    try {
+      // apiFeatures class'ından örnek oluşturduk ve içerisndeki istediğimiz api özelliklerini çağırdık
+      const features = new APIFeatures(
+        Model.find().populate(popOptions),
+        allFilters
+      )
+        .filter()
+        .sort()
+        .limit()
+        .paginate();
 
-    const allDoc = await Model.find();
+      const allDoc = await Model.find();
 
-    // Hazırldaığımız Komutu Çalıştır Verileri Al
-    const docs = await features.query;
+      // Hazırldaığımız Komutu Çalıştır Verileri Al
+      const docs = await features.query;
 
-    if (docs.length > 0) {
-      res.status(200).json({
-        message: "Belgeler başarıyla alındı",
-        totalDataLength: allDoc.length,
-        filteredDataLength: docs.length,
-        data: docs,
-      });
-    } else {
+      if (docs.length > 0) {
+        res.status(200).json({
+          message: "Belgeler başarıyla alındı",
+          totalDataLength: allDoc.length,
+          filteredDataLength: docs.length,
+          data: docs,
+        });
+      } else {
+        return next(new AppError("Belge Bulunamadı", 400));
+      }
+    } catch (err) {
       return next(new AppError("Belge Bulunamadı", 400));
     }
   });
