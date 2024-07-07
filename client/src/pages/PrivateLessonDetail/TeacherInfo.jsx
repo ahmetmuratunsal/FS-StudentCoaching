@@ -59,7 +59,8 @@ const TeacherInfo = ({ teacher, lessonType }) => {
           <p className="flex flex-col gap-1">
             <span>Üyelik Tarihi</span>
             <span className="font-bold capitalize">
-              {format(teacher?.createdAt, "dd MMMM yyyy", { locale: tr })}
+              {teacher?.createdAt &&
+                format(teacher?.createdAt, "dd MMMM yyyy", { locale: tr })}
             </span>
           </p>
         </div>
