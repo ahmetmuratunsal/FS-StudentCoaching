@@ -7,10 +7,14 @@ import api from "../../utils/api";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
+import AddMeetingLink from "./AddMeetingLink";
+import RejectPage from "./RejectPage";
 
 const TeacherMeetings = () => {
   const dispatch = useDispatch();
   const [filterParam, setFilterParam] = useState("");
+  const [isOpenAddLink, setIsOpenAddLink] = useState(false);
+  const [isOpenReject, setIsOpenReject] = useState(false);
   const { isLoading, isError, meetings } = useSelector(
     (store) => store.meeting
   );
@@ -28,6 +32,18 @@ const TeacherMeetings = () => {
       .delete(`/meeting/${meetingId}`)
       .then(() => {
         toast.success("Randevu silindi");
+      })
+      .catch((err) => toast.error(err));
+  };
+
+  const handleReject = async (meetingId) => {
+    const data = { status: "İptal Edildi" };
+    await api
+      .patch(`/meeting/${meetingId}`, data)
+      .then(() => {
+        toast.success(
+          "Randevu iptal isteği kabul edildi. Sayfayı Yenileyiniz."
+        );
       })
       .catch((err) => toast.error(err));
   };
@@ -116,11 +132,14 @@ const TeacherMeetings = () => {
                     <td className="px-4 py-3 text-ms font-semibold border">
                       {meeting.status === "Beklemede" ? (
                         <>
-                          <button className="mr-2 text-yellow-500 bg-yellow-100 p-1 rounded-lg">
+                          <button
+                            onClick={() => setIsOpenAddLink(meeting)}
+                            className="mr-2 text-yellow-500 bg-yellow-100 p-1 rounded-lg"
+                          >
                             Onayla
                           </button>
                           <button
-                            onClick={() => handleDelete(meeting._id)}
+                            onClick={() => handleReject(meeting._id)}
                             className="text-red-500 bg-red-100 p-1 rounded-lg"
                           >
                             Reddet
@@ -132,14 +151,13 @@ const TeacherMeetings = () => {
                         </button>
                       ) : meeting.status === "Planlanmış" ? (
                         <>
-                          <button className="text-orange-400 bg-orange-100 p-1 rounded-lg mr-2">
-                            Mazeret Oku
-                          </button>
                           <button
-                            onClick={() => handleDelete(meeting._id)}
-                            className="text-red-500 bg-red-100 p-1 rounded-lg"
+                            onClick={() => setIsOpenReject(meeting)}
+                            className="text-orange-400 bg-orange-100 p-1 rounded-lg mr-2"
                           >
-                            İptali Kabul Et
+                            {meeting.rejectText
+                              ? "Mazereti oku"
+                              : "Randevu Saati Bekleniyor"}
                           </button>
                         </>
                       ) : (
@@ -173,6 +191,17 @@ const TeacherMeetings = () => {
           </li>
         </ul>
       </div>
+
+      {isOpenAddLink && (
+        <AddMeetingLink
+          data={isOpenAddLink}
+          close={() => setIsOpenAddLink(false)}
+        />
+      )}
+
+      {isOpenReject && (
+        <RejectPage data={isOpenReject} close={() => setIsOpenReject(false)} />
+      )}
     </section>
   );
 };

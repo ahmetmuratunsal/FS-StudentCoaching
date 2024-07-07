@@ -8,10 +8,14 @@ import api from "../../utils/api";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
+import MeetingLink from "./MeetingLink";
+import RejectRequest from "./RejectRequest";
 
 const StudentMeetings = () => {
   const dispatch = useDispatch();
   const [filterParam, setFilterParam] = useState("");
+  const [isOpenLink, setIsOpenLink] = useState(false);
+  const [isOpenRejectRequest, setIsOpenRejectRequest] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   const { isLoading, isError, meetings } = useSelector(
     (store) => store.meeting
@@ -23,7 +27,7 @@ const StudentMeetings = () => {
         status: filterParam === "" ? undefined : filterParam,
       })
     );
-  }, [dispatch, filterParam]);
+  }, [dispatch, filterParam, isOpenLink, isOpenRejectRequest]);
 
   const handleDelete = (meetingId) => {
     api
@@ -133,9 +137,22 @@ const StudentMeetings = () => {
                           Puanla
                         </button>
                       ) : meeting.status === "Planlanmış" ? (
-                        <button className="text-orange-400 bg-orange-100 p-1 rounded-lg">
-                          Mazeret Bildir
-                        </button>
+                        <>
+                          <button
+                            onClick={() => setIsOpenLink(meeting)}
+                            className="text-green-400 bg-green-100 p-1 rounded-lg mr-2"
+                          >
+                            Linki Gör
+                          </button>
+                          <button
+                            onClick={() => setIsOpenRejectRequest(meeting._id)}
+                            className="text-orange-400 bg-orange-100 p-1 rounded-lg"
+                          >
+                            {meeting.rejectText
+                              ? "Öğretmen Cevabı Bekliyor"
+                              : "Mazeret Bildir"}
+                          </button>
+                        </>
                       ) : (
                         <button className="text-gray-500 bg-gray-100 p-1 rounded-lg">
                           Aktif Et
@@ -167,6 +184,16 @@ const StudentMeetings = () => {
           </li>
         </ul>
       </div>
+      {isOpenLink && (
+        <MeetingLink data={isOpenLink} close={() => setIsOpenLink(false)} />
+      )}
+
+      {isOpenRejectRequest && (
+        <RejectRequest
+          id={isOpenRejectRequest}
+          close={() => setIsOpenRejectRequest(false)}
+        />
+      )}
     </section>
   );
 };
