@@ -76,11 +76,10 @@ export const getOneMeeting = catchAsync(async (req, res, next) => {
 export const updateMeeting = catchAsync(async (req, res, next) => {
   try {
     // Randevu bilgilerini al
-    const { date, status, notes, link } = req.body;
 
     const updatedMeeting = await Meeting.findByIdAndUpdate(
       req.params.id,
-      { date, status, notes, link },
+      req.body,
       { new: true, useFindAndModify: false }
     )
       .populate("student", "firstName lastName email")
