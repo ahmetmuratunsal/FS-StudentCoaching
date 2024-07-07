@@ -20,6 +20,8 @@ const MeetingSchema = new Schema(
     }, // Randevu durumu
     notes: { type: String }, // Randevu notları (opsiyonel)
     link: { type: String },
+    program: { type: String, default: "Zoom" },
+    rejectText: { type: String },
   },
   { timestamps: true }
 ); // Otomatik olarak createdAt ve updatedAt alanlarını ekler
