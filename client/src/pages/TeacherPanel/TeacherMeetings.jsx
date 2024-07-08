@@ -48,6 +48,18 @@ const TeacherMeetings = () => {
       .catch((err) => toast.error(err));
   };
 
+  const handleActive = async (meetingId) => {
+    const data = { status: "Beklemede" };
+    await api
+      .patch(`/meeting/${meetingId}`, data)
+      .then(() => {
+        toast.success(
+          "Randevu tekrardan aktif edildi. Bilgileri güncellemek için sayfayı yenileyiniz."
+        );
+      })
+      .catch((err) => toast.error(err));
+  };
+
   return (
     <section className="container mx-auto p-6 font-mono">
       <h1 className="text-xl font-bold mb-6">Tüm Randevularım</h1>
@@ -151,17 +163,28 @@ const TeacherMeetings = () => {
                         </button>
                       ) : meeting.status === "Planlanmış" ? (
                         <>
-                          <button
-                            onClick={() => setIsOpenReject(meeting)}
-                            className="text-orange-400 bg-orange-100 p-1 rounded-lg mr-2"
-                          >
-                            {meeting.rejectText
-                              ? "Mazereti oku"
-                              : "Randevu Saati Bekleniyor"}
-                          </button>
+                          {meeting.rejectText ? (
+                            <button
+                              onClick={() => setIsOpenReject(meeting)}
+                              className="text-orange-400 bg-orange-100 p-1 rounded-lg mr-2"
+                            >
+                              Mazereti oku
+                            </button>
+                          ) : (
+                            <a
+                              href={meeting.link}
+                              target="_blank"
+                              className="text-orange-400 bg-orange-100 p-1 rounded-lg mr-2"
+                            >
+                              Randevuyu Başlat
+                            </a>
+                          )}
                         </>
                       ) : (
-                        <button className="text-gray-500 bg-gray-100 p-1 rounded-lg">
+                        <button
+                          onClick={() => handleActive(meeting._id)}
+                          className="text-gray-500 bg-gray-100 p-1 rounded-lg"
+                        >
                           Aktif Et
                         </button>
                       )}

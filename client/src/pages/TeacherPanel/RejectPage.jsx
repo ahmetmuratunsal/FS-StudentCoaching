@@ -16,6 +16,18 @@ const RejectPage = ({ data, close }) => {
         toast.error("Randevu iptal edilirken bir hata meydana geldi")
       );
   };
+
+  const handleRed = async (meetingId) => {
+    try {
+      await api.patch(`/meeting/${meetingId}`, {
+        rejectText: null,
+      });
+      close();
+      toast.error("Iptal Reddedildi. Sayfayı yenileyiniz.");
+    } catch (err) {
+      toast.error("Iptal Reddedilirken bir hata meydana geldi");
+    }
+  };
   return (
     <div className="w-full h-full fixed inset-0 bg-[rgba(0,0,0,0.5)] grid place-items-center font-[poppins]">
       <div className="bg-white text-black w-1/3 h-auto rounded-lg p-5">
@@ -36,10 +48,7 @@ const RejectPage = ({ data, close }) => {
               İptali Kabul Et
             </button>
             <button
-              onClick={() => {
-                close();
-                toast.error("Iptal Reddedildi. Sayfayı yenileyiniz.");
-              }}
+              onClick={() => handleRed(data._id)}
               className="bg-gray-500 px-3 py-1 cursor-pointer text-white rounded-lg"
             >
               İptali Reddet
