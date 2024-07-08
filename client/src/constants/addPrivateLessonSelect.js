@@ -10,8 +10,11 @@ export const categoryOptions = [
   { value: "studentCoaching", label: "Öğrenci Koçluğu" },
   { value: "math", label: "Matematik" },
   { value: "fen", label: "Fen Bilimleri" },
-  { value: "turkish", label: "Türkçe" },
-  { value: "fast", label: "Hızlı Okuma" },
+  { value: "turkce", label: "Türkçe" },
+  { value: "sosyalbilgiler", label: "Sosyal Bilgiler" },
+  { value: "dinkulturu", label: "Din Kültürü" },
+  { value: "ingilizce", label: "İngilizce" },
+  { value: "fastReading", label: "Hızlı Okuma" },
   // Diğer özellikler burada eklenebilir
 ];
 
