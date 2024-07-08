@@ -1,3 +1,4 @@
+import { lessonTypeOptions } from "../constants/addPrivateLessonSelect";
 import { cityOptions, lessonOptions } from "./../constants/selectInput";
 
 /* apiden gelen ders verisini türkçe karekterleri haline çeviriyoruz */
@@ -16,4 +17,12 @@ export const changeCityName = (city) => {
     return city;
   }
   return foundCity.label;
+};
+
+export const changeLessonType = (type) => {
+  const foundType = lessonTypeOptions.find((i) => i.value === type);
+  if (!foundType) {
+    return type;
+  }
+  return foundType.label;
 };
