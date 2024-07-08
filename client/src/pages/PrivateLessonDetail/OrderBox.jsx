@@ -1,6 +1,7 @@
 import { FaRegClock } from "react-icons/fa";
 import { GiFaceToFace } from "react-icons/gi";
 import { IoMdCheckmark } from "react-icons/io";
+import { changeLessonType } from "../../utils/utils";
 const OrderBox = ({ lesson }) => {
   return (
     <div className="h-fit flex flex-col gap-4 border shadow rounded-md p-5">
@@ -20,7 +21,9 @@ const OrderBox = ({ lesson }) => {
         <p className="flex items-center gap-3 whitespace-nowrap">
           <GiFaceToFace />
           <span> Ders Yeri:</span>{" "}
-          <span className="capitalize">{lesson?.lessonType}</span>
+          <span className="capitalize">
+            {changeLessonType(lesson?.lessonType)}
+          </span>
         </p>
       </div>
 

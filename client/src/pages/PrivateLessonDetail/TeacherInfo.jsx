@@ -2,6 +2,7 @@ import { FaStar } from "react-icons/fa";
 import { cityOptions } from "./../../constants/selectInput";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
+import { changeCityName, changeLessonType } from "../../utils/utils";
 
 const TeacherInfo = ({ teacher, lessonType }) => {
   return (
@@ -47,13 +48,15 @@ const TeacherInfo = ({ teacher, lessonType }) => {
           <p className="flex flex-col gap-1">
             <span>Hangi Şehirdeyim?</span>
             <span className="font-bold capitalize">
-              {cityOptions.map((i) => i.value === teacher?.city && i.label)}
+              {changeCityName(teacher?.city)}
             </span>
           </p>
 
           <p className="flex flex-col gap-1">
             <span>Ders yeri tercihim?</span>
-            <span className="font-bold capitalize">{lessonType}</span>
+            <span className="font-bold capitalize">
+              {changeLessonType(lessonType)}
+            </span>
           </p>
 
           <p className="flex flex-col gap-1">

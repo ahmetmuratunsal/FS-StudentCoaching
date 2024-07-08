@@ -2,6 +2,7 @@ import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
+import { changeCityName } from "../../utils/utils";
 
 const Review = ({ item }) => {
   const arr = Array(Math.round(item.star)).fill();
@@ -15,8 +16,8 @@ const Review = ({ item }) => {
         />
 
         <div>
-          <h4 className="font-semibold">{item.student.username}</h4>
-          <p>{item.student.city}</p>
+          <h4 className="font-semibold capitalize">{item.student.username}</h4>
+          <p>{changeCityName(item.student.city)}</p>
         </div>
       </div>
 
