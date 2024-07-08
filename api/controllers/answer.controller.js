@@ -54,14 +54,7 @@ export const createAnswer = catchAsync(async (req, res, next) => {
           questionId,
           { $set: { answer: answer._id } }, // answers dizisine yeni cevabın ID'sini ekle
           { new: true, useFindAndModify: false }
-        )
-          .populate("answers") // Eğer gerekliyse cevapları doldur
-          .then((updatedQuestion) => {
-            console.log("Soruya cevap eklendi:", updatedQuestion);
-          })
-          .catch((err) => {
-            next(new AppError("Soruya cevap eklenirken hata oluştu:", 500));
-          });
+        ).populate("answers"); // Eğer gerekliyse cevapları doldur
       })
       .catch((err) => {
         next(new AppError("Cevap oluşturulurken hata oluştu:", 500));
@@ -85,6 +78,7 @@ export const createAnswer = catchAsync(async (req, res, next) => {
       question: savedAnswer,
     });
   } catch (err) {
+    console.log(err);
     next(new AppError("Cevap oluşturulurken hata oluştu:", 500));
   }
 });
