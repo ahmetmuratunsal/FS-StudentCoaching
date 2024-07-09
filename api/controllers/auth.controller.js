@@ -120,3 +120,28 @@ export const logout = catchAsync(async (req, res, next) => {
     message: "Başarılı bir şekilde çıkış yapıldı Yine bekleriz.",
   });
 });
+
+//* Şifremi unuttum alanı: Kullanıcı şifresini unuttuysa
+//TODO BURDA KALDIK
+export const forgotPassword = catchAsync(async (req, res, next) => {
+  let collection;
+  let userType;
+  if (req.body.isStudent === true) {
+    collection = Student;
+    userType = "Student";
+  } else if (req.body.isStudent === false) {
+    collection = Teacher;
+    userType = "Teacher";
+  } else {
+    return next(new AppError("Kullanıcı tipinizi belirtiniz.", 404));
+  }
+
+  //*1 : Kullanıcıyı bul
+  const user = await collection.findOne({ email: req.body.email });
+  if (!user)
+    return next(
+      new AppError("Girdiğiniz bilgilere ait kullanıcı bulunamadı.", 404)
+    );
+
+  //*2 : Şifre sıfırlamada kullanılacak token oluştur
+});
