@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllQuestion } from "../../redux/questionSlice/questionActions";
 import { FaArrowLeft } from "react-icons/fa";
@@ -8,20 +8,45 @@ import { Link } from "react-router-dom";
 import { changeCategoryName } from "./../../utils/utils";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
+import { lessonOptions } from "../../constants/selectInput";
 
 const AdminQuestions = () => {
   const dispatch = useDispatch();
-
+  const [filterParam, setFilterParam] = useState("");
   const { isLoading, isError, questions } = useSelector(
     (store) => store.question
   );
   useEffect(() => {
-    dispatch(getAllQuestion());
-  }, [dispatch]);
+    dispatch(
+      getAllQuestion({ category: filterParam === "" ? undefined : filterParam })
+    );
+  }, [dispatch, filterParam]);
 
   return (
     <div className="w-full">
       <h2 className="font-semibold text-xl"> Tüm Sorular</h2>
+      <form className="mb-6 flex  gap-1 items-center my-2">
+        <label htmlFor="status">Derse Göre Filtrele</label>
+        <select
+          onChange={(e) => setFilterParam(e.target.value)}
+          name="lesson"
+          value={filterParam}
+          className="border px-2 py-1 rounded-lg mx-2 focus:outline-green-500 focus:font-semibold"
+        >
+          <option value="">Tüm Dersler</option>
+          {lessonOptions.map((lesson) => (
+            <option key={lesson.value} value={lesson.value}>
+              {lesson.label}
+            </option>
+          ))}
+        </select>
+        <button
+          onClick={() => setFilterParam("")}
+          className="text-xs font-semibold border px-4 py-1 rounded-lg mx-2 hover:outline-green-500 text-red-500"
+        >
+          Filtreyi Temizle
+        </button>
+      </form>
       <div className="flex flex-wrap -mx-3 mb-5">
         <div className="w-full max-w-full px-3 mb-6 mx-auto">
           <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">

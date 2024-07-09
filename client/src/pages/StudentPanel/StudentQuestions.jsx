@@ -15,6 +15,7 @@ import AddQuestion from "./AddQuestion";
 import Answer from "../Answer";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
+import { lessonOptions } from "../../constants/selectInput";
 
 const StudentQuestions = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -22,14 +23,24 @@ const StudentQuestions = () => {
   const [isShowQuestion, setIsShowQuestion] = useState(false);
   const [isEditQuestion, setIsEditQuestion] = useState(false);
   const [isOpenAnswer, setIsOpenAnswer] = useState(false);
+  const [filterParam, setFilterParam] = useState("");
+  const [filterLesson, setFilterLesson] = useState("");
+  const [filterStatus, setFilterStatus] = useState("");
 
   const { isLoading, isError, questions } = useSelector(
     (store) => store.question
   );
 
   useEffect(() => {
-    dispatch(getAllQuestion({ student: user._id }));
-  }, [dispatch, isEditQuestion]);
+    dispatch(
+      getAllQuestion({
+        student: user._id,
+        sort: filterParam,
+        category: filterLesson === "" ? undefined : filterLesson,
+        status: filterStatus === "" ? undefined : filterStatus,
+      })
+    );
+  }, [dispatch, isEditQuestion, filterParam, filterLesson, filterStatus]);
 
   const handleDelete = (id) => {
     dispatch(deleteQuestion(id))
@@ -49,6 +60,54 @@ const StudentQuestions = () => {
   return (
     <div className="w-full">
       <h2 className="font-semibold text-xl"> Sorduğum Sorular</h2>
+      <form className="mb-6 flex gap-1 items-center my-2">
+        <label htmlFor="status">Filtrele</label>
+        <select
+          onChange={(e) => setFilterParam(e.target.value)}
+          name="sort"
+          value={filterParam}
+          className="border px-2 py-1 rounded-lg mx-2 focus:outline-green-500 focus:font-semibold"
+        >
+          <option value="-createdAt">Paylaşılma Tarihine Göre En Yeni</option>
+          <option value="createdAt">Paylaşılma Tarihine Göre En Eski</option>
+          <option value="-updatedAt">Çözülme Tarihine Göre En Yeni</option>
+          <option value="updatedAt">Çözülme Tarihine Göre En Eski</option>
+        </select>
+
+        <select
+          onChange={(e) => setFilterLesson(e.target.value)}
+          name="category"
+          value={filterLesson}
+          className="border px-2 py-1 rounded-lg mx-2 focus:outline-green-500 focus:font-semibold"
+        >
+          <option value="">Tüm Dersler</option>
+          {lessonOptions.map((lesson) => (
+            <option key={lesson.value} value={lesson.value}>
+              {lesson.label}
+            </option>
+          ))}
+        </select>
+
+        <select
+          onChange={(e) => setFilterStatus(e.target.value)}
+          name="status"
+          value={filterStatus}
+          className="border px-2 py-1 rounded-lg mx-2 focus:outline-green-500 focus:font-semibold"
+        >
+          <option value="">Çözülme Durumu</option>
+          <option value="Devam ediyor">Devam Ediyor</option>
+          <option value="Çözüldü">Çözüldü</option>
+        </select>
+
+        <button
+          onClick={() => {
+            setFilterParam(""), setFilterLesson(""), setFilterStatus("");
+          }}
+          className="border px-2 py-1 rounded-lg mx-2 text-red-500 text-xs font-semibold hover:outline-green-500"
+        >
+          Filtreleri Temizle
+        </button>
+      </form>
       <div className="flex flex-wrap -mx-3 mb-5">
         <div className="w-full max-w-full px-3 mb-6 mx-auto">
           <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">

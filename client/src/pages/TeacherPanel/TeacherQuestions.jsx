@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllQuestion } from "../../redux/questionSlice/questionActions";
 import { FaArrowLeft } from "react-icons/fa";
@@ -12,20 +12,35 @@ import { tr } from "date-fns/locale";
 const TeacherQuestions = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
+  const [filterParam, setFilterParam] = useState("");
 
   const { isLoading, isError, questions } = useSelector(
     (store) => store.question
   );
 
-  const parametre = { category: user?.lesson };
+  const parametre = { category: user?.lesson, sort: filterParam };
 
   useEffect(() => {
     dispatch(getAllQuestion(parametre));
-  }, [dispatch]);
+  }, [dispatch, filterParam]);
 
   return (
     <div className="w-full">
       <h2 className="font-semibold text-xl"> Alanımda Sorular Sorular</h2>
+      <form className="mb-6 flex gap-1 items-center my-2">
+        <label htmlFor="status">Filtrele</label>
+        <select
+          onChange={(e) => setFilterParam(e.target.value)}
+          name="date"
+          value={filterParam}
+          className="border px-2 py-1 rounded-lg mx-2 focus:outline-green-500 focus:font-semibold"
+        >
+          <option value="-createdAt">Paylaşılma Tarihine Göre En Yeni</option>
+          <option value="createdAt">Paylaşılma Tarihine Göre En Eski</option>
+          <option value="-updatedAt">Çözülme Tarihine Göre En Yeni</option>
+          <option value="updatedAt">Çözülme Tarihine Göre En Eski</option>
+        </select>
+      </form>
       <div className="flex flex-wrap -mx-3 mb-5">
         <div className="w-full max-w-full px-3 mb-6 mx-auto">
           <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">
