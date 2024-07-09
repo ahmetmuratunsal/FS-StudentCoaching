@@ -27,15 +27,6 @@ const TeacherMeetings = () => {
     );
   }, [dispatch, filterParam]);
 
-  const handleDelete = (meetingId) => {
-    api
-      .delete(`/meeting/${meetingId}`)
-      .then(() => {
-        toast.success("Randevu silindi");
-      })
-      .catch((err) => toast.error(err));
-  };
-
   const handleReject = async (meetingId) => {
     const data = { status: "İptal Edildi" };
     await api
