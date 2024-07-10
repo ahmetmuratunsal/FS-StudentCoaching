@@ -13,16 +13,21 @@ const TeacherQuestions = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
   const [filterParam, setFilterParam] = useState("");
+  const [filterStatus, setFilterStatus] = useState("");
 
   const { isLoading, isError, questions } = useSelector(
     (store) => store.question
   );
 
-  const parametre = { category: user?.lesson, sort: filterParam };
+  const parametre = {
+    category: user?.lesson,
+    sort: filterParam,
+    status: filterStatus === "" ? undefined : filterStatus,
+  };
 
   useEffect(() => {
     dispatch(getAllQuestion(parametre));
-  }, [dispatch, filterParam]);
+  }, [dispatch, filterParam, filterStatus]);
 
   return (
     <div className="w-full">
@@ -39,6 +44,17 @@ const TeacherQuestions = () => {
           <option value="createdAt">Paylaşılma Tarihine Göre En Eski</option>
           <option value="-updatedAt">Çözülme Tarihine Göre En Yeni</option>
           <option value="updatedAt">Çözülme Tarihine Göre En Eski</option>
+        </select>
+
+        <select
+          onChange={(e) => setFilterStatus(e.target.value)}
+          name="status"
+          value={filterStatus}
+          className="border px-2 py-1 rounded-lg mx-2 focus:outline-green-500 focus:font-semibold"
+        >
+          <option value="">Çözülme Durumu</option>
+          <option value="Devam ediyor">Devam Ediyor</option>
+          <option value="Çözüldü">Çözüldü</option>
         </select>
       </form>
       <div className="flex flex-wrap -mx-3 mb-5">
