@@ -72,6 +72,8 @@ const teacherSchema = new Schema(
     },
     meetings: [{ type: Schema.ObjectId, ref: "Meeting" }], // Öğretmenin randevuları (One-to-Many)
     passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
   //* ayarlar alanı
   //* timestamps sayesinde oluşturduğumuz bütün belgelere otomatik olarak oluşturulma ve güncellenme tarihleri eklenir

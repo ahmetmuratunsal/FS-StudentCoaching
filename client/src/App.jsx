@@ -24,6 +24,8 @@ import StudentMeetings from "./pages/StudentPanel/StudentMeetings";
 import AddMeeting from "./pages/StudentPanel/AddMeeting";
 import TeacherMeetings from "./pages/TeacherPanel/TeacherMeetings";
 import AdminMeetings from "./pages/AdminPanel/AdminMeetings";
+import ResetPassword from "./pages/ResetPassword";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const App = () => {
   return (
@@ -35,6 +37,8 @@ const App = () => {
           {/* Auth Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* Özel ders routeları */}
           <Route path="/search/privatelesson" element={<PrivateLesson />} />

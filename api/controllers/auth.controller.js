@@ -1,10 +1,12 @@
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import Student from "../models/student.model.js";
 import Teacher from "../models/teacher.model.js";
 import error from "./../utils/error.js";
 import jwt from "jsonwebtoken";
 import AppError from "./../utils/appError.js";
 import catchAsync from "./../utils/catchAsync.js"; // catchAsync
+import sendMail from "./../utils/email.js";
 //* kaydol : yeni hesap oluşturma
 
 export const register = catchAsync(async (req, res, next) => {
@@ -122,7 +124,7 @@ export const logout = catchAsync(async (req, res, next) => {
 });
 
 //* Şifremi unuttum alanı: Kullanıcı şifresini unuttuysa
-//TODO BURDA KALDIK
+
 export const forgotPassword = catchAsync(async (req, res, next) => {
   let collection;
   let userType;
@@ -143,5 +145,56 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
       new AppError("Girdiğiniz bilgilere ait kullanıcı bulunamadı.", 404)
     );
 
+  //TODO JWT TOKENE ÇEVRİLECEK
   //*2 : Şifre sıfırlamada kullanılacak token oluştur
+  const resetToken = crypto.randomBytes(32).toString("hex");
+
+  //* 3 : Veritabanına kaydedilecek şifreyi hashle
+  user.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  //* 4 : Sıfırlama tokeninin suresini 10 dakika olarak belirle
+  user.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+  //* 5 : Veritabanına kaydet
+  await user.save();
+
+  //* 6 : Kullanıcının mailine tokeni link ile gönder
+  try {
+    const link = `http://localhost:5173/reset-password/${resetToken}`;
+    const html = `<h3>Merhaba ${user.username}</h3>
+      <p>${user.email} epostasına bağlı öğrenci koçluğu sitesi hesabı için şifre sıfırlama linki aşağıdadır.</p>
+      <p>
+      <a href="${link}">${link}</a> 
+      10 Dakika içerisinde bu linke tıklayarak sıfırlama yapabilirsiniz.
+      </p>
+      <p>Bu sıfırlama linki 10 dakika sonra iptal olacaktır.</p>
+      <p>Eğer bu isteği siz yapmadıysanız mesajı görmezden gelebilirsiniz.</p>
+      <p>Öğrenci Koçluğu Sistemi Ekibi</p>
+      `;
+    await sendMail({
+      email: user.email,
+      subject: `Şifre Sıfırlama Talebi (10 Dakika)`,
+      html,
+    });
+  } catch (err) {
+    return next(new AppError("Mail gönderilirken hata oluştu", 500));
+  }
+
+  res.status(200).json({
+    message:
+      "Sıfırlama bağlantısı mailinize gönderildi. Sıfırlama linkine tıklayarak yeni şifrenizi girebilirsiniz.",
+  });
+});
+
+export const resetPassword = catchAsync(async (req, res, next) => {
+  //* 1 : Tokenden yola çıkarak kullanıcıyı bul
+  const token = req.params.token;
+  console.log(token);
+
+  //* 2 : Kullanıcı bulunduysa ve token tarihi geçmemişse yeni şifreyi belirle
+
+  //* 3 : Kullanıcının şifre değiştirme tarihini güncelle
 });

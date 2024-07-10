@@ -6,6 +6,7 @@ import Input from "./../components/Input";
 
 const Login = () => {
   const [isStudent, setIsStudent] = useState(true);
+  const [isOpenResetPassword, setIsOpenResetPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -27,7 +28,10 @@ const Login = () => {
         // anasayfaya yönlendir
         navigate("/");
       })
-      .catch((err) => toast.error(err.response.data?.message));
+      .catch((err) => {
+        toast.error(err.response.data?.message);
+        setIsOpenResetPassword(true);
+      });
   };
   return (
     <div className="bg-[url('/banner3.jpg')] bg-cover bg-center bg-no-repeat  bg-fixed">
@@ -90,15 +94,26 @@ const Login = () => {
             </div>
           </form>
 
-          <p className="text-sm mt-5 text-gray-500 tracking-wide">
-            Bir hesabınız yok mu ?{" "}
-            <Link
-              to={"/register"}
-              className="text-yellow-400 font-semibold hover:underline ml-1"
-            >
-              Kayıt olun!
-            </Link>
-          </p>
+          <div className="mt-5 flex flex-col gap-2">
+            <p className="text-sm  text-gray-500 tracking-wide">
+              Bir hesabınız yok mu ?{" "}
+              <Link
+                to={"/register"}
+                className="text-yellow-400 font-semibold hover:underline ml-1"
+              >
+                Kayıt olun!
+              </Link>
+            </p>
+
+            {isOpenResetPassword && (
+              <Link
+                to={"/forgot-password"}
+                className="text-sm  text-red-500 font-semibold tracking-wide"
+              >
+                Şifrenizi mi unuttunuz ?{" "}
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>
