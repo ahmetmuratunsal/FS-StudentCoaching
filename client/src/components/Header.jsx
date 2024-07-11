@@ -1,24 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import api from "../utils/api";
 import { IoSearch } from "react-icons/io5";
+import { logout } from "../utils/utils";
 
 const Header = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-
-  const logout = async () => {
-    await api
-      .post("/auth/logout")
-      .then((res) => {
-        localStorage.removeItem("user");
-        toast.success(res.data.message);
-        navigate("/");
-      })
-      .catch((err) =>
-        toast.error(`Çıkış yapılırken bir sorun oluştu ${err.message}`)
-      );
-  };
 
   const handleSearch = (e) => {
     //* sayfa yenileme engelle
@@ -91,7 +77,7 @@ const Header = () => {
                 <Link className="px-5 py-2 hover:bg-gray-100">Siparişler</Link>
                 <Link className="px-5 py-2 hover:bg-gray-100">Mesajlar</Link>
                 <button
-                  onClick={logout}
+                  onClick={() => logout().then(() => navigate("/"))}
                   className="px-5 py-2 hover:bg-gray-100"
                 >
                   Çıkış Yap

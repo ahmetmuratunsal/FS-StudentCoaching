@@ -1,5 +1,7 @@
+import { toast } from "react-toastify";
 import { lessonTypeOptions } from "../constants/addPrivateLessonSelect";
 import { cityOptions, lessonOptions } from "./../constants/selectInput";
+import api from "./api";
 
 /* apiden gelen ders verisini türkçe karekterleri haline çeviriyoruz */
 export const changeCategoryName = (category) => {
@@ -25,4 +27,16 @@ export const changeLessonType = (type) => {
     return type;
   }
   return foundType.label;
+};
+
+export const logout = async () => {
+  await api
+    .post("/auth/logout")
+    .then((res) => {
+      localStorage.removeItem("user");
+      toast.success(res.data.message);
+    })
+    .catch((err) =>
+      toast.error(`Çıkış yapılırken bir sorun oluştu ${err.message}`)
+    );
 };
