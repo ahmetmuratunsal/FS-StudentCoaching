@@ -9,6 +9,8 @@ const StudentRoute = () => {
 
   if (!user.isStudent) {
     return <Navigate to={"/"} replace />;
+  } else if (user.isActive === false) {
+    return <Navigate to={"/activation"} replace />;
   } else {
     return (
       <div className="flex flex-1 ">

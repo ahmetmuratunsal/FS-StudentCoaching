@@ -26,6 +26,7 @@ import TeacherMeetings from "./pages/TeacherPanel/TeacherMeetings";
 import AdminMeetings from "./pages/AdminPanel/AdminMeetings";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
+import ActivationPage from "./pages/ActivationPage";
 
 const App = () => {
   return (
@@ -68,8 +69,10 @@ const App = () => {
           <Route path="/adminquestions" element={<AdminQuestions />} />
           <Route path="/adminmeetings" element={<AdminMeetings />} />
           <Route path="/users" element={<Users />} />
-          <Route path="/userdetail/:id" element={<UserDetail />} />
         </Route>
+
+        <Route path="/userdetail/:id" element={<UserDetail />} />
+        <Route path="/activation" element={<ActivationPage />} />
       </Routes>
     </BrowserRouter>
   );
