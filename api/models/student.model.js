@@ -36,6 +36,7 @@ const studentSchema = new Schema(
       required: [true, "Lütfen şifre alanını belirleyin"],
       minLength: [8, "Şifreniz en az 8 karakter olmalıdır."],
       validate: [validator.isStrongPassword, "Şifreniz yeterince güçlü değil."],
+      select: false, // sifreyi gizlemek için
     },
     profilePhoto: {
       type: String,
@@ -51,6 +52,10 @@ const studentSchema = new Schema(
     isPremium: {
       type: Boolean,
       default: false,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
     },
     isStudent: {
       type: Boolean,

@@ -63,9 +63,9 @@ export const createUser = catchAsync(async (req, res, next) => {
 /* bir tane kullanıcıyı al */
 export const getUser = catchAsync(async (req, res, next) => {
   try {
-    const students = await Student.find().select("-password");
+    const students = await Student.find();
 
-    const teachers = await Teacher.find().select("-password");
+    const teachers = await Teacher.find();
 
     let users = [...students, ...teachers];
 
@@ -88,10 +88,10 @@ export const updateUser = catchAsync(async (req, res, next) => {
   let collection;
   let userType;
 
-  if (req.body.isStudent === true) {
+  if (req.body.isStudent === true || req.isStudent === true) {
     collection = Student;
     userType = "Student";
-  } else if (req.body.isStudent === false) {
+  } else if (req.body.isStudent === false || req.isStudent === false) {
     collection = Teacher;
     userType = "Teacher";
   } else {
@@ -99,11 +99,13 @@ export const updateUser = catchAsync(async (req, res, next) => {
   }
 
   try {
-    const updatedUser = await collection
-      .findByIdAndUpdate(req.params.id, req.body, {
+    const updatedUser = await collection.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
         new: true,
-      })
-      .select("-password");
+      }
+    );
 
     if (!updatedUser)
       return next(

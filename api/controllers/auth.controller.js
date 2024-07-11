@@ -76,7 +76,9 @@ export const login = catchAsync(async (req, res, next) => {
   }
   //* 1) İsmine göre kullanıcıyı bul.
 
-  const user = await collection.findOne({ username: req.body.username });
+  const user = await collection
+    .findOne({ username: req.body.username })
+    .select("+password");
 
   //* 2) Kullanıcı bulunamazsa hata gönder.
 
@@ -222,10 +224,12 @@ export const resetPassword = catchAsync(async (req, res, next) => {
   }
 
   //* 3 : token değeri geçerli olan ve son geçerlilik tarihi henüz dolmamış olan kullanıcıyı al
-  const user = await collection.findOne({
-    passwordResetToken: token,
-    passwordResetExpires: { $gt: Date.now() },
-  });
+  const user = await collection
+    .findOne({
+      passwordResetToken: token,
+      passwordResetExpires: { $gt: Date.now() },
+    })
+    .select("+password");
   if (!user) {
     return next(new AppError("Gecersiz token ya da süresi dolmuş.", 400));
   }
