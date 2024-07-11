@@ -4,7 +4,11 @@ import { getOneUser } from "../../redux/userSlice/userActions";
 import { useNavigate, useParams } from "react-router-dom";
 import Loader from "./../../components/Loader";
 import Error from "./../../components/Error";
-import { changeCategoryName, changeCityName } from "./../../utils/utils";
+import {
+  changeCategoryName,
+  changeCityName,
+  logout,
+} from "./../../utils/utils";
 import { VscQuestion } from "react-icons/vsc";
 import api from "../../utils/api";
 import { toast } from "react-toastify";
@@ -21,11 +25,11 @@ const UserDetail = () => {
   }, [id]);
 
   const handleUserDelete = () => {
-    const deleteConfirm = confirm(
-      "Kullanıcıyı silmek istediğinize emin misiniz ?"
-    );
+    const deleteConfirm = user?.user?.isAdmin
+      ? confirm("Kullanıcıyı silmek istediğinize emin misiniz ?")
+      : confirm("Hesabınızı dondurmak istediğinize emin misiniz ?");
 
-    if (deleteConfirm) {
+    if (deleteConfirm && user?.user?.isAdmin) {
       api
         .delete(`/user/${id}`, { data: { isStudent: user?.user?.isStudent } })
         .then(() => {
@@ -35,6 +39,14 @@ const UserDetail = () => {
         .catch((err) => {
           toast.error("Kullanıcı silinirken hata oluştu."), console.log(err);
         });
+    } else if (deleteConfirm && !user?.user?.isAdmin) {
+      api.patch(`/user/${id}`, { isActive: false }).then(() => {
+        toast.success(
+          "Hesabınız başarıyla donduruldu.30 Gün içerisinde tamamen silinecektir."
+        );
+        logout();
+        navigate("/login");
+      });
     } else {
       toast.error("Kullanıcı silme işlemi reddedildi.");
     }
@@ -128,15 +140,15 @@ const UserDetail = () => {
 
           <div className="pt-12 pb-8 flex flex-col gap-4">
             <h2 className="font-semibold text sm">Kullanıcı İşlemleri</h2>
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center justify-center lg:justify-start gap-2">
               <button className="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full">
-                Düzenle
+                Profili Düzenle
               </button>
               <button
                 onClick={handleUserDelete}
                 className="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full"
               >
-                Sil
+                Hesabı Dondur/Sil
               </button>
             </div>
           </div>
