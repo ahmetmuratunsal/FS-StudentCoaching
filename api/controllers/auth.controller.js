@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-import crypto from "crypto";
 import Student from "../models/student.model.js";
 import Teacher from "../models/teacher.model.js";
 import error from "./../utils/error.js";
@@ -7,6 +6,7 @@ import jwt from "jsonwebtoken";
 import AppError from "./../utils/appError.js";
 import catchAsync from "./../utils/catchAsync.js"; // catchAsync
 import sendMail from "./../utils/email.js";
+
 //* kaydol : yeni hesap oluşturma
 
 export const register = catchAsync(async (req, res, next) => {
@@ -145,15 +145,20 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
       new AppError("Girdiğiniz bilgilere ait kullanıcı bulunamadı.", 404)
     );
 
-  //TODO JWT TOKENE ÇEVRİLECEK
   //*2 : Şifre sıfırlamada kullanılacak token oluştur
-  const resetToken = crypto.randomBytes(32).toString("hex");
+  const resetToken = jwt.sign(
+    {
+      id: user._id,
+      isStudent: user.isStudent,
+    },
+    process.env.JWT_KEY,
+    {
+      expiresIn: "10m",
+    }
+  );
 
   //* 3 : Veritabanına kaydedilecek şifreyi hashle
-  user.passwordResetToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+  user.passwordResetToken = resetToken;
 
   //* 4 : Sıfırlama tokeninin suresini 10 dakika olarak belirle
   user.passwordResetExpires = Date.now() + 10 * 60 * 1000;
@@ -192,9 +197,52 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
 export const resetPassword = catchAsync(async (req, res, next) => {
   //* 1 : Tokenden yola çıkarak kullanıcıyı bul
   const token = req.params.token;
-  console.log(token);
+  //* 2) token geçerli mi kontrol et (süresini ve imzayı)
+  let decoded;
+  try {
+    jwt.verify(token, process.env.JWT_KEY, async (err, payload) => {
+      if (err) {
+        return next(
+          new AppError("Tokeniniz geçersiz veya süresi dolmuş.", 403)
+        );
+      }
 
-  //* 2 : Kullanıcı bulunduysa ve token tarihi geçmemişse yeni şifreyi belirle
+      decoded = payload;
+    });
+  } catch (err) {
+    return next(new AppError("Tokeniniz geçersiz veya güncellenmiş.", 403));
+  }
 
-  //* 3 : Kullanıcının şifre değiştirme tarihini güncelle
+  let collection;
+
+  if (decoded.isStudent) {
+    collection = Student;
+  } else {
+    collection = Teacher;
+  }
+
+  //* 3 : token değeri geçerli olan ve son geçerlilik tarihi henüz dolmamış olan kullanıcıyı al
+  const user = await collection.findOne({
+    passwordResetToken: token,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+  if (!user) {
+    return next(new AppError("Gecersiz token ya da süresi dolmuş.", 400));
+  }
+
+  //* 4 : Kullanıcıdan alınan şifreyi hashle ve saltla
+
+  const hashedPass = await bcrypt.hash(req.body.password, 5);
+
+  //* 5 : Kullanıcı bulunduysa ve token tarihi geçmemişse yeni şifreyi belirle
+  user.password = hashedPass;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  //* 6 : Kullanıcının şifre değiştirme tarihini güncelle
+  user.passwordChangedAt = Date.now();
+  //* 7 : Veritabanına kaydet
+  await user.save();
+  res
+    .status(200)
+    .json({ message: "Şifreniz sıfırlama başarılı. Giriş yapabilirsiniz." });
 });
