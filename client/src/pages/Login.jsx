@@ -21,12 +21,20 @@ const Login = () => {
     api
       .post("/auth/login", user)
       .then((res) => {
-        // bildirim gönder
-        toast.success(res.data.message);
-        // kullanıcı bilgilerini locale kaydet
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        // anasayfaya yönlendir
-        navigate("/");
+        if (res.data?.user?.isActive) {
+          // bildirim gönder
+          toast.success(res.data.message);
+          // kullanıcı bilgilerini locale kaydet
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+          // anasayfaya yönlendir
+          navigate("/");
+        }
+        if (!res.data?.user?.isActive) {
+          // kullanıcı bilgilerini locale kaydet
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+          toast.error("Hesabınız aktif değil.");
+          navigate("/activation");
+        }
       })
       .catch((err) => {
         toast.error(err.response.data?.message);
