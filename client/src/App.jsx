@@ -27,11 +27,13 @@ import AdminMeetings from "./pages/AdminPanel/AdminMeetings";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import ActivationPage from "./pages/ActivationPage";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
 
