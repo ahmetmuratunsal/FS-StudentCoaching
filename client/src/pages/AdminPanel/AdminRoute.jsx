@@ -8,7 +8,7 @@ const AdminRoute = () => {
   if (!user) return <Navigate to={"/"} replace />;
 
   if (!user.isAdmin) {
-    return <Navigate to={"/"} replace />;
+    return <Navigate to={"/*"} replace />;
   } else if (user.isActive === false) {
     return <Navigate to={"/activation"} replace />;
   } else {

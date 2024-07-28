@@ -5,10 +5,10 @@ import Footer from "../../components/Footer";
 //! bu korumalı route sayesinde öğretmenler öğrencilerin özel sayfalarına giremeyecekler
 const StudentRoute = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  if (!user) return <Navigate to={"/"} replace />;
+  if (!user) return <Navigate to={"/*"} replace />;
 
   if (!user.isStudent) {
-    return <Navigate to={"/"} replace />;
+    return <Navigate to={"/*"} replace />;
   } else if (user.isActive === false) {
     return <Navigate to={"/activation"} replace />;
   } else {
