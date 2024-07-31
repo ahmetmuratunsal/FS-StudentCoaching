@@ -7,26 +7,28 @@ const Input = ({ name, type = "text", placeholder, svg = "", label }) => {
     setShowPassword(!showPassword);
   };
   return name === "password" ? (
-    <div className="relative mt-5">
+    <div className="mt-5">
       <label htmlFor="password" className="text-sm font-bold block mb-2">
         Şifreniz
       </label>
-      <input
-        id="password"
-        name="password"
-        type={showPassword ? "text" : "password"}
-        placeholder="Şifrenizi giriniz"
-        className="w-full bg-transparent  text-sm border-b border-gray-300 focus:border-yellow-400 px-2 py-3 outline-none"
-      />
-      <div
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
-        onClick={handleTogglePassword}
-      >
-        {showPassword ? (
-          <MdVisibilityOff size={20} color="#bbb" />
-        ) : (
-          <MdVisibility size={20} color="#bbb" />
-        )}
+      <div className="relative flex items-center">
+        <input
+          id="password"
+          name="password"
+          type={showPassword ? "text" : "password"}
+          placeholder="Şifrenizi giriniz"
+          className="w-full bg-transparent  text-sm border-b border-gray-300 focus:border-yellow-400 px-2 py-3 outline-none"
+        />
+        <div
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+          onClick={handleTogglePassword}
+        >
+          {showPassword ? (
+            <MdVisibilityOff size={20} color="#bbb" />
+          ) : (
+            <MdVisibility size={20} color="#bbb" />
+          )}
+        </div>
       </div>
     </div>
   ) : (
