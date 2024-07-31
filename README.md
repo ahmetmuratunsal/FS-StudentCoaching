@@ -45,17 +45,15 @@ You can check out a live demo of the application [here](https://example.com).
 
 ### Backend Start
 
-````
 ```bash
 cd ./api && nvm i 20 && npm i && npm start
-````
+```
 
 ### Frontend Start
 
-````
 ```bash
 cd ./client && nvm i 20 && npm i && npm run dev
-````
+```
 
 ### NodeJS Version - v20.11.1
 
